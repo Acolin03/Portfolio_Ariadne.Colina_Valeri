@@ -20,7 +20,7 @@
   const txt = (t) => (isTodo(t) ? `<span class="todo">${esc(t)}</span>` : esc(t));
   const $ = (id) => document.getElementById(id);
   const imgPath = (p, file) => `assets/img/projects/${p.id}/${file}`;
-  const chips = (list) => `<ul class="chips">${list.filter(keep).map((t) => `<li>${txt(t)}</li>`).join("")}</ul>`;
+  const list = (items, sep) => items.filter(keep).map(txt).join(sep);
 
   // Missing image: yellow box in draft mode, removed on the live site.
   window.__imgMissing = function (el) {
@@ -95,7 +95,7 @@
   }
 
   // Shared header and footer
-  if ($("nav-name")) $("nav-name").textContent = S.name;
+  if ($("nav-resume")) $("nav-resume").href = S.resume;
   if ($("footer")) $("footer").textContent = `© ${new Date().getFullYear()} ${S.name}`;
 
   /* ---------------- Home page ---------------- */
@@ -104,8 +104,6 @@
     $("hero-kicker").textContent = `${S.title} · ${S.school}`;
     $("hero-name").textContent = S.name;
     $("hero-tagline").innerHTML = keep(S.tagline) ? txt(S.tagline) : "";
-    $("hero-resume").href = S.resume;
-    $("nav-resume").href = S.resume;
 
     $("project-grid").innerHTML = S.projects
       .filter((p) => p.featured)
@@ -120,7 +118,7 @@
           <h3>${esc(p.title)}</h3>
           ${keep(p.date) ? `<p class="card-date">${txt(p.date)}</p>` : ""}
           <p>${keep(p.summary) ? txt(p.summary) : ""}</p>
-          ${chips(p.tools)}
+          <p class="tools"><span>Tools</span>${list(p.tools, " · ")}</p>
         </div>
       </a>`
       )
@@ -145,15 +143,14 @@
     $("about-edu").textContent = `${S.school}, ${S.graduation}`;
     $("about-lang").textContent = S.languages.join(", ");
     $("skills").innerHTML = Object.entries(S.skills)
-      .map(([group, list]) => (list.filter(keep).length ? `<h3>${esc(group)}</h3>${chips(list)}` : ""))
+      .map(([group, items]) => (items.filter(keep).length ? `<h3>${esc(group)}</h3><p>${list(items, ", ")}</p>` : ""))
       .join("");
 
     $("contact-note").textContent = S.contactNote || "";
     const links = [
       ["Email", `mailto:${S.email}`, true],
       ["LinkedIn", S.linkedin],
-      ["GitHub", S.github],
-      ["Resume", S.resume]
+      ["GitHub", S.github]
     ].filter(([, url]) => url && (!url.includes("TODO") || DRAFT));
     $("contact-links").innerHTML = links
       .map(([label, url, primary]) => `<a class="btn${primary ? "" : " secondary"}" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`)
@@ -195,14 +192,26 @@
       </div>
       <dl class="facts level">
         ${keep(p.role) ? `<div><dt>Role</dt><dd>${txt(p.role)}</dd></div>` : ""}
-        <div><dt>Tools</dt><dd>${chips(p.tools)}</dd></div>
+        <div><dt>Tools</dt><dd>${list(p.tools, ", ")}</dd></div>
       </dl>
       <div class="frame" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></div>
       ${sections.map((s) => `<section class="level reveal"><h2>${esc(s.heading)}</h2>${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}</section>`).join("")}
       ${gallery ? `<section class="level reveal"><h2>Gallery</h2><div class="gallery">${gallery}</div></section>` : ""}
       ${links.length ? `<div class="btn-row">${links.map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>` : ""}
-      <p class="back-link"><a href="index.html#projects">&larr; Back to all projects</a></p>
     `;
+  }
+
+  // The banner links are tabs: only the chosen section is on screen (Projects when nothing is chosen).
+  const panels = [...document.querySelectorAll(".tab-panel")];
+  function showTab() {
+    const id = panels.some((p) => p.dataset.tab === location.hash.slice(1)) ? location.hash.slice(1) : "projects";
+    panels.forEach((p) => (p.hidden = p.dataset.tab !== id));
+    document.querySelectorAll("nav.top a").forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+    window.scrollTo(0, 0);
+  }
+  if (panels.length) {
+    window.addEventListener("hashchange", showTab);
+    showTab();
   }
 
   flourish();

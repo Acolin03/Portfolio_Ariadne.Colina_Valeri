@@ -1,5 +1,5 @@
 /* The site has one look; a phone's dark mode must not recolor it. */
-html{color-scheme:only light; scroll-behavior:smooth;}
+html{color-scheme:only light;}
 /* Nothing may make the page wider than the screen (the dot texture reaches past its section on purpose). */
 html{overflow-x:hidden; overflow-x:clip;}
 
@@ -33,7 +33,10 @@ body{
   font-family:"Nunito",sans-serif; font-size:1rem; line-height:1.6;
   background:var(--bg); color:var(--ink); margin:0; padding:0; overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  /* Short tabs still fill the window, so the footer stays at the bottom. */
+  min-height:100vh; display:flex; flex-direction:column;
 }
+main{flex:1;}
 img, video{max-width:100%; display:block;}
 a{color:inherit;}
 h1, h2, h3{font-family:var(--display); color:var(--header); line-height:1.15; margin:0; text-wrap:balance;}
@@ -67,7 +70,6 @@ h1, h2, h3{font-family:var(--display); color:var(--header); line-height:1.15; ma
 @media (prefers-reduced-motion: reduce){
   .reveal{opacity:1; transform:none; transition:none;}
   .flourish-shape, .star-scatter span{animation:none;}
-  html{scroll-behavior:auto;}
 }
 .kicker{display:block; text-wrap:balance; line-height:1.25; font-family:"Caveat",cursive; font-size:1.4rem; color:var(--g-deep); margin:0 0 2px;}
 .sparkle{display:block; color:var(--header); opacity:0.7; font-size:1.3rem; margin-bottom:6px;}
@@ -78,13 +80,18 @@ h1, h2, h3{font-family:var(--display); color:var(--header); line-height:1.15; ma
   border-bottom:1px solid var(--border); position:relative; z-index:2;
 }
 header.site{
-  display:flex; align-items:center; justify-content:space-between; gap:12px 32px; flex-wrap:wrap;
-  padding:22px 44px; max-width:1280px; margin:0 auto;
+  display:flex; align-items:center; justify-content:center;
+  padding:18px 44px; max-width:1280px; margin:0 auto;
 }
-.logo{font-family:var(--display); font-weight:800; font-size:1.7rem; color:var(--header); text-decoration:none; letter-spacing:-0.01em; white-space:nowrap;}
-nav.top{display:flex; align-items:center; gap:26px; flex-wrap:wrap;}
-nav.top a:not(.btn){text-decoration:none; font-family:var(--display); font-weight:600; font-size:1.15rem; color:var(--ink); transition:color 0.18s ease;}
-nav.top a:not(.btn):hover{color:var(--header);}
+/* The links are tabs: the one for the section on screen is filled in. */
+nav.top{display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;}
+nav.top a{
+  text-decoration:none; font-family:var(--display); font-weight:600; font-size:1.15rem; color:var(--ink);
+  padding:7px 18px; border-radius:999px; transition:color 0.18s ease, background 0.18s ease;
+}
+nav.top a:hover{color:var(--header); background:rgba(95,113,153,0.1);}
+nav.top a.active{background:var(--header); color:#fff;}
+.tab-panel[hidden]{display:none;}
 
 /* ===================== Buttons ===================== */
 .btn{
@@ -98,7 +105,7 @@ nav.top a:not(.btn):hover{color:var(--header);}
 .btn-row{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:22px;}
 
 /* ===================== Hero and page heads ===================== */
-.hero{max-width:760px; margin:64px auto 8px; padding:0 24px 24px; text-align:center;}
+.hero{max-width:760px; margin:64px auto 8px; padding:0 24px 40px; text-align:center;}
 .hero h1{font-size:3.2rem; margin:0 0 18px;}
 .hero p{font-size:1.15rem; color:var(--sub); margin:0 auto; line-height:1.55; max-width:560px;}
 .wave{display:block; width:100%; height:70px;}
@@ -133,8 +140,9 @@ section.block{max-width:1000px; margin:0 auto; padding:72px 24px;}
   display:inline-block; font-size:0.72rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
   color:var(--header); background:rgba(95,113,153,0.12); padding:4px 12px; border-radius:999px; margin-bottom:10px;
 }
-.chips{list-style:none; padding:0; margin:auto 0 0; display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
-.chips li{font-size:0.8rem; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--border); padding:2px 11px; border-radius:999px;}
+/* The tools a project used: a small label, then plain text. */
+.card-body .tools{margin:auto 0 0; padding-top:14px; border-top:1px solid var(--border); width:100%; font-size:0.88rem; color:var(--ink);}
+.tools span{display:block; font-size:0.72rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--sub); margin-bottom:2px;}
 
 /* ===================== Experience ===================== */
 .narrow{max-width:760px; margin:0 auto;}
@@ -150,9 +158,9 @@ section.block{max-width:1000px; margin:0 auto; padding:72px 24px;}
   background:var(--header); border-radius:999px; padding:3px 12px; letter-spacing:0.03em;
 }
 .level-sub{color:var(--sub); font-size:0.92rem; margin:0 0 14px;}
-.level ul:not(.chips){list-style:none; margin:0; padding:0; display:grid; gap:8px;}
-.level ul:not(.chips) li{font-size:0.95rem; padding-left:22px; position:relative;}
-.level ul:not(.chips) li::before{content:"✓"; position:absolute; left:0; color:var(--header); font-weight:700;}
+.level ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+.level li{font-size:0.95rem; padding-left:22px; position:relative;}
+.level li::before{content:"✓"; position:absolute; left:0; color:var(--header); font-weight:700;}
 .level p{margin:0 0 12px;}
 .level p:last-child{margin-bottom:0;}
 
@@ -163,7 +171,6 @@ section.block{max-width:1000px; margin:0 auto; padding:72px 24px;}
 .about h3{font-size:1.02rem; margin:18px 0 8px;}
 .about h3:first-child{margin-top:0;}
 .about aside p{color:var(--sub); font-size:0.92rem; margin:0;}
-.about .chips, .facts .chips{justify-content:flex-start;}
 
 /* ===================== Contact and footer ===================== */
 .contact{text-align:center;}
@@ -192,7 +199,7 @@ footer.site{text-align:center; padding:32px 24px 48px; color:var(--sub); font-si
 .gallery figure{margin:0;}
 .gallery img, .gallery video{width:100%; border-radius:10px; border:1px solid var(--border);}
 figcaption{font-size:0.88rem; color:var(--sub); margin-top:6px; text-align:center;}
-.back-link{text-align:center; color:var(--sub); font-size:0.95rem; margin-top:32px;}
+.back-link{text-align:center; margin-top:16px;}
 .back-link a{color:var(--header); font-weight:700;}
 
 /* Placeholder for missing images (only shown in draft mode) */
@@ -203,10 +210,9 @@ figcaption{font-size:0.88rem; color:var(--sub); margin-top:6px; text-align:cente
 
 /* ===================== Phones ===================== */
 @media (max-width:640px){
-  header.site{padding:12px 16px; justify-content:center;}
-  .logo{font-size:1.4rem;}
-  nav.top{gap:6px 16px; justify-content:center;}
-  nav.top a:not(.btn){font-size:1rem;}
+  header.site{padding:10px 8px;}
+  nav.top{gap:2px;}
+  nav.top a{font-size:0.95rem; padding:6px 10px;}
   .btn{padding:9px 20px; font-size:1rem;}
   .hero{margin-top:44px;}
   .hero h1, .project .hero h1{font-size:2.2rem;}

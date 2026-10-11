@@ -15,36 +15,31 @@
 <body>
   <div class="banner-wrap">
     <header class="site">
-      <a class="logo" href="index.html" id="nav-name"></a>
       <nav class="top">
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a class="btn" id="nav-resume" href="#" target="_blank" rel="noopener">Resume</a>
+        <a id="nav-resume" href="#" target="_blank" rel="noopener">Resume</a>
       </nav>
     </header>
   </div>
 
   <main>
+    <div class="tab-panel" data-tab="projects">
     <div class="hero flourish-field" data-flourish="big">
       <span class="kicker" id="hero-kicker"></span>
       <span class="sparkle">✦ ✧ ✦</span>
       <h1 id="hero-name"></h1>
       <p id="hero-tagline"></p>
-      <div class="btn-row">
-        <a class="btn" href="#projects">See projects</a>
-        <a class="btn secondary" id="hero-resume" href="#" target="_blank" rel="noopener">Resume (PDF)</a>
-      </div>
     </div>
 
     <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0,45 C150,90 350,0 600,38 C850,75 1050,8 1200,45 L1200,90 L0,90 Z"></path>
     </svg>
     <div class="band">
-      <section id="projects" class="block">
+      <section class="block">
         <div class="section-head">
-          <span class="kicker">things I've built</span>
           <h2>Projects</h2>
         </div>
         <div class="card-grid" id="project-grid"></div>
@@ -53,18 +48,17 @@
     <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0,0 L1200,0 L1200,30 C1050,65 900,0 650,38 C400,80 200,10 0,45 Z"></path>
     </svg>
+    </div>
 
-    <section id="experience" class="block">
+    <section data-tab="experience" class="block tab-panel" hidden>
       <div class="section-head">
-        <span class="kicker">where I've worked</span>
         <h2>Experience</h2>
       </div>
       <div class="narrow" id="experience-list"></div>
     </section>
 
-    <section id="about" class="block">
+    <section data-tab="about" class="block tab-panel" hidden>
       <div class="section-head">
-        <span class="kicker">a little about me</span>
         <h2>About</h2>
       </div>
       <div class="about">
@@ -79,9 +73,8 @@
       </div>
     </section>
 
-    <section id="contact" class="block contact flourish-field" data-flourish="small">
+    <section data-tab="contact" class="block contact tab-panel" hidden>
       <div class="section-head">
-        <span class="kicker">say hello</span>
         <h2>Contact</h2>
       </div>
       <p id="contact-note"></p>
