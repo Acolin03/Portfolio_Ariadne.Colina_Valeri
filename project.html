@@ -3,21 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Tells phone browsers in dark mode not to recolor the page: its colors are its own. -->
+  <meta name="color-scheme" content="only light">
   <title>Project | Ariadne Colina-Valeri</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header class="nav">
-    <a class="nav-name" href="index.html" id="nav-name"></a>
-    <nav><a href="index.html#projects">&larr; All projects</a></nav>
-  </header>
+  <div class="banner-wrap">
+    <header class="site">
+      <a class="logo" href="index.html" id="nav-name"></a>
+      <nav class="top">
+        <a href="index.html#projects">&larr; All projects</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+  </div>
 
-  <main class="wrap project" id="project"></main>
+  <main class="project" id="project"></main>
 
-  <footer class="wrap mono" id="footer"></footer>
+  <footer class="site" id="footer"></footer>
 
   <script src="assets/js/content.js"></script>
   <script src="assets/js/main.js"></script>

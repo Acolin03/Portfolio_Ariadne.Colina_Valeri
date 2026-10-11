@@ -79,7 +79,6 @@ const SITE = {
   /* -------------------------------------------------------------------
      PROJECTS
      id:       short name with no spaces (also the image folder name)
-     tag:      a component-style label shown on the card (U1, U2, ...)
      featured: true = shown on the home page grid
      cover:    main image, inside assets/img/projects/<id>/
      sections: the story of the project, in order. Each has a heading
@@ -90,7 +89,6 @@ const SITE = {
   projects: [
     {
       id: "slam-robot",
-      tag: "U1",
       featured: true,
       title: "Autonomous ESP32 Robot",
       course: "EE 31 Junior Design",
@@ -127,7 +125,6 @@ const SITE = {
     },
     {
       id: "ml-research",
-      tag: "U2",
       featured: true,
       title: "CTGAN Design Discovery for RRAM",
       course: "Tufts Emerging Circuits and Systems Lab",
@@ -159,7 +156,6 @@ const SITE = {
     },
     {
       id: "dj-board",
-      tag: "U3",
       featured: true,
       title: "DJ Board on an STM32",
       course: "EE 14 Embedded Systems",
@@ -185,7 +181,6 @@ const SITE = {
     },
     {
       id: "fpga-synth",
-      tag: "U4",
       featured: true,
       title: "FPGA Audio Synthesizer",
       course: "ES 4 Digital Logic Circuits",
@@ -211,7 +206,6 @@ const SITE = {
     },
     {
       id: "uav-control",
-      tag: "U5",
       featured: true,
       title: "UAV Pitch Control and RF Signal Restoration",
       course: "EE 23 Linear Systems",
@@ -238,7 +232,6 @@ const SITE = {
     },
     {
       id: "gestures-sensors",
-      tag: "U6",
       featured: false,
       title: "Gesture-Controlled Music",
       course: "Gestures + Sensors",

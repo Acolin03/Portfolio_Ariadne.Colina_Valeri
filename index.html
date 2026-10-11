@@ -3,72 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Tells phone browsers in dark mode not to recolor the page: its colors are its own. -->
+  <meta name="color-scheme" content="only light">
   <title>Ariadne Colina-Valeri | Electrical Engineering</title>
   <meta name="description" content="Portfolio of Ariadne Colina-Valeri, electrical engineering student at Tufts University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header class="nav">
-    <a class="nav-name" href="index.html" id="nav-name"></a>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <div class="banner-wrap">
+    <header class="site">
+      <a class="logo" href="index.html" id="nav-name"></a>
+      <nav class="top">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" id="nav-resume" href="#" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </header>
+  </div>
 
   <main>
-    <section class="hero wrap">
-      <p class="mono kicker" id="hero-kicker"></p>
+    <div class="hero flourish-field" data-flourish="big">
+      <span class="kicker" id="hero-kicker"></span>
+      <span class="sparkle">✦ ✧ ✦</span>
       <h1 id="hero-name"></h1>
-      <p class="hero-tag" id="hero-tagline"></p>
+      <p id="hero-tagline"></p>
       <div class="btn-row">
-        <a class="btn primary" href="#projects">See projects</a>
-        <a class="btn" id="hero-resume" href="#">Resume (PDF)</a>
+        <a class="btn" href="#projects">See projects</a>
+        <a class="btn secondary" id="hero-resume" href="#" target="_blank" rel="noopener">Resume (PDF)</a>
       </div>
-      <svg class="trace" viewBox="0 0 600 40" aria-hidden="true">
-        <path d="M0 20 H180 L200 6 L220 34 L240 6 L260 34 L280 20 H380" />
-        <circle cx="380" cy="20" r="5" />
-        <path d="M385 20 H600" />
-      </svg>
+    </div>
+
+    <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,45 C150,90 350,0 600,38 C850,75 1050,8 1200,45 L1200,90 L0,90 Z"></path>
+    </svg>
+    <div class="band">
+      <section id="projects" class="block">
+        <div class="section-head">
+          <span class="kicker">things I've built</span>
+          <h2>Projects</h2>
+        </div>
+        <div class="card-grid" id="project-grid"></div>
+      </section>
+    </div>
+    <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 L1200,0 L1200,30 C1050,65 900,0 650,38 C400,80 200,10 0,45 Z"></path>
+    </svg>
+
+    <section id="experience" class="block">
+      <div class="section-head">
+        <span class="kicker">where I've worked</span>
+        <h2>Experience</h2>
+      </div>
+      <div class="narrow" id="experience-list"></div>
     </section>
 
-    <section id="projects" class="wrap">
-      <h2><span class="mono">01</span> Projects</h2>
-      <div class="grid" id="project-grid"></div>
-    </section>
-
-    <section id="experience" class="wrap">
-      <h2><span class="mono">02</span> Experience</h2>
-      <div id="experience-list"></div>
-    </section>
-
-    <section id="about" class="wrap">
-      <h2><span class="mono">03</span> About</h2>
+    <section id="about" class="block">
+      <div class="section-head">
+        <span class="kicker">a little about me</span>
+        <h2>About</h2>
+      </div>
       <div class="about">
-        <div id="about-text"></div>
-        <aside>
-          <h3 class="mono">Education</h3>
+        <div class="level reveal" id="about-text"></div>
+        <aside class="level reveal">
+          <h3>Education</h3>
           <p id="about-edu"></p>
-          <h3 class="mono">Languages</h3>
+          <h3>Languages</h3>
           <p id="about-lang"></p>
           <div id="skills"></div>
         </aside>
       </div>
     </section>
 
-    <section id="contact" class="wrap contact">
-      <h2><span class="mono">04</span> Contact</h2>
+    <section id="contact" class="block contact flourish-field" data-flourish="small">
+      <div class="section-head">
+        <span class="kicker">say hello</span>
+        <h2>Contact</h2>
+      </div>
       <p id="contact-note"></p>
       <div class="btn-row" id="contact-links"></div>
     </section>
   </main>
 
-  <footer class="wrap mono" id="footer"></footer>
+  <footer class="site" id="footer"></footer>
 
   <script src="assets/js/content.js"></script>
   <script src="assets/js/main.js"></script>

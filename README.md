@@ -34,7 +34,7 @@ Use `.jpg` or `.png` for photos and `.mp4` for videos. Keep videos short (under 
 
 1. In `content.js`, copy one whole project block, from `{` to the matching `},`.
 2. Paste it at the end of the `projects` list.
-3. Change the `id` to a short name with no spaces (for example `pcb-design`), and give it the next `tag` (U4, U5...).
+3. Change the `id` to a short name with no spaces (for example `pcb-design`).
 4. Create a folder with the same name: `assets/img/projects/pcb-design/`.
 5. Set `featured: true` to show it on the home page.
 
