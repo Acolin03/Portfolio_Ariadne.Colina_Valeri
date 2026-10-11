@@ -201,10 +201,10 @@
     `;
   }
 
-  // The banner links are tabs: only the chosen section is on screen (Projects when nothing is chosen).
+  // The banner links are tabs: only the chosen section is on screen (About when nothing is chosen).
   const panels = [...document.querySelectorAll(".tab-panel")];
   function showTab() {
-    const id = panels.some((p) => p.dataset.tab === location.hash.slice(1)) ? location.hash.slice(1) : "projects";
+    const id = panels.some((p) => p.dataset.tab === location.hash.slice(1)) ? location.hash.slice(1) : "about";
     panels.forEach((p) => (p.hidden = p.dataset.tab !== id));
     document.querySelectorAll("nav.top a").forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
     window.scrollTo(0, 0);
