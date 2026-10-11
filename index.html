@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ariadne Colina-Valeri | Electrical Engineering</title>
+  <meta name="description" content="Portfolio of Ariadne Colina-Valeri, electrical engineering student at Tufts University.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="nav-name" href="index.html" id="nav-name"></a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <p class="mono kicker" id="hero-kicker"></p>
+      <h1 id="hero-name"></h1>
+      <p class="hero-tag" id="hero-tagline"></p>
+      <div class="btn-row">
+        <a class="btn primary" href="#projects">See projects</a>
+        <a class="btn" id="hero-resume" href="#">Resume (PDF)</a>
+      </div>
+      <svg class="trace" viewBox="0 0 600 40" aria-hidden="true">
+        <path d="M0 20 H180 L200 6 L220 34 L240 6 L260 34 L280 20 H380" />
+        <circle cx="380" cy="20" r="5" />
+        <path d="M385 20 H600" />
+      </svg>
+    </section>
+
+    <section id="projects" class="wrap">
+      <h2><span class="mono">01</span> Projects</h2>
+      <div class="grid" id="project-grid"></div>
+    </section>
+
+    <section id="experience" class="wrap">
+      <h2><span class="mono">02</span> Experience</h2>
+      <div id="experience-list"></div>
+    </section>
+
+    <section id="about" class="wrap">
+      <h2><span class="mono">03</span> About</h2>
+      <div class="about">
+        <div id="about-text"></div>
+        <aside>
+          <h3 class="mono">Education</h3>
+          <p id="about-edu"></p>
+          <h3 class="mono">Languages</h3>
+          <p id="about-lang"></p>
+          <div id="skills"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap contact">
+      <h2><span class="mono">04</span> Contact</h2>
+      <p id="contact-note"></p>
+      <div class="btn-row" id="contact-links"></div>
+    </section>
+  </main>
+
+  <footer class="wrap mono" id="footer"></footer>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
