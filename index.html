@@ -9,7 +9,7 @@
   <meta name="description" content="Portfolio of Ariadne Colina-Valeri, electrical engineering student at Tufts University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -27,19 +27,55 @@
 
   <main>
     <div class="tab-panel" data-tab="about">
-      <div class="hero flourish-field" data-flourish="big">
+      <!-- The About page keeps the watercolor sky: drifting shapes, little stars, and
+           Corona Borealis (the crown of Ariadne) twinkling in the corner. -->
+      <div class="sky">
+        <div class="sky-bits" aria-hidden="true">
+          <i class="float" style="top:9%; left:3%; width:26px; height:26px; background:var(--lilac); animation-delay:0.0s"></i>
+          <i class="float diamond" style="top:30%; left:47%; width:14px; height:14px; background:var(--sea); animation-delay:0.4s"></i>
+          <i class="float" style="top:6%; left:36%; width:16px; height:16px; background:var(--mist); animation-delay:0.8s"></i>
+          <i class="float" style="top:70%; left:5%; width:20px; height:20px; background:var(--sea); animation-delay:1.2s"></i>
+          <i class="float" style="top:12%; right:4%; width:30px; height:30px; background:var(--mist); animation-delay:1.6s"></i>
+          <i class="float diamond" style="top:58%; right:3%; width:18px; height:18px; background:var(--lilac); animation-delay:2.0s"></i>
+          <i class="float" style="top:78%; right:30%; width:22px; height:22px; background:var(--mist); animation-delay:2.4s"></i>
+          <i class="float" style="top:84%; left:42%; width:12px; height:12px; background:var(--lilac); animation-delay:2.8s"></i>
+          <b class="float star" style="top:5%; left:22%; font-size:1.4rem; animation-delay:0.0s">✧</b>
+          <b class="float star" style="top:16%; right:26%; font-size:1.7rem; animation-delay:0.6s">✦</b>
+          <b class="float star" style="top:62%; left:1.5%; font-size:1.1rem; animation-delay:1.2s">✦</b>
+          <b class="float star" style="top:74%; right:12%; font-size:1.3rem; animation-delay:1.8s">✧</b>
+          <b class="float star" style="top:40%; right:1.5%; font-size:1.1rem; animation-delay:2.4s">✧</b>
+          <b class="float star" style="top:88%; left:24%; font-size:1.2rem; animation-delay:3.0s">✦</b>
+          <svg class="crown" viewBox="0 0 200 92" aria-hidden="true">
+            <title>Corona Borealis, the crown of Ariadne</title>
+            <polyline points="12,22 36,52 70,70 106,74 142,64 170,42 188,16"/>
+            <g transform="translate(12,22) scale(0.55)"><path class="twinkle" style="animation-delay:0.00s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--blue)"/></g>
+            <g transform="translate(36,52) scale(0.6)"><path class="twinkle" style="animation-delay:0.45s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--lilac-deep)"/></g>
+            <g transform="translate(70,70) scale(0.6)"><path class="twinkle" style="animation-delay:0.90s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--sea-deep)"/></g>
+            <g transform="translate(106,74) scale(0.85)"><path class="twinkle" style="animation-delay:1.35s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--blue)"/></g>
+            <g transform="translate(142,64) scale(0.6)"><path class="twinkle" style="animation-delay:1.80s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--lilac-deep)"/></g>
+            <g transform="translate(170,42) scale(0.6)"><path class="twinkle" style="animation-delay:2.25s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--sea-deep)"/></g>
+            <g transform="translate(188,16) scale(0.55)"><path class="twinkle" style="animation-delay:2.70s" d="M0,-17 C1.4,-5 3.6,-1.6 9,0 C3.6,1.6 1.4,5 0,17 C-1.4,5 -3.6,1.6 -9,0 C-3.6,-1.6 -1.4,-5 0,-17 Z" fill="var(--blue)"/></g>
+          </svg>
+        </div>
+      <section class="block hero">
+        <div class="hero-card">
+          <p class="kicker" id="hero-kicker"></p>
+          <p class="sparkle" aria-hidden="true">✦ ✧ ✦</p>
+          <h1>Hi, I'm <span id="hero-name"></span></h1>
+          <p class="lead" id="hero-tagline"></p>
+          <p id="hero-seeking"></p>
+          <a class="hero-email" id="hero-email" href="#"></a>
+        </div>
         <div class="hero-photo" id="hero-photo"></div>
-        <span class="kicker" id="hero-kicker"></span>
-        <span class="sparkle">✦ ✧ ✦</span>
-        <h1 id="hero-name"></h1>
-        <p id="hero-tagline"></p>
-        <p class="hero-seeking" id="hero-seeking"></p>
-        <p><a class="hero-email" id="hero-email" href="#"></a></p>
+      </section>
+        <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,45 C150,90 350,0 600,38 C850,75 1050,8 1200,45 L1200,90 L0,90 Z"></path>
+        </svg>
       </div>
       <section class="block">
         <div class="about">
-          <div class="level reveal" id="about-text"></div>
-          <aside class="level reveal">
+          <div class="panel reveal" id="about-text"></div>
+          <aside class="panel reveal">
             <h3>Education</h3>
             <p id="about-edu"></p>
             <h3>Languages</h3>
@@ -50,25 +86,34 @@
       </section>
     </div>
 
-    <section data-tab="projects" class="block tab-panel" hidden>
-      <div class="section-head">
-        <h2>Projects</h2>
-      </div>
-      <div class="card-grid" id="project-grid"></div>
-    </section>
+    <div class="tab-panel" data-tab="projects" hidden>
+      <section class="block" id="progress-block">
+        <div class="section-head">
+          <h2>Currently building</h2>
+          <p>My two main projects this semester.</p>
+        </div>
+        <div class="card-grid two" id="progress-grid"></div>
+      </section>
+      <section class="block">
+        <div class="section-head">
+          <h2>Projects</h2>
+        </div>
+        <div class="card-grid" id="project-grid"></div>
+      </section>
+    </div>
 
     <section data-tab="experience" class="block tab-panel" hidden>
       <div class="section-head">
         <h2>Experience</h2>
       </div>
-      <div class="narrow" id="experience-list"></div>
+      <div id="experience-list"></div>
     </section>
 
-    <section data-tab="contact" class="block contact tab-panel" hidden>
+    <section data-tab="contact" class="block tab-panel" hidden>
       <div class="section-head">
         <h2>Contact</h2>
+        <p id="contact-note"></p>
       </div>
-      <p id="contact-note"></p>
       <div class="btn-row" id="contact-links"></div>
     </section>
   </main>

@@ -26,10 +26,12 @@ const SITE = {
 
   about: [
     "I am an electrical engineering student at Tufts University, and I am most engaged when a problem requires thinking beyond the expected approach to find a path to the right answer. My work spans embedded systems, signal processing and machine learning, and much of it centers on cleaning up noisy signals so a system can act on them with confidence.",
-    "Currently, I am building the sensing logic for an autonomous ESP32 robot in Junior Design and preparing to design its custom PCB. Looking ahead, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing."
+    "This semester I have two main projects: an autonomous ESP32 robot for Junior Design, where I am building the sensing logic and preparing its custom PCB, and an electronic musical instrument that I am designing from scratch. Looking ahead, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
+
+  interests: ["Tufts climbing team", "Singing lessons", "Building my own planner app, Astrolabe"],
 
   skills: {
     "Programming": ["C", "C++", "Python", "PyTorch", "pandas", "CUDA", "MATLAB", "SystemVerilog", "Arduino"],
@@ -44,9 +46,10 @@ const SITE = {
       org: "GE Transportation / Wabtec, Erie, PA",
       date: "May 2026 to July 2026",
       points: [
-        "Automated locomotive diagnostic data extraction by developing Python scripts, reducing manual analysis time.",
-        "Built a Fault Analysis Module (FAM) from circuit schematics to isolate fault causes and find failing parts.",
-        "Executed failure mode testing by manually triggering faults to validate and refine the threshold data feeding the FAM."
+        "Built a live diagnostics tool that reads current and voltage feedback from 63 locomotive devices and flags parts that are failing before they break down.",
+        "Set the failure limits from the locomotive circuit schematics and real production data, then tested failure modes by forcing each device open and closed.",
+        "Automated a manual check that took a full afternoon, bringing it down to about an hour of data recording.",
+        "Wrote device-specific fault analysis documentation to cut troubleshooting time on the locomotive."
       ]
     },
     {
@@ -64,15 +67,21 @@ const SITE = {
       org: "Tufts Residential Life and Learning",
       date: "Jan. 2026 to Present",
       points: [
-        "Respond to resident incidents and mediate disputes in a house of 60 residents."
+        "Respond to resident incidents and mediate disputes in a house of 60 residents.",
+        "Serve 24-hour on-call duty shifts, answering lockouts, noise complaints and questions from residents and campus police.",
+        "Plan and run three programs a month on a set budget, from house events to neighborhood events across several dorms.",
+        "Carry out room health and safety inspections and coordinate shift coverage with a staff of 18 RAs."
       ]
     },
     {
-      role: "Treasurer",
-      org: "IEEE / SHPE at Tufts",
-      date: "Sept. 2024 to Present",
+      role: "Head Treasurer",
+      org: "SOLES (Tufts chapter of SHPE) and IEEE at Tufts",
+      date: "Sept. 2024 to Present, head treasurer since March 2026",
       points: [
-        "Manage all purchasing requests through Tufts Treasury and rebuilt annual budgets, negotiating a 10% increase in funding."
+        "Manage all purchasing requests through Tufts Treasury and rebuilt annual budgets, negotiating a 10% increase in funding.",
+        "Lead the five-person SOLES treasury team on an executive board of about 17, working with the events team so every event has its budget and materials.",
+        "Organize the chapter's trip to the SHPE National Convention: flights, tickets and check-in logistics.",
+        "Help members prepare for the convention, including their portfolios and LinkedIn profiles."
       ]
     }
   ],
@@ -80,10 +89,12 @@ const SITE = {
   /* -------------------------------------------------------------------
      PROJECTS
      id:       short name with no spaces (also the image folder name)
-     featured: true = shown on the home page grid
+     featured: true = shown on the Projects tab
+     status:   add status: "In progress" for something you are still building.
+               It goes in the "Currently building" group at the top.
      highlights: the key results, as ["number", "what it means"] pairs.
                Shown on the card and at the top of the project page.
-     cover:    main image, inside assets/img/projects/<id>/
+     cover:    main image, inside assets/img/projects/<id>/ (leave "" for none)
                or "youtube:VIDEO_ID" to use a YouTube video's thumbnail
      sections: the story of the project, in order. Each has a heading
                and a list of paragraphs.
@@ -91,9 +102,54 @@ const SITE = {
                project page. For a YouTube video use
                { type: "youtube", id: "VIDEO_ID", caption: "..." }
                and add vertical: true if it is a Short.
+               Add wide: true to give an image the full row.
      links:    buttons under the project's title (code, report, poster)
      ------------------------------------------------------------------- */
   projects: [
+    {
+      id: "astrolabe",
+      featured: true,
+      title: "Astrolabe Planner App",
+      course: "Personal project",
+      date: "Aug. 2026 to Present",
+      summary: "A planner web app for college life that brings classes, work shifts, to-dos, budget, meals and goals into one place.",
+      highlights: [
+        ["5", "languages: English, Spanish, French, Italian and German"],
+        ["3", "ways to use it: on the web, as a desktop app and as a browser extension"]
+      ],
+      role: "Solo project, from the idea to the live site.",
+      tools: ["JavaScript", "HTML and CSS", "Firebase", "Firestore", "Google Calendar sync"],
+      cover: "calendar.png",
+      sections: [
+        { heading: "Why I built it", body: [
+          "I was disorganized, and writing plans into a calendar made it worse. A plan never goes exactly as written, so I was spending more time planning my day than doing what was in it.",
+          "Most planning tools also only know about appointments. They leave out the rest of living: sleeping, eating, working out, getting ready, walking to class."
+        ]},
+        { heading: "The idea", body: [
+          "Take the best parts of the tools people already use, the scheduling of a calendar and the task lists of a notes app, and add everyday life to them. Sleep, food and exercise come first, because work does not go well without them.",
+          "The planner also counts the time things really take, such as waking up, getting ready and walking somewhere, so a day does not end up double-booked."
+        ]},
+        { heading: "A nudge, not a block", body: [
+          "Social media is built to pull people in and keep them there, and blocking apps answer by locking you out. Astrolabe takes a third route. It lets you do what you want and reminds you of what you said you would do, because time is the one thing you cannot earn back.",
+          "The goal is a tool that changes how people behave for the better, without making them feel restricted or guilty."
+        ]},
+        { heading: "How it is built", body: [
+          "Plain HTML, CSS and JavaScript, with no framework and no build step. Everything saves in the browser first and syncs through Firebase after signing in, so the planner follows you across devices. The whole app switches between five languages."
+        ]},
+        { heading: "Status", body: [
+          "The app is live, and I keep adding to it."
+        ]}
+      ],
+      gallery: [
+        { type: "image", src: "calendar.png", wide: true, caption: "The day view: classes, work and free time sized to their real length" },
+        { type: "image", src: "classes.png", caption: "Classes" },
+        { type: "image", src: "budget.png", caption: "Budget" },
+        { type: "image", src: "goals.png", wide: true, caption: "Coming up and daily goals" }
+      ],
+      links: [
+        { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
+      ]
+    },
     {
       id: "dj-board",
       featured: true,
@@ -105,14 +161,14 @@ const SITE = {
         ["7", "audio effects, including echo, reverse, pitch and speed"],
         ["64KB", "of on-chip memory, with no external storage"]
       ],
-      role: "Team of four. I wrote the state machine and made the recorded audio play back clean.",
+      role: "Member of a four-person team.",
       tools: ["STM32L432KC", "C", "ADC and DAC", "Oscilloscope"],
       cover: "youtube:uLtt11RuFwQ",
       sections: [
         { heading: "Problem", body: [
           "The board records sound, plays it back and applies effects such as echo, reverse, pitch and speed, using only the chip's 64KB of on-chip memory. Every effect depends on a clean recording, and the first playback came out with a high-pitched hiss and clicks."
         ]},
-        { heading: "My part", body: [
+        { heading: "Solution", body: [
           "To fix the hiss, I wrote a timer-driven state machine so every sample was recorded and played at a steady rate, and gave each microphone reading more time to finish so no sample was cut short.",
           "The clicks came from sudden jumps in the speaker signal, so I held the speaker at a steady resting level between clips and faded each clip in and out."
         ]},
@@ -140,14 +196,14 @@ const SITE = {
         ["6", "notes played clearly at once"],
         ["250%", "of the FPGA's space needed by the first design, before bit shifts made it fit"]
       ],
-      role: "Team of four, working on making the keyboard sound like a real keyboard.",
+      role: "Member of a four-person team.",
       tools: ["SystemVerilog", "FPGA", "PWM"],
       cover: "youtube:cmLPXOcdjE4",
       sections: [
         { heading: "Problem", body: [
           "Each octave doubles a note's frequency, so the first design calculated every note by dividing on the chip. Division is so costly in hardware that it needed over 250% of the FPGA's space."
         ]},
-        { heading: "My part", body: [
+        { heading: "Solution", body: [
           "Dividing by 2 is the same as shifting bits, so I hand-calculated one octave and used bit shifts for the rest, which fit the design on the chip.",
           "Testing the octaves then revealed one more problem. Chords distorted when notes combined, so I mixed the notes with PWM to play 6 notes clearly at once."
         ]},
@@ -169,9 +225,9 @@ const SITE = {
       featured: true,
       title: "Smart Traffic Light",
       course: "EE 20",
-      date: "TODO: semester",
+      date: "Fall 2025",
       summary: "A traffic light that counts the cars passing it and adjusts how long its red and green lights last.",
-      role: "TODO: team of three. Say which part was yours (the sensing circuit, the Arduino logic, the LED switching).",
+      role: "Member of a three-person team.",
       tools: ["Arduino", "Photodiode", "Op-amp comparator", "MOSFETs", "Analog Discovery 2"],
       cover: "youtube:9rmVGDoX5m4",
       sections: [
@@ -206,7 +262,7 @@ const SITE = {
       ],
       role: "Research assistant extending a published physics-informed AI framework (PIGen).",
       tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
-      cover: "cover.jpg",
+      cover: "pareto.png",
       sections: [
         { heading: "Problem", body: [
           "The published framework used a CVAE, a model that averages its training data. That averaging made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance can be found."
@@ -222,7 +278,8 @@ const SITE = {
         ]}
       ],
       gallery: [
-        { type: "image", src: "pareto.png", caption: "TODO: final Pareto front across the three oxides (Figure 3 of the paper)" }
+        { type: "image", src: "pareto.png", wide: true, caption: "Final results with 5,000 training samples. Each dot is a generated design; lower and further left is better. The star marks the best overall Al2O3 design." },
+        { type: "image", src: "evolution.png", wide: true, caption: "Why the data had to grow: at 500 samples (left) the model collapses, and at 2,500 (right) it improves but stays noisy." }
       ],
       links: [
         { label: "Read the paper (PDF)", url: "assets/docs/EE94_RRAM_Paper.pdf" }
@@ -242,7 +299,7 @@ const SITE = {
       ],
       role: "Individual project, designed and simulated in MATLAB.",
       tools: ["MATLAB", "PID control", "Wiener filtering"],
-      cover: "cover.jpg",
+      cover: "controllers.png",
       sections: [
         { heading: "Problem", body: [
           "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward clear signals."
@@ -254,13 +311,20 @@ const SITE = {
           "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred, noisy RF signal with a Wiener filter, cutting error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
         ]}
       ],
-      gallery: [],
+      gallery: [
+        { type: "image", src: "controllers.png", wide: true, caption: "Four controllers on the same UAV: P-only oscillates forever, PI diverges, PD settles with an error, and only the full PID (green) holds level." },
+        { type: "image", src: "step-response.png", caption: "Step response of the optimal PID: 52ms rise time, 2.6% overshoot." },
+        { type: "image", src: "cost-map.png", caption: "Cost of each gain combination. Dark regions fail the specs; the red star is the optimum." },
+        { type: "image", src: "wiener.png", wide: true, caption: "Wiener filter: error against the filter setting (left) and the restored RF signal over the original (right)." },
+        { type: "image", src: "coupling.png", wide: true, caption: "A steadier UAV gives a shorter blur and a lower restoration error." }
+      ],
       links: [
         { label: "Read the full report (PDF)", url: "assets/docs/EE23_UAV_Report.pdf" }
       ]
     },
     {
       id: "slam-robot",
+      status: "In progress",
       featured: true,
       title: "Autonomous ESP32 Robot",
       course: "EE 31 Junior Design",
@@ -269,9 +333,9 @@ const SITE = {
       highlights: [
         ["7", "states in the ESP32 state machine"]
       ],
-      role: "One of two engineers on the logic side of a four-person team, responsible for the state machine, the sensing and the custom PCB.",
+      role: "Member of a four-person team.",
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "Onshape"],
-      cover: "cover.jpg",
+      cover: "",
       sections: [
         { heading: "Problem", body: [
           "The robot has to follow a colored lane and avoid obstacles without human input. It also has to receive commands from a partner team's robot, so every decision it makes depends on sensor readings it can trust."
@@ -290,28 +354,33 @@ const SITE = {
         ]},
         { heading: "Result", body: ["TODO: what worked at the demo, with numbers if you have them."] }
       ],
-      gallery: [
-        { type: "image", src: "schematic.png", caption: "TODO: IR sensing circuit schematic" },
-        { type: "video", src: "demo.mp4", caption: "TODO: robot following the lane" }
-      ],
-      links: [
-        { label: "Code on GitHub", url: "TODO" }
-      ]
+      gallery: [],
+      links: []
     },
     {
-      id: "gestures-sensors",
-      featured: false,
-      title: "Gesture-Controlled Music",
-      course: "Gestures + Sensors",
+      id: "midi-instrument",
+      status: "In progress",
+      featured: true,
+      title: "MIDI Instrument Creation",
+      course: "EE 95 Electronic Musical Instrument Design",
       date: "Fall 2026",
-      summary: "Mapping body gestures and sensor data to musical parameters in Max.",
-      role: "TODO",
-      tools: ["Max", "Sensors"],
-      cover: "cover.jpg",
+      summary: "Designing and building a working electronic musical instrument from scratch.",
+      role: "",
+      tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synth"],
+      cover: "",
       sections: [
-        { heading: "Problem", body: ["TODO"] },
-        { heading: "My part", body: ["TODO"] },
-        { heading: "Result", body: ["TODO"] }
+        { heading: "Goal", body: [
+          "Build an instrument that is creative and that a person can really use. It may answer a need nothing covers today, or it may simply make life better."
+        ]},
+        { heading: "A concept on the table", body: [
+          "A musician practicing with a recorded accompaniment has both hands busy playing, so there is no way to tell the recording to wait. One concept is an accompaniment that follows the player's eyes across the sheet music on a tablet, slowing down or speeding up with them."
+        ]},
+        { heading: "So far", body: [
+          "I have learned the basics of sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max. These are the tools the instrument will be built with."
+        ]},
+        { heading: "Next", body: [
+          "Teams are forming now. After that come choosing the concept and building a working prototype, presented as the final project in December 2026."
+        ]}
       ],
       gallery: [],
       links: []

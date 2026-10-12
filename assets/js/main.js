@@ -22,8 +22,9 @@
   const imgPath = (p, file) =>
     file.startsWith("youtube:") ? `https://img.youtube.com/vi/${file.slice(8)}/hqdefault.jpg` : `assets/img/projects/${p.id}/${file}`;
   const list = (items, sep) => items.filter(keep).map(txt).join(sep);
+  const badge = (p) => (p.status ? `<span class="badge">${esc(p.status)}</span>` : "");
 
-  // Missing image: yellow box in draft mode, removed on the live site.
+  // Missing image: dashed box in draft mode, removed on the live site.
   window.__imgMissing = function (el) {
     const box = el.closest("[data-media]") || el;
     if (DRAFT) {
@@ -35,45 +36,6 @@
       box.remove();
     }
   };
-
-  // The drifting shapes and little stars behind a heading.
-  // Shapes: [top, side, size in px, color, diamond?]. Stars: [top, side, size in rem, color, glyph].
-  const SHAPES = {
-    big: [
-      ["2%", "left:4%", 26, "light"], ["14%", "left:14%", 16, "deep"], ["-2%", "left:24%", 14, "graysage", true],
-      ["34%", "left:2%", 34, "mint"], ["88%", "left:10%", 20, "light"], ["6%", "right:5%", 30, "mint"],
-      ["22%", "right:16%", 18, "deep", true], ["42%", "right:2%", 16, "graysage"], ["90%", "right:12%", 24, "light"]
-    ],
-    small: [
-      ["4%", "left:6%", 22, "light"], ["18%", "left:18%", 14, "deep"], ["6%", "right:6%", 28, "mint"],
-      ["22%", "right:20%", 16, "graysage", true], ["86%", "left:14%", 18, "deep"], ["82%", "right:10%", 20, "light"]
-    ]
-  };
-  const STARS = {
-    big: [
-      ["0%", "left:20%", 1.4, "g-deep", "✧"], ["4%", "right:18%", 1.8, "header", "✦"], ["80%", "left:6%", 1.2, "g-graysage", "✦"],
-      ["92%", "right:24%", 1.3, "g-deep", "✧"], ["38%", "left:0%", 1.1, "header", "✧"], ["60%", "right:14%", 1.2, "g-deep", "✦"]
-    ],
-    small: [
-      ["6%", "right:10%", 1.3, "header", "✦"], ["80%", "left:4%", 1.1, "g-graysage", "✧"],
-      ["40%", "left:20%", 0.9, "g-deep", "✧"], ["70%", "right:22%", 1, "header", "✦"]
-    ]
-  };
-  function flourish() {
-    document.querySelectorAll("[data-flourish]").forEach((el) => {
-      const kind = el.dataset.flourish;
-      const shapes = SHAPES[kind]
-        .map(
-          ([top, side, size, color, diamond], i) =>
-            `<div class="flourish-shape${diamond ? " diamond" : ""}" style="top:${top}; ${side}; width:${size}px; height:${size}px; background:var(--g-${color}); animation-delay:${((i * 0.4) % 1.7).toFixed(1)}s;"></div>`
-        )
-        .join("");
-      const stars = STARS[kind]
-        .map(([top, side, size, color, glyph]) => `<span style="top:${top}; ${side}; font-size:${size}rem; color:var(--${color});">${glyph}</span>`)
-        .join("");
-      el.insertAdjacentHTML("afterbegin", `<div aria-hidden="true">${shapes}<div class="star-scatter">${stars}</div></div>`);
-    });
-  }
 
   // Anything marked .reveal fades and rises into place the first time it scrolls into view.
   function reveal() {
@@ -90,7 +52,7 @@
             io.unobserve(entry.target);
           }
         }),
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -30px 0px" }
     );
     targets.forEach((el) => io.observe(el));
   }
@@ -105,41 +67,41 @@
     $("hero-kicker").textContent = `${S.title} · ${S.school}`;
     $("hero-name").textContent = S.name;
     $("hero-tagline").innerHTML = keep(S.tagline) ? txt(S.tagline) : "";
-    if (S.photo) $("hero-photo").innerHTML = `<img src="${esc(S.photo)}" alt="${esc(S.name)}" onerror="this.remove()">`;
+    if (S.photo) $("hero-photo").innerHTML = `<img src="${esc(S.photo)}" alt="${esc(S.name)}" onerror="this.parentNode.remove()">`;
     $("hero-seeking").textContent = S.contactNote || "";
     $("hero-email").textContent = S.email;
     $("hero-email").href = `mailto:${S.email}`;
 
-    $("project-grid").innerHTML = S.projects
-      .filter((p) => p.featured)
-      .map(
-        (p) => `
+    const card = (p) => `
       <a class="card reveal" href="project.html?id=${encodeURIComponent(p.id)}">
-        <div class="card-img" data-media>
+        ${p.cover ? `<div class="card-img" data-media>
           <img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" loading="lazy" onerror="__imgMissing(this)">
-        </div>
+        </div>` : ""}
         <div class="card-body">
-          ${keep(p.course) ? `<span class="tag">${txt(p.course)}</span>` : ""}
+          <p class="card-meta">${badge(p)}${keep(p.course) ? `<span class="tag">${txt(p.course)}</span>` : ""}</p>
           <h3>${esc(p.title)}</h3>
           ${keep(p.date) ? `<p class="card-date">${txt(p.date)}</p>` : ""}
           <p>${keep(p.summary) ? txt(p.summary) : ""}</p>
           ${(p.highlights || []).length ? `<ul class="results">${p.highlights.map(([n, t]) => `<li><strong>${esc(n)}</strong> ${esc(t)}</li>`).join("")}</ul>` : ""}
           <p class="tools"><span>Tools</span>${list(p.tools, " · ")}</p>
         </div>
-      </a>`
-      )
-      .join("");
+      </a>`;
+    const shown = S.projects.filter((p) => p.featured);
+    const building = shown.filter((p) => p.status);
+    $("progress-grid").innerHTML = building.map(card).join("");
+    $("progress-block").hidden = !building.length;
+    $("project-grid").innerHTML = shown.filter((p) => !p.status).map(card).join("");
 
     $("experience-list").innerHTML = S.experience
       .map((e) => {
         const pts = e.points.filter(keep);
         return `
-      <div class="level reveal">
-        <div class="level-head">
+      <div class="panel reveal">
+        <div class="panel-head">
           <h3>${esc(e.role)}</h3>
-          ${keep(e.date) ? `<span class="pill">${txt(e.date)}</span>` : ""}
+          ${keep(e.date) ? `<span class="when">${txt(e.date)}</span>` : ""}
         </div>
-        <p class="level-sub">${esc(e.org)}</p>
+        <p class="panel-sub">${esc(e.org)}</p>
         ${pts.length ? `<ul>${pts.map((x) => `<li>${txt(x)}</li>`).join("")}</ul>` : ""}
       </div>`;
       })
@@ -150,7 +112,7 @@
     $("about-lang").textContent = S.languages.join(", ");
     $("skills").innerHTML = Object.entries(S.skills)
       .map(([group, items]) => (items.filter(keep).length ? `<h3>${esc(group)}</h3><p>${list(items, ", ")}</p>` : ""))
-      .join("");
+      .join("") + ((S.interests || []).length ? `<h3>Outside of class</h3><p>${list(S.interests, ", ")}</p>` : "");
 
     $("contact-note").textContent = S.contactNote || "";
     const links = [
@@ -167,7 +129,7 @@
   if ($("project")) {
     const p = S.projects.find((x) => x.id === params.get("id"));
     if (!p) {
-      $("project").innerHTML = `<div class="hero"><h1>Project not found</h1><p class="back-link"><a href="index.html#projects">Back to all projects</a></p></div>`;
+      $("project").innerHTML = `<div class="project-head"><h1>Project not found</h1><p><a href="index.html#projects">Back to all projects</a></p></div>`;
       return;
     }
     document.title = `${p.title} | ${S.name}`;
@@ -176,37 +138,38 @@
       .map((s) => ({ ...s, body: s.body.filter(keep) }))
       .filter((s) => s.body.length);
 
+    const caption = (g) => (keep(g.caption) ? `<figcaption>${txt(g.caption)}</figcaption>` : "");
     const gallery = p.gallery
       .map((g) => {
         if (g.type === "youtube") {
-          return `<figure class="${g.vertical ? "tall" : "wide"}"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(g.id)}" title="${esc(g.caption || p.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>${keep(g.caption) ? `<figcaption>${txt(g.caption)}</figcaption>` : ""}</figure>`;
+          return `<figure class="${g.vertical ? "tall" : "wide"}"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(g.id)}" title="${esc(g.caption || p.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>${caption(g)}</figure>`;
         }
         const src = imgPath(p, g.src);
         const media =
           g.type === "video"
             ? `<video src="${src}" controls preload="metadata" onerror="__imgMissing(this)"></video>`
-            : `<img src="${src}" alt="${esc(g.caption)}" loading="lazy" onerror="__imgMissing(this)">`;
-        return `<figure data-media>${media}${keep(g.caption) ? `<figcaption>${txt(g.caption)}</figcaption>` : ""}</figure>`;
+            : `<a href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="${esc(g.caption)}" loading="lazy" onerror="__imgMissing(this)"></a>`;
+        return `<figure data-media${g.wide ? ` class="wide"` : ""}>${media}${caption(g)}</figure>`;
       })
       .join("");
 
     const links = p.links.filter((l) => l.url && (l.url !== "TODO" || DRAFT));
+    const cover = p.cover ? `<div class="gallery"><figure class="wide" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></figure></div>` : "";
 
     $("project").innerHTML = `
-      <div class="hero flourish-field" data-flourish="small">
-        <span class="kicker">${[p.course, p.date].filter(keep).map(txt).join(" · ")}</span>
-        <span class="sparkle">✦ ✧ ✦</span>
+      <div class="project-head">
+        <p class="eyebrow">${badge(p)}${[p.course, p.date].filter(keep).map(txt).join(" · ")}</p>
         <h1>${esc(p.title)}</h1>
-        ${keep(p.summary) ? `<p>${txt(p.summary)}</p>` : ""}
+        ${keep(p.summary) ? `<p class="lead">${txt(p.summary)}</p>` : ""}
         ${links.length ? `<div class="btn-row">${links.map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>` : ""}
       </div>
       ${(p.highlights || []).length ? `<div class="stats">${p.highlights.map(([n, t]) => `<div class="stat"><strong>${esc(n)}</strong><span>${esc(t)}</span></div>`).join("")}</div>` : ""}
-      <dl class="facts level">
+      <dl class="facts panel">
         ${keep(p.role) ? `<div><dt>Role</dt><dd>${txt(p.role)}</dd></div>` : ""}
         <div><dt>Tools</dt><dd>${list(p.tools, ", ")}</dd></div>
       </dl>
-      ${gallery ? `<div class="gallery">${gallery}</div>` : `<div class="frame" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></div>`}
-      ${sections.map((s) => `<section class="level reveal"><h2>${esc(s.heading)}</h2>${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}</section>`).join("")}
+      ${gallery ? `<div class="gallery">${gallery}</div>` : cover}
+      ${sections.map((s) => `<section class="panel reveal"><h2>${esc(s.heading)}</h2>${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}</section>`).join("")}
     `;
   }
 
@@ -223,6 +186,5 @@
     showTab();
   }
 
-  flourish();
   reveal();
 })();
