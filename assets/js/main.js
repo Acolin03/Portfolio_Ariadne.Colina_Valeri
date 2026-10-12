@@ -19,7 +19,8 @@
     String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const txt = (t) => (isTodo(t) ? `<span class="todo">${esc(t)}</span>` : esc(t));
   const $ = (id) => document.getElementById(id);
-  const imgPath = (p, file) => `assets/img/projects/${p.id}/${file}`;
+  const imgPath = (p, file) =>
+    file.startsWith("youtube:") ? `https://img.youtube.com/vi/${file.slice(8)}/hqdefault.jpg` : `assets/img/projects/${p.id}/${file}`;
   const list = (items, sep) => items.filter(keep).map(txt).join(sep);
 
   // Missing image: yellow box in draft mode, removed on the live site.
@@ -104,6 +105,10 @@
     $("hero-kicker").textContent = `${S.title} · ${S.school}`;
     $("hero-name").textContent = S.name;
     $("hero-tagline").innerHTML = keep(S.tagline) ? txt(S.tagline) : "";
+    if (S.photo) $("hero-photo").innerHTML = `<img src="${esc(S.photo)}" alt="${esc(S.name)}" onerror="this.remove()">`;
+    $("hero-seeking").textContent = S.contactNote || "";
+    $("hero-email").textContent = S.email;
+    $("hero-email").href = `mailto:${S.email}`;
 
     $("project-grid").innerHTML = S.projects
       .filter((p) => p.featured)
@@ -118,6 +123,7 @@
           <h3>${esc(p.title)}</h3>
           ${keep(p.date) ? `<p class="card-date">${txt(p.date)}</p>` : ""}
           <p>${keep(p.summary) ? txt(p.summary) : ""}</p>
+          ${(p.highlights || []).length ? `<ul class="results">${p.highlights.map(([n, t]) => `<li><strong>${esc(n)}</strong> ${esc(t)}</li>`).join("")}</ul>` : ""}
           <p class="tools"><span>Tools</span>${list(p.tools, " · ")}</p>
         </div>
       </a>`
@@ -172,6 +178,9 @@
 
     const gallery = p.gallery
       .map((g) => {
+        if (g.type === "youtube") {
+          return `<figure class="${g.vertical ? "tall" : "wide"}"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(g.id)}" title="${esc(g.caption || p.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>${keep(g.caption) ? `<figcaption>${txt(g.caption)}</figcaption>` : ""}</figure>`;
+        }
         const src = imgPath(p, g.src);
         const media =
           g.type === "video"
@@ -189,15 +198,15 @@
         <span class="sparkle">✦ ✧ ✦</span>
         <h1>${esc(p.title)}</h1>
         ${keep(p.summary) ? `<p>${txt(p.summary)}</p>` : ""}
+        ${links.length ? `<div class="btn-row">${links.map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>` : ""}
       </div>
+      ${(p.highlights || []).length ? `<div class="stats">${p.highlights.map(([n, t]) => `<div class="stat"><strong>${esc(n)}</strong><span>${esc(t)}</span></div>`).join("")}</div>` : ""}
       <dl class="facts level">
         ${keep(p.role) ? `<div><dt>Role</dt><dd>${txt(p.role)}</dd></div>` : ""}
         <div><dt>Tools</dt><dd>${list(p.tools, ", ")}</dd></div>
       </dl>
-      <div class="frame" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></div>
+      ${gallery ? `<div class="gallery">${gallery}</div>` : `<div class="frame" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></div>`}
       ${sections.map((s) => `<section class="level reveal"><h2>${esc(s.heading)}</h2>${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}</section>`).join("")}
-      ${gallery ? `<section class="level reveal"><h2>Gallery</h2><div class="gallery">${gallery}</div></section>` : ""}
-      ${links.length ? `<div class="btn-row">${links.map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>` : ""}
     `;
   }
 
