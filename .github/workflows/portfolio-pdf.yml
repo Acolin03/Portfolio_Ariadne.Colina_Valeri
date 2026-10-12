@@ -1,0 +1,35 @@
+# Rebuilds portfolio.pdf whenever the LaTeX source in portfolio-pdf/ changes,
+# and saves the new PDF next to the website so its download button stays current.
+name: Build portfolio PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "portfolio-pdf/**"
+      - ".github/workflows/portfolio-pdf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile portfolio.tex
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: portfolio-pdf
+          root_file: portfolio.tex
+
+      - name: Save the PDF to the site
+        run: |
+          cp portfolio-pdf/portfolio.pdf portfolio.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add portfolio.pdf
+          git diff --cached --quiet || git commit -m "Rebuild portfolio.pdf"
+          git push

@@ -1,0 +1,225 @@
+% =====================================================================
+%  Condensed portfolio: one project per page.
+%
+%  HOW TO EDIT
+%  - On Overleaf: upload this whole "portfolio-pdf" folder (portfolio.tex
+%    plus the images folder), then press Recompile.
+%  - Each project is one \project{...} block at the bottom of this file.
+%    Change the words between the braces. Keep the braces themselves.
+%  - Every \item is ONE short sentence. Three items per column at most.
+%  - To add a project, copy a whole \project block and change it.
+%    To remove one, delete its block.
+%    \projectinprogress is the same thing without pictures.
+%  - Write \% for a percent sign and \& for an ampersand.
+%
+%  When you push a change to GitHub, the PDF on the website is rebuilt
+%  for you (see .github/workflows/portfolio-pdf.yml).
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[landscape, letterpaper, margin=0.6in, top=0.55in, bottom=0.55in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\graphicspath{{images/}}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% ---- Your details: change them here once ----
+\newcommand{\myname}{Ariadne Colina-Valeri}
+\newcommand{\myemail}{ariadnecolina@gmail.com}
+\newcommand{\mysite}{acolin03.github.io/Portfolio\_Ariadne.Colina\_Valeri}
+\newcommand{\mysiteurl}{https://acolin03.github.io/Portfolio_Ariadne.Colina_Valeri/}
+
+% ---- Colors (the same blue, lilac and sea green as the website) ----
+\definecolor{ink}{HTML}{1F2A44}
+\definecolor{sub}{HTML}{5B6781}
+\definecolor{blue}{HTML}{4C63A0}
+\definecolor{lilac}{HTML}{CDBBE6}
+\definecolor{sea}{HTML}{A8D6C3}
+\color{ink}
+
+\setlist[itemize]{leftmargin=1.1em, itemsep=3pt, topsep=4pt, parsep=0pt, label={\color{lilac}\rule[0.15ex]{0.45em}{0.45em}}}
+
+% A column heading: PROBLEM, SOLUTION, RESULT
+\newcommand{\colhead}[1]{{\small\bfseries\color{blue}\MakeUppercase{#1}}\par}
+
+% One page per project.
+%   #1 title            #2 course and date      #3 skills, separated by \textbar
+%   #4 first picture    #5 its caption          #6 second picture    #7 its caption
+%   #8 problem items    #9 solution and result (use \solution and \result inside)
+\newcommand{\project}[9]{%
+  \clearpage
+  {\small\color{sub}\myname \hfill \href{mailto:\myemail}{\myemail} \quad\textbar\quad \href{\mysiteurl}{\mysite}}\par
+  \vspace{0.16in}
+  {\footnotesize\bfseries\color{blue}\MakeUppercase{#2}}\par
+  \vspace{0.03in}
+  {\fontsize{26}{30}\selectfont\bfseries #1}\par
+  \vspace{0.06in}
+  {\color{lilac}\rule{0.55in}{3.5pt}}{\color{sea}\rule{0.55in}{3.5pt}}\par
+  \vspace{0.07in}
+  {\small\color{sub}#3}\par
+  \vspace{0.2in}
+  \begin{minipage}[t]{0.485\textwidth}\centering
+    \includegraphics[width=\linewidth, height=3.1in, keepaspectratio]{#4}\par
+    \vspace{3pt}{\footnotesize\color{sub}#5}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.485\textwidth}\centering
+    \includegraphics[width=\linewidth, height=3.1in, keepaspectratio]{#6}\par
+    \vspace{3pt}{\footnotesize\color{sub}#7}
+  \end{minipage}\par
+  \vspace{0.22in}
+  \begin{minipage}[t]{0.31\textwidth}
+    \colhead{Problem}
+    \begin{itemize}#8\end{itemize}
+  \end{minipage}\hfill
+  #9
+}
+\newcommand{\solution}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{Solution}\begin{itemize}#1\end{itemize}\end{minipage}\hfill}
+\newcommand{\result}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{Result}\begin{itemize}#1\end{itemize}\end{minipage}}
+
+% A project that has no pictures yet (something still being built).
+%   #1 title   #2 course and date   #3 skills   #4 problem items   #5 \sofar{...} and \nextsteps{...}
+\newcommand{\projectinprogress}[5]{%
+  \clearpage
+  {\small\color{sub}\myname \hfill \href{mailto:\myemail}{\myemail} \quad\textbar\quad \href{\mysiteurl}{\mysite}}\par
+  \vspace{0.16in}
+  {\footnotesize\bfseries\color{blue}\MakeUppercase{#2}}\par
+  \vspace{0.03in}
+  {\fontsize{26}{30}\selectfont\bfseries #1}\par
+  \vspace{0.06in}
+  {\color{lilac}\rule{0.55in}{3.5pt}}{\color{sea}\rule{0.55in}{3.5pt}}\par
+  \vspace{0.07in}
+  {\small\color{sub}#3}\par
+  \vspace{0.45in}
+  \begin{minipage}[t]{0.31\textwidth}
+    \colhead{Problem}
+    \begin{itemize}#4\end{itemize}
+  \end{minipage}\hfill
+  #5
+}
+\newcommand{\sofar}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{So far}\begin{itemize}#1\end{itemize}\end{minipage}\hfill}
+\newcommand{\nextsteps}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{Next}\begin{itemize}#1\end{itemize}\end{minipage}}
+
+\begin{document}
+
+% =====================================================================
+%  PROJECTS
+% =====================================================================
+
+\projectinprogress
+  {Autonomous ESP32 Robot}
+  {In progress \textbar{} EE 31 Junior Design \textbar{} Fall 2026}
+  {ESP32 \textbar{} Arduino \textbar{} IR LED \& photodetector \textbar{} PCB design \textbar{} Onshape}
+  {
+    \item The robot has to follow a colored lane and avoid obstacles without human input.
+    \item It also has to receive commands from a partner team's robot.
+    \item Every decision it makes depends on sensor readings it can trust.
+  }
+  {
+    \sofar{
+      \item Programmed a 7-state state machine on the ESP32, advanced by a pushbutton interrupt or a websocket command.
+      \item Selected the IR LED and photodetector resistor values and subtract the room's background light from each reading.
+      \item Developing detection logic that filters noise in the color readings before the robot decides which lane color it is on.
+    }
+    \nextsteps{
+      \item Designing the robot's custom ESP32 PCB.
+      \item Designing its outer body in Onshape.
+    }
+  }
+
+\project
+  {DJ Board on an STM32}
+  {EE 14 Embedded Systems \textbar{} Jan. 2026 to May 2026}
+  {STM32L432KC \textbar{} C \textbar{} ADC \& DAC \textbar{} Oscilloscope}
+  {dj-circuit.png}{The board: microphone, speaker and effect buttons}
+  {dj-scope.png}{Oscilloscope captures of the effect outputs}
+  {
+    \item A real-time audio effects board records sound and remixes it with 7 effect buttons.
+    \item Every effect depends on a clean recording.
+    \item The first playback came out with a high-pitched hiss and clicks.
+  }
+  {
+    \solution{
+      \item Wrote a timer-driven state machine so every sample is recorded and played at a steady rate.
+      \item Gave each microphone reading more time to finish so no sample was cut short.
+      \item Held the speaker at a steady resting level between clips and faded each clip in and out.
+    }
+    \result{
+      \item An oscilloscope confirmed that the playback matched the original recording.
+      \item All 7 effects run using only 64KB of on-chip memory.
+    }
+  }
+
+\project
+  {FPGA Audio Synthesizer}
+  {ES 4 Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
+  {SystemVerilog \textbar{} FPGA \textbar{} PWM}
+  {fpga-board.png}{The full board}
+  {fpga-octaves.png}{The switch that selects the octave}
+  {
+    \item Each octave doubles a note's frequency.
+    \item The first design calculated every note by dividing on the chip.
+    \item Division needed over 250\% of the FPGA's space.
+  }
+  {
+    \solution{
+      \item Hand-calculated one octave and used bit shifts for the rest, since dividing by 2 is the same as shifting bits.
+      \item Mixed the notes with PWM after testing showed that chords distorted.
+    }
+    \result{
+      \item An 8-octave synthesizer, from 16Hz to 8kHz, for a MIDI keyboard.
+      \item 6 notes play clearly at once.
+    }
+  }
+
+\project
+  {CTGAN Design Discovery for RRAM}
+  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
+  {Python \textbar{} PyTorch \textbar{} pandas \textbar{} CUDA \textbar{} CTGAN \textbar{} PINN}
+  {rram-pareto.png}{Final results with 5,000 training samples}
+  {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
+  {
+    \item A published AI framework designs RRAM memory devices.
+    \item Its model averaged the training data, which smoothed away extreme designs.
+  }
+  {
+    \solution{
+      \item Replaced the model with a CTGAN, which searches those extremes more aggressively.
+      \item Scaled the training data 10 times, to 5,000 samples, so the CTGAN could learn reliably.
+      \item Used the framework's physics model as a referee to reject impossible designs.
+    }
+    \result{
+      \item 25\% higher endurance than the published result.
+      \item 11\% lower switching energy.
+      \item Slightly slower switching: 6.57ns vs 4.07ns.
+    }
+  }
+
+\project
+  {UAV Pitch Control and RF Signal Restoration}
+  {EE 23 Linear Systems \textbar{} Jan. 2026 to May 2026}
+  {MATLAB \textbar{} PID control \textbar{} Wiener filtering}
+  {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV}
+  {uav-wiener.png}{Wiener filter error (left) and the restored RF signal (right)}
+  {
+    \item Keeping a UAV level in pitch is the first step toward collecting clear RF signals from the air.
+    \item Even a stable UAV shakes slightly and blurs the signals it receives.
+  }
+  {
+    \solution{
+      \item Showed with Routh-Hurwitz analysis that P and PI controllers can never stabilize the UAV.
+      \item Searched 15,625 gain combinations for the best PID settings.
+      \item Restored a blurred, noisy RF signal with a Wiener filter.
+    }
+    \result{
+      \item 52ms rise time, 2.6\% overshoot and 500ms settling time, within real UAV specs.
+      \item 77\% lower error than a direct inverse (MSE 2.272 to 0.521).
+    }
+  }
+
+\end{document}

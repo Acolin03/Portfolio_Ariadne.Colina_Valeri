@@ -51,3 +51,11 @@ After that, every push updates the site automatically.
 ## Custom domain (optional, later)
 
 Buy a domain (about $12 a year), then add it in **Settings → Pages → Custom domain**. GitHub shows the DNS records to set.
+
+## The condensed portfolio (PDF)
+
+`portfolio-pdf/portfolio.tex` is a short, one-project-per-page version of the portfolio, written in LaTeX so you can edit it yourself. The button in the corner of the Projects tab downloads the PDF made from it.
+
+- **To edit it:** change the words inside a `\project{...}` block in `portfolio.tex`. The notes at the top of that file explain the parts.
+- **On Overleaf:** upload the whole `portfolio-pdf` folder (the `.tex` file and the `images` folder) and press Recompile to see your changes.
+- **On GitHub:** when a change to `portfolio-pdf/` is pushed, GitHub rebuilds `portfolio.pdf` for the website by itself. This takes a few minutes and shows up under the repo's **Actions** tab.

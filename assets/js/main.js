@@ -59,6 +59,14 @@
 
   // Shared header and footer
   if ($("nav-resume")) $("nav-resume").href = S.resume;
+  if ($("portfolio-link")) {
+    const link = $("portfolio-link");
+    link.hidden = true;
+    if (S.portfolioPdf) {
+      link.href = S.portfolioPdf;
+      fetch(S.portfolioPdf, { method: "HEAD" }).then((r) => { link.hidden = !r.ok; }).catch(() => {});
+    }
+  }
   if ($("footer")) $("footer").textContent = `© ${new Date().getFullYear()} ${S.name}`;
 
   /* ---------------- Home page ---------------- */
@@ -142,8 +150,8 @@
     document.title = `${p.title} | ${S.name}`;
 
     const sections = p.sections
-      .map((s) => ({ ...s, body: s.body.filter(keep) }))
-      .filter((s) => s.body.length);
+      .map((s) => ({ ...s, body: (s.body || []).filter(keep) }))
+      .filter((s) => s.body.length || s.image || s.fix);
 
     const caption = (g) => (keep(g.caption) ? `<figcaption>${txt(g.caption)}</figcaption>` : "");
     const gallery = p.gallery
@@ -160,8 +168,19 @@
       })
       .join("");
 
+    // A section is plain paragraphs, or a picture beside "what was missing" and "what this does".
+    const section = (s) => {
+      const words = `<h2>${esc(s.heading)}</h2>
+          ${keep(s.missing) ? `<p class="pair"><span>What was missing</span>${txt(s.missing)}</p>` : ""}
+          ${keep(s.fix) ? `<p class="pair"><span>What ${esc(p.title.replace(/ App$/, ""))} does</span>${txt(s.fix)}</p>` : ""}
+          ${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}`;
+      if (!s.image) return `<section class="panel reveal">${words}</section>`;
+      const src = imgPath(p, s.image);
+      return `<section class="panel reveal with-pic"><a class="pic" data-media href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="${esc(s.heading)}" loading="lazy" onerror="__imgMissing(this)"></a><div>${words}</div></section>`;
+    };
+
     const links = p.links.filter((l) => l.url && (l.url !== "TODO" || DRAFT));
-    const cover = p.cover ? `<div class="gallery"><figure class="wide" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></figure></div>` : "";
+    const cover = p.cover && !sections.some((s) => s.image) ? `<div class="gallery"><figure class="wide" data-media><img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" onerror="__imgMissing(this)"></figure></div>` : "";
 
     $("project").innerHTML = `
       <div class="project-head">
@@ -174,7 +193,7 @@
         <div><dt>Tools</dt><dd>${list(p.tools, ", ")}</dd></div>
       </dl>
       ${gallery ? `<div class="gallery">${gallery}</div>` : cover}
-      ${sections.map((s) => `<section class="panel reveal"><h2>${esc(s.heading)}</h2>${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}</section>`).join("")}
+      ${sections.map(section).join("")}
     `;
   }
 

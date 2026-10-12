@@ -21,6 +21,8 @@ const SITE = {
   linkedin: "https://www.linkedin.com/in/ariadne-colina-valeri",
   github: "https://github.com/Acolin03",
   resume: "resume.pdf",
+  portfolioPdf: "portfolio.pdf",
+  url: "https://acolin03.github.io/Portfolio_Ariadne.Colina_Valeri/",
   photo: "assets/img/profile.jpg",
   contactNote: "Open to internships in embedded systems, signal processing and machine learning, in biotech or defense.",
 
@@ -99,7 +101,9 @@ const SITE = {
      cover:    main image, inside assets/img/projects/<id>/ (leave "" for none)
                or "youtube:VIDEO_ID" to use a YouTube video's thumbnail
      sections: the story of the project, in order. Each has a heading
-               and a list of paragraphs.
+               and a list of paragraphs (body). A section can instead
+               show a picture beside two short texts: image, missing
+               (what was missing before) and fix (what this does).
      gallery:  images and videos with captions, shown at the top of the
                project page. For a YouTube video use
                { type: "youtube", id: "VIDEO_ID", caption: "..." }
@@ -119,31 +123,28 @@ const SITE = {
       cover: "focus.png",
       sections: [
         { heading: "Problem", body: [
-          "Students keep their schedule, coursework, money and habits in separate tools, and keeping those tools up to date takes planning time of its own. A plan also rarely goes exactly as written, so much of that time is lost."
+          "Students keep their schedule, coursework, money and habits in separate tools, and keeping those tools up to date takes planning time of its own. A plan also rarely goes exactly as written, so much of that time is lost. Each part of Astrolabe answers something those tools were missing."
         ]},
-        { heading: "Organizing without planning", body: [
-          "Astrolabe is designed so that a person stays organized without managing a planner. Its first screen, \"Focus\", has one text box and three answers: what is happening right now, what is next and what is due soon.",
-          "Anything typed into the box the way it would be said aloud, such as \"Bio quiz Friday at 10\", is read for its date, time and type and filed in the right place."
-        ]},
-        { heading: "Tasks that schedule themselves", body: [
-          "Each task carries an estimate of the hours it needs. A single button, \"Plan my week\", places those hours into the free time of the next seven days, ahead of each due date, and spreads the work so that no day holds more than four hours of it.",
-          "People tend to underestimate how long their own work takes, so the app sets aside more time than the estimate. It then adjusts that margin as it learns how long the person's finished tasks actually took."
-        ]},
+        { heading: "One place to start", image: "focus.png",
+          missing: "Planning the day took longer than doing what was in it.",
+          fix: "The first screen, \"Focus\", has one text box and three answers: what is happening right now, what is next and what is due soon. Anything typed the way it would be said aloud, such as \"Bio quiz Friday at 10\", is read for its date, time and type and filed in the right place." },
+        { heading: "Tasks that schedule themselves", image: "tasks.png",
+          missing: "A task list shows what is due, not when the work will get done.",
+          fix: "Each task carries an estimate of the hours it needs. A single button, \"Plan my week\", places those hours into the free time of the next seven days, ahead of each due date, with no more than four hours of planned work on any one day. People tend to underestimate how long their own work takes, so the app sets aside more time than the estimate." },
+        { heading: "A calendar that includes living", image: "today.png",
+          missing: "Calendars hold appointments and leave out the rest of the day: sleep, meals, and the time it takes to get ready and get from one place to the next.",
+          fix: "Classes, work, plans and sleep all appear at their real length, and only stretches of an hour or more count as free time." },
+        { heading: "Reminders instead of restrictions", image: "right-now.png",
+          missing: "Apps that block distractions take the choice away from the person using them.",
+          fix: "Astrolabe does not block or lock anything. A planned session can be started in one step, the app checks in halfway through and again at the end, and a session can be moved to the next free time so that skipping it becomes a decision with a new time attached." },
         { heading: "Lists that fill themselves", body: [
           "The shopping list builds itself from the meals that are planned and the supplies marked as in use. An item leaves the list once it is bought or marked as already owned."
-        ]},
-        { heading: "Reminders instead of restrictions", body: [
-          "Astrolabe does not block or lock anything. When a planned session begins, the person can confirm they are working on it, and the app checks in halfway through and again at the end. A session can also be moved to the next free time in one step, so skipping it becomes a decision with a new time attached."
         ]},
         { heading: "Implementation", body: [
           "Astrolabe is written in plain HTML, CSS and JavaScript, with no framework and no build step. Data is saved in the browser first and synced through Firebase after sign-in, so it follows the person across devices. The interface is available in English, Spanish, French, Italian and German."
         ]}
       ],
-      gallery: [
-        { type: "image", src: "focus.png", wide: true, caption: "Focus: one box to type into, then what is happening now, what is next and what is due soon" },
-        { type: "image", src: "tasks.png", wide: true, caption: "Tasks, each with its estimate and progress, and the \"Plan my week\" button" },
-        { type: "image", src: "today.png", wide: true, caption: "The calendar, where classes, work and sleep appear at their real length" }
-      ],
+      gallery: [],
       links: [
         { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
       ]
