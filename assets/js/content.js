@@ -25,13 +25,13 @@ const SITE = {
   contactNote: "Open to internships in embedded systems, signal processing and machine learning, in biotech or defense.",
 
   about: [
-    "I am an electrical engineering student at Tufts University, and I am most engaged when a problem requires thinking beyond the expected approach to find a path to the right answer. My work spans embedded systems, signal processing and machine learning, and much of it centers on cleaning up noisy signals so a system can act on them with confidence.",
+    "I am most engaged when a problem requires thinking beyond the expected approach to find a path to the right answer. My work spans embedded systems, signal processing and machine learning, and much of it centers on cleaning up noisy signals so a system can act on them with confidence.",
     "This semester I have two main projects: an autonomous ESP32 robot for Junior Design, where I am building the sensing logic and preparing its custom PCB, and an electronic musical instrument that I am designing from scratch. Looking ahead, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
 
-  interests: ["Tufts climbing team", "Singing lessons", "Building my own planner app, Astrolabe"],
+  interests: ["Tufts climbing team", "Singing lessons"],
 
   skills: {
     "Programming": ["C", "C++", "Python", "PyTorch", "pandas", "CUDA", "MATLAB", "SystemVerilog", "Arduino"],
@@ -42,6 +42,7 @@ const SITE = {
 
   experience: [
     {
+      group: "Engineering",
       role: "Control Systems Engineer Intern",
       org: "GE Transportation / Wabtec, Erie, PA",
       date: "May 2026 to July 2026",
@@ -53,6 +54,7 @@ const SITE = {
       ]
     },
     {
+      group: "Engineering",
       role: "Research Assistant",
       org: "Tufts Emerging Circuits and Systems Lab",
       date: "Sept. 2025 to April 2026",
@@ -63,6 +65,7 @@ const SITE = {
       ]
     },
     {
+      group: "Leadership",
       role: "Resident Assistant",
       org: "Tufts Residential Life and Learning",
       date: "Jan. 2026 to Present",
@@ -74,6 +77,7 @@ const SITE = {
       ]
     },
     {
+      group: "Leadership",
       role: "Head Treasurer",
       org: "SOLES (Tufts chapter of SHPE) and IEEE at Tufts",
       date: "Sept. 2024 to Present, head treasurer since March 2026",
@@ -92,8 +96,6 @@ const SITE = {
      featured: true = shown on the Projects tab
      status:   add status: "In progress" for something you are still building.
                It goes in the "Currently building" group at the top.
-     highlights: the key results, as ["number", "what it means"] pairs.
-               Shown on the card and at the top of the project page.
      cover:    main image, inside assets/img/projects/<id>/ (leave "" for none)
                or "youtube:VIDEO_ID" to use a YouTube video's thumbnail
      sections: the story of the project, in order. Each has a heading
@@ -109,42 +111,38 @@ const SITE = {
     {
       id: "astrolabe",
       featured: true,
-      title: "Astrolabe Planner App",
+      title: "Astrolabe App",
       course: "Personal project",
       date: "Aug. 2026 to Present",
-      summary: "A planner web app for college life that brings classes, work shifts, to-dos, budget, meals and goals into one place.",
-      highlights: [
-        ["5", "languages: English, Spanish, French, Italian and German"],
-        ["3", "ways to use it: on the web, as a desktop app and as a browser extension"]
-      ],
-      role: "Solo project, from the idea to the live site.",
-      tools: ["JavaScript", "HTML and CSS", "Firebase", "Firestore", "Google Calendar sync"],
-      cover: "calendar.png",
+      summary: "A web app that keeps a student organized without the work of maintaining a planner.",
+      tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
+      cover: "focus.png",
       sections: [
-        { heading: "Why I built it", body: [
-          "I was disorganized, and writing plans into a calendar made it worse. A plan never goes exactly as written, so I was spending more time planning my day than doing what was in it.",
-          "Most planning tools also only know about appointments. They leave out the rest of living: sleeping, eating, working out, getting ready, walking to class."
+        { heading: "Problem", body: [
+          "Students keep their schedule, coursework, money and habits in separate tools, and keeping those tools up to date takes planning time of its own. A plan also rarely goes exactly as written, so much of that time is lost."
         ]},
-        { heading: "The idea", body: [
-          "Take the best parts of the tools people already use, the scheduling of a calendar and the task lists of a notes app, and add everyday life to them. Sleep, food and exercise come first, because work does not go well without them.",
-          "The planner also counts the time things really take, such as waking up, getting ready and walking somewhere, so a day does not end up double-booked."
+        { heading: "Organizing without planning", body: [
+          "Astrolabe is designed so that a person stays organized without managing a planner. Its first screen, \"Focus\", has one text box and three answers: what is happening right now, what is next and what is due soon.",
+          "Anything typed into the box the way it would be said aloud, such as \"Bio quiz Friday at 10\", is read for its date, time and type and filed in the right place."
         ]},
-        { heading: "A nudge, not a block", body: [
-          "Social media is built to pull people in and keep them there, and blocking apps answer by locking you out. Astrolabe takes a third route. It lets you do what you want and reminds you of what you said you would do, because time is the one thing you cannot earn back.",
-          "The goal is a tool that changes how people behave for the better, without making them feel restricted or guilty."
+        { heading: "Tasks that schedule themselves", body: [
+          "Each task carries an estimate of the hours it needs. A single button, \"Plan my week\", places those hours into the free time of the next seven days, ahead of each due date, and spreads the work so that no day holds more than four hours of it.",
+          "People tend to underestimate how long their own work takes, so the app sets aside more time than the estimate. It then adjusts that margin as it learns how long the person's finished tasks actually took."
         ]},
-        { heading: "How it is built", body: [
-          "Plain HTML, CSS and JavaScript, with no framework and no build step. Everything saves in the browser first and syncs through Firebase after signing in, so the planner follows you across devices. The whole app switches between five languages."
+        { heading: "Lists that fill themselves", body: [
+          "The shopping list builds itself from the meals that are planned and the supplies marked as in use. An item leaves the list once it is bought or marked as already owned."
         ]},
-        { heading: "Status", body: [
-          "The app is live, and I keep adding to it."
+        { heading: "Reminders instead of restrictions", body: [
+          "Astrolabe does not block or lock anything. When a planned session begins, the person can confirm they are working on it, and the app checks in halfway through and again at the end. A session can also be moved to the next free time in one step, so skipping it becomes a decision with a new time attached."
+        ]},
+        { heading: "Implementation", body: [
+          "Astrolabe is written in plain HTML, CSS and JavaScript, with no framework and no build step. Data is saved in the browser first and synced through Firebase after sign-in, so it follows the person across devices. The interface is available in English, Spanish, French, Italian and German."
         ]}
       ],
       gallery: [
-        { type: "image", src: "calendar.png", wide: true, caption: "The day view: classes, work and free time sized to their real length" },
-        { type: "image", src: "classes.png", caption: "Classes" },
-        { type: "image", src: "budget.png", caption: "Budget" },
-        { type: "image", src: "goals.png", wide: true, caption: "Coming up and daily goals" }
+        { type: "image", src: "focus.png", wide: true, caption: "Focus: one box to type into, then what is happening now, what is next and what is due soon" },
+        { type: "image", src: "tasks.png", wide: true, caption: "Tasks, each with its estimate and progress, and the \"Plan my week\" button" },
+        { type: "image", src: "today.png", wide: true, caption: "The calendar, where classes, work and sleep appear at their real length" }
       ],
       links: [
         { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
@@ -157,11 +155,6 @@ const SITE = {
       course: "EE 14 Embedded Systems",
       date: "Jan. 2026 to May 2026",
       summary: "A real-time audio effects board that records sound and lets users remix it with 7 effect buttons, using only on-chip memory.",
-      highlights: [
-        ["7", "audio effects, including echo, reverse, pitch and speed"],
-        ["64KB", "of on-chip memory, with no external storage"]
-      ],
-      role: "Member of a four-person team.",
       tools: ["STM32L432KC", "C", "ADC and DAC", "Oscilloscope"],
       cover: "youtube:uLtt11RuFwQ",
       sections: [
@@ -191,12 +184,6 @@ const SITE = {
       course: "ES 4 Digital Logic Circuits",
       date: "Sept. 2025 to Dec. 2025",
       summary: "An 8-octave (16Hz to 8kHz) synthesizer in SystemVerilog for a MIDI keyboard.",
-      highlights: [
-        ["8", "octaves, from 16Hz to 8kHz"],
-        ["6", "notes played clearly at once"],
-        ["250%", "of the FPGA's space needed by the first design, before bit shifts made it fit"]
-      ],
-      role: "Member of a four-person team.",
       tools: ["SystemVerilog", "FPGA", "PWM"],
       cover: "youtube:cmLPXOcdjE4",
       sections: [
@@ -227,23 +214,22 @@ const SITE = {
       course: "EE 20",
       date: "Fall 2025",
       summary: "A traffic light that counts the cars passing it and adjusts how long its red and green lights last.",
-      role: "Member of a three-person team.",
       tools: ["Arduino", "Photodiode", "Op-amp comparator", "MOSFETs", "Analog Discovery 2"],
       cover: "youtube:9rmVGDoX5m4",
       sections: [
         { heading: "Problem", body: [
-          "A fixed-timer traffic light makes drivers wait just as long on an empty road as on a busy one. We wanted a light that reacts to the traffic it sees: more cars means a shorter red and a longer green, and fewer cars means the opposite."
+          "A traffic light on a fixed timer makes drivers wait as long on an empty road as on a busy one. The goal was a light that responds to the traffic it detects, so that more cars shorten the red light and lengthen the green, and fewer cars do the opposite."
         ]},
-        { heading: "How it works", body: [
-          "A light shines on a photodiode, and each passing object blocks it, standing in for a car. The photodiode's signal is messy, so an op-amp compares it against a clean, stable reference voltage and outputs a clear digital pulse for every car.",
-          "An Arduino counts those pulses during each green light and uses a timer to set the length of the next red light. MOSFETs act as electronic switches so the Arduino can drive all six LEDs."
+        { heading: "Design", body: [
+          "A light shines on a photodiode, and each object that passes between them stands in for a car. The photodiode's signal is noisy, so an op-amp compares it with a clean, stable reference voltage and outputs one clear digital pulse for every car.",
+          "An Arduino counts those pulses during each green light and uses a timer to set the length of the next red light. MOSFETs act as electronic switches so that the Arduino can drive all six LEDs."
         ]},
         { heading: "Result", body: [
-          "In the demo, light traffic produced a long red light, and heavy traffic produced a shorter red and a longer green."
+          "In the demonstration, light traffic produced a long red light, and heavy traffic produced a shorter red light and a longer green."
         ]}
       ],
       gallery: [
-        { type: "youtube", id: "9rmVGDoX5m4", caption: "Demo with light and heavy traffic" },
+        { type: "youtube", id: "9rmVGDoX5m4", caption: "Demonstration with light and heavy traffic" },
         { type: "image", src: "breadboard.png", caption: "The full circuit: photodiode and op-amp, Arduino, and the LED traffic lights" }
       ],
       links: []
@@ -255,12 +241,6 @@ const SITE = {
       course: "Tufts Emerging Circuits and Systems Lab",
       date: "Sept. 2025 to April 2026",
       summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
-      highlights: [
-        ["25%", "higher endurance than the published result"],
-        ["11%", "lower switching energy"],
-        ["5,000", "training samples across 3 oxide materials"]
-      ],
-      role: "Research assistant extending a published physics-informed AI framework (PIGen).",
       tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
       cover: "pareto.png",
       sections: [
@@ -292,12 +272,6 @@ const SITE = {
       course: "EE 23 Linear Systems",
       date: "Jan. 2026 to May 2026",
       summary: "A PID controller that keeps a UAV level, paired with a Wiener filter that restores the RF signals it collects.",
-      highlights: [
-        ["52ms", "rise time, with 2.6% overshoot"],
-        ["77%", "lower error than a direct inverse filter"],
-        ["15,625", "gain combinations searched"]
-      ],
-      role: "Individual project, designed and simulated in MATLAB.",
       tools: ["MATLAB", "PID control", "Wiener filtering"],
       cover: "controllers.png",
       sections: [
@@ -330,10 +304,6 @@ const SITE = {
       course: "EE 31 Junior Design",
       date: "Fall 2026",
       summary: "A robot that follows a colored lane and avoids obstacles on its own, using IR and color sensing.",
-      highlights: [
-        ["7", "states in the ESP32 state machine"]
-      ],
-      role: "Member of a four-person team.",
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "Onshape"],
       cover: "",
       sections: [
@@ -351,8 +321,7 @@ const SITE = {
         ]},
         { heading: "Physical design", body: [
           "Next, I am designing the robot's custom ESP32 PCB for its circuits and its outer body in Onshape."
-        ]},
-        { heading: "Result", body: ["TODO: what worked at the demo, with numbers if you have them."] }
+        ]}
       ],
       gallery: [],
       links: []
@@ -365,21 +334,20 @@ const SITE = {
       course: "EE 95 Electronic Musical Instrument Design",
       date: "Fall 2026",
       summary: "Designing and building a working electronic musical instrument from scratch.",
-      role: "",
-      tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synth"],
+      tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
       cover: "",
       sections: [
-        { heading: "Goal", body: [
-          "Build an instrument that is creative and that a person can really use. It may answer a need nothing covers today, or it may simply make life better."
+        { heading: "Objective", body: [
+          "The objective is to design and build an electronic musical instrument that is creative and functional for the person using it."
         ]},
-        { heading: "A concept on the table", body: [
-          "A musician practicing with a recorded accompaniment has both hands busy playing, so there is no way to tell the recording to wait. One concept is an accompaniment that follows the player's eyes across the sheet music on a tablet, slowing down or speeding up with them."
+        { heading: "Concept under consideration", body: [
+          "One concept is for musicians who read sheet music on a tablet while practicing with a recorded accompaniment. Their hands are busy playing, so they cannot slow the recording down. The accompaniment would instead follow the spot being read, slowing down or speeding up with the player."
         ]},
-        { heading: "So far", body: [
-          "I have learned the basics of sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max. These are the tools the instrument will be built with."
+        { heading: "Progress", body: [
+          "So far I have learned basic sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max."
         ]},
-        { heading: "Next", body: [
-          "Teams are forming now. After that come choosing the concept and building a working prototype, presented as the final project in December 2026."
+        { heading: "Next steps", body: [
+          "Project teams are being formed. The next steps are choosing the concept and building the instrument."
         ]}
       ],
       gallery: [],

@@ -82,8 +82,7 @@
           <h3>${esc(p.title)}</h3>
           ${keep(p.date) ? `<p class="card-date">${txt(p.date)}</p>` : ""}
           <p>${keep(p.summary) ? txt(p.summary) : ""}</p>
-          ${(p.highlights || []).length ? `<ul class="results">${p.highlights.map(([n, t]) => `<li><strong>${esc(n)}</strong> ${esc(t)}</li>`).join("")}</ul>` : ""}
-          <p class="tools"><span>Tools</span>${list(p.tools, " · ")}</p>
+          <p class="card-foot"><b>View project →</b></p>
         </div>
       </a>`;
     const shown = S.projects.filter((p) => p.featured);
@@ -92,10 +91,9 @@
     $("progress-block").hidden = !building.length;
     $("project-grid").innerHTML = shown.filter((p) => !p.status).map(card).join("");
 
-    $("experience-list").innerHTML = S.experience
-      .map((e) => {
-        const pts = e.points.filter(keep);
-        return `
+    const job = (e) => {
+      const pts = e.points.filter(keep);
+      return `
       <div class="panel reveal">
         <div class="panel-head">
           <h3>${esc(e.role)}</h3>
@@ -104,24 +102,33 @@
         <p class="panel-sub">${esc(e.org)}</p>
         ${pts.length ? `<ul>${pts.map((x) => `<li>${txt(x)}</li>`).join("")}</ul>` : ""}
       </div>`;
-      })
+    };
+    const groups = [...new Set(S.experience.map((e) => e.group || "Experience"))];
+    $("experience-list").innerHTML = groups
+      .map((g) => `<h3 class="group-title">${esc(g)}</h3>${S.experience.filter((e) => (e.group || "Experience") === g).map(job).join("")}`)
       .join("");
 
     $("about-text").innerHTML = S.about.filter(keep).map((p) => `<p>${txt(p)}</p>`).join("");
-    $("about-edu").textContent = `${S.school}, ${S.graduation}`;
-    $("about-lang").textContent = S.languages.join(", ");
-    $("skills").innerHTML = Object.entries(S.skills)
-      .map(([group, items]) => (items.filter(keep).length ? `<h3>${esc(group)}</h3><p>${list(items, ", ")}</p>` : ""))
-      .join("") + ((S.interests || []).length ? `<h3>Outside of class</h3><p>${list(S.interests, ", ")}</p>` : "");
+    const facts = [
+      ["Education", esc(`${S.school}, ${S.graduation}`)],
+      ["Languages", S.languages.map(esc).join(", ")],
+      ...Object.entries(S.skills).map(([group, items]) => [group, list(items, ", ")]),
+      ["Outside of class", list(S.interests || [], ", ")]
+    ].filter(([, text]) => text);
+    $("about-facts").innerHTML = facts.map(([label, text]) => `<div class="fact reveal"><h3>${esc(label)}</h3><p>${text}</p></div>`).join("");
 
-    $("contact-note").textContent = S.contactNote || "";
-    const links = [
-      ["Email", `mailto:${S.email}`, true],
-      ["LinkedIn", S.linkedin],
-      ["GitHub", S.github]
-    ].filter(([, url]) => url && (!url.includes("TODO") || DRAFT));
-    $("contact-links").innerHTML = links
-      .map(([label, url, primary]) => `<a class="btn${primary ? "" : " secondary"}" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`)
+    $("contact-note").textContent = S.contactLine || "";
+    const ways = [
+      ["Email", S.email, `mailto:${S.email}`],
+      ["LinkedIn", (S.linkedin || "").replace(/^https?:\/\/(www\.)?/, ""), S.linkedin],
+      ["GitHub", (S.github || "").replace(/^https?:\/\//, ""), S.github]
+    ].filter(([, text, url]) => text && (!String(url).includes("TODO") || DRAFT));
+    $("contact-links").innerHTML = ways
+      .map(([label, text, url]) =>
+        url
+          ? `<a class="way" href="${esc(url)}" target="_blank" rel="noopener"><span>${label}</span>${esc(text)}</a>`
+          : `<div class="way"><span>${label}</span>${esc(text)}</div>`
+      )
       .join("");
   }
 
@@ -163,9 +170,7 @@
         ${keep(p.summary) ? `<p class="lead">${txt(p.summary)}</p>` : ""}
         ${links.length ? `<div class="btn-row">${links.map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>` : ""}
       </div>
-      ${(p.highlights || []).length ? `<div class="stats">${p.highlights.map(([n, t]) => `<div class="stat"><strong>${esc(n)}</strong><span>${esc(t)}</span></div>`).join("")}</div>` : ""}
       <dl class="facts panel">
-        ${keep(p.role) ? `<div><dt>Role</dt><dd>${txt(p.role)}</dd></div>` : ""}
         <div><dt>Tools</dt><dd>${list(p.tools, ", ")}</dd></div>
       </dl>
       ${gallery ? `<div class="gallery">${gallery}</div>` : cover}
@@ -192,16 +197,22 @@
     ["14%", "left:3%", 1.1, "✧"], ["52%", "left:1.5%", 1, "✦"], ["86%", "left:4%", 12, "sea"],
     ["20%", "right:3%", 1.2, "✦"], ["46%", "right:2%", 12, "lilac"], ["78%", "right:3%", 1, "✧"]
   ];
+  const HERO_BITS = [
+    ["6%", "left:6%", 26, "mist"], ["16%", "left:15%", 16, "blue"], ["3%", "left:23%", 14, "lilac"],
+    ["36%", "left:4%", 34, "mist"], ["82%", "left:11%", 20, "lilac"], ["8%", "right:7%", 30, "mist"],
+    ["28%", "right:24%", 18, "blue", true], ["46%", "right:9%", 16, "mist"], ["86%", "right:19%", 24, "sea"],
+    ["5%", "left:19%", 1.4, "✧"], ["11%", "right:27%", 1.8, "✦"], ["74%", "left:7%", 1.2, "✦"],
+    ["90%", "right:31%", 1.3, "✧"], ["42%", "left:1%", 1.1, "✧"], ["60%", "right:22%", 1.2, "✦"]
+  ];
   const starColors = ["blue", "lilac-deep", "sea-deep"];
-  document.body.insertAdjacentHTML(
-    "afterbegin",
-    `<div class="sky-bits" aria-hidden="true">${BITS.map(([top, side, size, look, diamond], i) => {
-      const when = `animation-delay:${((i * 0.45) % 3).toFixed(2)}s; animation-duration:${4.4 + (i % 4) * 0.4}s`;
-      return look.length === 1
-        ? `<i class="float star" style="top:${top}; ${side}; font-size:${size}rem; color:var(--${starColors[i % 3]}); ${when}">${look}</i>`
-        : `<i class="float${diamond ? " diamond" : ""}" style="top:${top}; ${side}; width:${size}px; height:${size}px; background:var(--${look}); ${when}"></i>`;
-    }).join("")}</div>`
-  );
+  const bit = ([top, side, size, look, diamond], i) => {
+    const when = `animation-delay:${((i * 0.45) % 3).toFixed(2)}s; animation-duration:${4.4 + (i % 4) * 0.4}s`;
+    return look.length === 1
+      ? `<i class="float star" style="top:${top}; ${side}; font-size:${size}rem; color:var(--${starColors[i % 3]}); ${when}">${look}</i>`
+      : `<i class="float${diamond ? " diamond" : ""}" style="top:${top}; ${side}; width:${size}px; height:${size}px; background:var(--${look}); ${when}"></i>`;
+  };
+  if ($("hero")) $("hero").insertAdjacentHTML("afterbegin", `<div class="hero-bits" aria-hidden="true">${HERO_BITS.map(bit).join("")}</div>`);
+  document.body.insertAdjacentHTML("afterbegin", `<div class="sky-bits" aria-hidden="true">${BITS.map(bit).join("")}</div>`);
 
   reveal();
 })();
