@@ -186,5 +186,22 @@
     showTab();
   }
 
+  // The few drifting stars behind every page. Each entry: [top, side, size, look].
+  // A look of "✦" or "✧" is a star (size in rem); a color name is a dot or diamond (size in px).
+  const BITS = [
+    ["14%", "left:3%", 1.1, "✧"], ["52%", "left:1.5%", 1, "✦"], ["86%", "left:4%", 12, "sea"],
+    ["20%", "right:3%", 1.2, "✦"], ["46%", "right:2%", 12, "lilac"], ["78%", "right:3%", 1, "✧"]
+  ];
+  const starColors = ["blue", "lilac-deep", "sea-deep"];
+  document.body.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="sky-bits" aria-hidden="true">${BITS.map(([top, side, size, look, diamond], i) => {
+      const when = `animation-delay:${((i * 0.45) % 3).toFixed(2)}s; animation-duration:${4.4 + (i % 4) * 0.4}s`;
+      return look.length === 1
+        ? `<i class="float star" style="top:${top}; ${side}; font-size:${size}rem; color:var(--${starColors[i % 3]}); ${when}">${look}</i>`
+        : `<i class="float${diamond ? " diamond" : ""}" style="top:${top}; ${side}; width:${size}px; height:${size}px; background:var(--${look}); ${when}"></i>`;
+    }).join("")}</div>`
+  );
+
   reveal();
 })();

@@ -6,8 +6,8 @@ html{overflow-x:hidden; overflow-x:clip;}
    Muted blue is the main color; lilac and sea green are the two playful accents. */
 :root{
   --ink:#1f2a44; --sub:#5b6781; --blue:#4c63a0; --blue-dark:#3b4f85; --blue-soft:#e9edf8;
-  --card:#ffffff; --line:#d8deeb; --bg:#f5f7fb;
-  --lilac:#cdbbe6; --sea:#a8d6c3; --mist:#cbd5ea; --lilac-deep:#a98fd0; --sea-deep:#6fb59a;
+  --card:#ffffff; --line:#d3daea; --bg:#f2f4f9;
+  --lilac:#cdbbe6; --sea:#a8d6c3; --mist:#c3cee6; --lilac-deep:#a98fd0; --sea-deep:#7dbfa6;
   --todo:#fff1a8;
   --display:"Plus Jakarta Sans","Segoe UI",sans-serif;
   --pop:5px 5px 0 var(--lilac);
@@ -16,13 +16,24 @@ html{overflow-x:hidden; overflow-x:clip;}
 *{box-sizing:border-box; outline:none;}
 *:focus-visible{outline:2px solid var(--blue); outline-offset:2px; border-radius:4px;}
 
-/* Two soft washes of color sit behind everything, lilac top right and sea green bottom left. */
+/* The whole site sits on a faint watercolor wash: soft blooms of blue, lilac and sea green,
+   with a fine paper grain over them. Fixed behind everything, so pages scroll over it. */
 body::before{
-  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
   background:
-    radial-gradient(45% 40% at 92% 4%, rgba(205,187,230,0.38), transparent 70%),
-    radial-gradient(45% 40% at 4% 96%, rgba(168,214,195,0.32), transparent 70%);
+    radial-gradient(60% 45% at 12% 8%, rgba(126,143,190,0.16), transparent 70%),
+    radial-gradient(45% 40% at 88% 14%, rgba(205,187,230,0.26), transparent 70%),
+    radial-gradient(50% 45% at 78% 82%, rgba(168,214,195,0.22), transparent 70%),
+    radial-gradient(55% 50% at 18% 88%, rgba(126,143,190,0.12), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.25  0 0 0 0 0.4  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
 }
+/* A few small stars drift slowly behind every page (main.js places them). */
+.sky-bits{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;}
+.float{position:absolute; display:block; border-radius:50%; opacity:0.45; animation:gentle-float 6s ease-in-out infinite;}
+.float.diamond{border-radius:5px; rotate:45deg;}
+.float.star{color:var(--blue); opacity:0.4; border-radius:0; line-height:1; font-style:normal;}
+@keyframes gentle-float{ 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-6px) rotate(6deg);} }
+@media (prefers-reduced-motion: reduce){ .float{animation:none;} }
 body{
   font-family:"Inter","Segoe UI",sans-serif; font-size:1rem; line-height:1.65;
   background:var(--bg); color:var(--ink); margin:0; -webkit-font-smoothing:antialiased;
@@ -94,40 +105,10 @@ main > :last-child, .tab-panel > :last-child{padding-bottom:72px;}
 .panel li{padding-left:20px; position:relative;}
 .panel li::before{content:""; position:absolute; left:2px; top:0.62em; width:7px; height:7px; border-radius:2px; background:var(--lilac);}
 
-/* ===================== About: the watercolor sky ===================== */
-/* Only the About page gets this: soft blooms of blue, lilac and sea green over a dot grid,
-   with shapes and stars drifting slowly and a wave along the bottom edge. */
-.sky{
-  position:relative; overflow:hidden; padding-bottom:150px;
-  background:
-    radial-gradient(55% 60% at 10% 10%, rgba(126,143,190,0.30), transparent 70%),
-    radial-gradient(45% 55% at 90% 16%, rgba(205,187,230,0.50), transparent 70%),
-    radial-gradient(50% 60% at 76% 96%, rgba(168,214,195,0.45), transparent 70%),
-    radial-gradient(var(--mist) 1.5px, transparent 1.5px) 0 0 / 25px 25px,
-    #eef1f8;
-}
-.sky .hero{position:relative; z-index:1; padding-top:64px;}
-.sky-bits{position:absolute; inset:0; pointer-events:none;}
-.float{position:absolute; display:block; border-radius:50%; opacity:0.75; animation:gentle-float 5s ease-in-out infinite;}
-.float.diamond{border-radius:5px; rotate:45deg;}
-.float.star{font-weight:400; color:var(--blue); opacity:0.6; border-radius:0; line-height:1;}
-.float.star:nth-of-type(2n){color:var(--lilac-deep);}
-@keyframes gentle-float{ 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-9px) rotate(8deg);} }
-.crown{position:absolute; left:50%; margin-left:-95px; bottom:58px; width:190px; overflow:visible; filter:drop-shadow(0 0 3px rgba(255,255,255,0.9));}
-.crown polyline{fill:none; stroke:rgba(76,99,160,0.35); stroke-width:1; stroke-linecap:round;}
-.twinkle{animation:twinkle 3.4s ease-in-out infinite; transform-box:fill-box; transform-origin:50% 50%;}
-@keyframes twinkle{ 0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(0.7); opacity:0.5;} }
-.wave{position:absolute; left:0; bottom:-1px; width:100%; height:60px; display:block;}
-.wave path{fill:var(--bg);}
-.kicker{font-family:"Caveat",cursive; font-size:1.55rem; font-weight:700; color:var(--blue); line-height:1.2; margin:0;}
-.sparkle{color:var(--lilac-deep); font-size:1.1rem; letter-spacing:0.2em; margin:2px 0 10px;}
-.sky .hero h1{font-family:"Baloo 2",var(--display); letter-spacing:-0.01em;}
-@media (prefers-reduced-motion: reduce){ .float, .twinkle{animation:none;} }
-
 /* ===================== About: hello, photo, then the details ===================== */
 .hero{display:flex; align-items:center; gap:48px;}
 /* The hello card and the photo get a solid offset shadow, like a sticker. */
-.hero-card{flex:1; background:rgba(255,255,255,0.92); border:2px solid var(--ink); border-radius:24px; padding:32px 38px 34px; box-shadow:8px 8px 0 var(--lilac);}
+.hero-card{flex:1; background:var(--card); border:2px solid var(--ink); border-radius:20px; padding:36px 38px; box-shadow:8px 8px 0 var(--lilac);}
 .hero h1{font-size:clamp(2.1rem, 4.6vw, 3.2rem); font-weight:800; margin-bottom:16px;}
 .hero h1 span{color:var(--blue); display:block;}
 .hero-card p{color:var(--sub);}
@@ -216,10 +197,6 @@ figcaption{font-size:0.88rem; color:var(--sub); margin-top:8px;}
   nav.top a{font-size:0.9rem; padding:6px 10px;}
   section.block{padding:36px 16px 0;}
   .hero{flex-direction:column-reverse; align-items:flex-start; gap:28px;}
-  .sky .hero{padding-top:36px;}
-  .crown{width:130px; margin-left:0; left:auto; right:6%; bottom:auto; top:48px;}
-  .sky{padding-bottom:90px;}
-  .kicker{font-size:1.35rem;}
   .hero-card{padding:26px 22px; box-shadow:6px 6px 0 var(--lilac);}
   .hero-photo img{width:170px; height:170px; box-shadow:6px 6px 0 var(--sea);}
   .panel{padding:22px 20px;}
