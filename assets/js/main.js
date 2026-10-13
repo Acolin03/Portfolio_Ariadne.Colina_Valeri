@@ -75,6 +75,7 @@
     $("hero-kicker").textContent = `${S.title} · ${S.school}`;
     $("hero-name").textContent = S.name;
     $("hero-tagline").innerHTML = keep(S.tagline) ? txt(S.tagline) : "";
+    $("hero-tagline").hidden = !keep(S.tagline);
     if (S.photo) $("hero-photo").innerHTML = `<img src="${esc(S.photo)}" alt="${esc(S.name)}" onerror="this.parentNode.remove()">`;
     $("hero-seeking").textContent = S.contactNote || "";
     $("hero-email").textContent = S.email;

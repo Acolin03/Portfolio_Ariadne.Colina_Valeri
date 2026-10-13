@@ -16,8 +16,8 @@ const SITE = {
   title: "Electrical Engineering Student",
   school: "Tufts University",
   graduation: "B.S. Electrical Engineering, May 2028",
-  tagline: "I build embedded systems that turn noisy signals into reliable decisions.",
-  email: "ariadnecolina@gmail.com",
+  tagline: "",
+  email: "ariadne.colina_valeri@tufts.edu",
   linkedin: "https://www.linkedin.com/in/ariadne-colina-valeri",
   github: "https://github.com/Acolin03",
   resume: "resume.pdf",
@@ -28,7 +28,7 @@ const SITE = {
 
   about: [
     "I am most engaged when a problem requires thinking beyond the expected approach to find a path to the right answer. My work spans embedded systems, signal processing and machine learning, and much of it centers on cleaning up noisy signals so a system can act on them with confidence.",
-    "This semester I have two main projects: an autonomous ESP32 robot for Junior Design, where I am building the sensing logic and preparing its custom PCB, and an electronic musical instrument that I am designing from scratch. Looking ahead, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing."
+    "This semester I have two main projects: an autonomous ESP32 robot for Junior Design, where I am building the sensing logic and preparing its custom PCB, and an electronic musical instrument for EE 95 that I am designing from scratch. Looking ahead, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
@@ -332,7 +332,7 @@ const SITE = {
       status: "In progress",
       featured: true,
       title: "MIDI Instrument Creation",
-      course: "EE 95 Electronic Musical Instrument Design",
+      course: "EE 95",
       date: "Fall 2026",
       summary: "Designing and building a working electronic musical instrument from scratch.",
       tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
