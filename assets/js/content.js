@@ -126,30 +126,30 @@ const SITE = {
       fields: ["Software"],
       course: "Personal project",
       date: "Aug. 2026 to Present",
-      summary: "A web application that keeps students organized without the overhead of maintaining a planner.",
+      summary: "An app I built to stay organized without spending more time planning than doing.",
       tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
       cover: "focus.png",
       sections: [
         { heading: "Problem", body: [
-          "Students divide their schedules, coursework, finances and habits across separate tools, and keeping those tools current demands planning time of its own. Plans also rarely unfold exactly as written, so much of that effort is lost. Each component of Astrolabe addresses a gap those tools leave open."
+          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
         ]},
         { heading: "A Single Starting Point", image: "focus.png",
-          missing: "Planning the day consumed more time than carrying it out.",
-          fix: "The opening screen, \"Focus\", offers a single text field and three answers: what is happening now, what comes next and what is due soon. Entries written in natural language, such as \"Bio quiz Friday at 10\", are parsed for their date, time and type and filed automatically." },
-        { heading: "Self-Scheduling Tasks", image: "tasks.png",
-          missing: "A task list shows what is due but not when the work will be done.",
-          fix: "Each task carries an estimate of the hours it requires. The \"Plan my week\" function allocates those hours to free time over the next seven days, ahead of each deadline, and limits planned work to four hours per day. Since people tend to underestimate their own workload, the app reserves more time than each estimate." },
-        { heading: "A Calendar That Reflects Daily Life", image: "today.png",
-          missing: "Calendars capture appointments but omit the rest of the day: sleep, meals and the time needed to prepare and travel between commitments.",
-          fix: "Classes, work, commitments and sleep appear at their actual duration, and only intervals of an hour or longer count as free time." },
-        { heading: "Guidance Without Restriction", image: "right-now.png",
-          missing: "Applications that block distractions take the decision away from the user.",
-          fix: "Astrolabe neither blocks nor locks anything. A planned session begins in one step, the app checks in at its midpoint and at its end, and a session can be moved to the next available window, so that skipping it becomes a deliberate decision with a new time attached." },
-        { heading: "Self-Populating Lists", body: [
-          "The shopping list assembles itself from planned meals and supplies marked as in use, and each item leaves the list once it is purchased or marked as already owned."
+          missing: "Planning my day took longer than doing what was in it.",
+          fix: "The first screen, \"Focus\", has one text box and three answers: what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\", and the app reads the date, time and type and files it in the right place." },
+        { heading: "Tasks That Schedule Themselves", image: "tasks.png",
+          missing: "A task list tells you what is due, but not when you will actually do the work.",
+          fix: "Each task has an estimate of how many hours it needs. One button, \"Plan my week\", fits those hours into your free time over the next seven days, before each due date, with no more than four hours of planned work on any day. Since people tend to underestimate their own work, the app sets aside more time than the estimate." },
+        { heading: "A Calendar That Includes Real Life", image: "today.png",
+          missing: "Calendars only hold appointments and leave out the rest of the day, like sleep, meals and the time it takes to get ready and get somewhere.",
+          fix: "Classes, work, plans and sleep all show up at their real length, and only stretches of an hour or more count as free time." },
+        { heading: "Reminders Instead of Restrictions", image: "right-now.png",
+          missing: "Apps that block distractions take the choice away from you.",
+          fix: "Astrolabe never blocks anything. You can start a planned session in one tap, the app checks in halfway through and at the end, and you can move a session to your next free time, so skipping it becomes a decision with a new time attached instead of a silent miss." },
+        { heading: "Lists That Fill Themselves", body: [
+          "The shopping list fills itself from the meals you plan and the supplies you mark as in use, and items drop off once you buy them or mark that you already have them."
         ]},
-        { heading: "Implementation", body: [
-          "Astrolabe is built in plain HTML, CSS and JavaScript, without a framework or build step. Data is stored in the browser first and synchronized through Firebase after sign-in, keeping it consistent across devices. The interface is available in English, Spanish, French, Italian and German."
+        { heading: "How I Built It", body: [
+          "I wrote Astrolabe in plain HTML, CSS and JavaScript, with no framework. Everything saves in the browser first and syncs through Firebase when you sign in, so it follows you across devices, and the whole app works in English, Spanish, French, Italian and German."
         ]}
       ],
       gallery: [],
@@ -164,19 +164,19 @@ const SITE = {
       fields: ["Embedded Systems", "Signal Processing"],
       course: "EE 14 Embedded Systems",
       date: "Jan. 2026 to May 2026",
-      summary: "A real-time audio effects processor that records sound and remixes it through seven effects, operating entirely within on-chip memory.",
+      summary: "A real-time audio effects board that records sound and lets users remix it with seven effects, using only on-chip memory.",
       tools: ["STM32L432KC", "C", "ADC and DAC", "Oscilloscope"],
       cover: "youtube:uLtt11RuFwQ",
       sections: [
         { heading: "Problem", body: [
-          "The board records audio, plays it back and applies effects including echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem to resolve was a playback marred by a high-pitched hiss and audible clicks."
+          "The board records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem I had to solve was that playback came out with a high-pitched hiss and clicks."
         ]},
         { heading: "Solution", body: [
-          "To eliminate the hiss, I implemented a timer-driven state machine that records and plays every sample at a constant rate, and allowed each microphone reading additional time to complete so that no sample was cut short.",
-          "The clicks originated from abrupt jumps in the speaker signal, so I held the output at a steady resting level between clips and faded each clip in and out."
+          "To fix the hiss, I wrote a timer-driven state machine so every sample was recorded and played at a steady rate, and I gave each microphone reading more time to finish so no sample was cut short.",
+          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at a steady resting level between clips and faded each clip in and out."
         ]},
         { heading: "Result", body: [
-          "Oscilloscope measurements confirmed that playback matched the original recording, providing all seven effects with a clean signal."
+          "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope, such as speed and pitch, to make sure the signal processing was correct."
         ]}
       ],
       gallery: [
@@ -194,19 +194,19 @@ const SITE = {
       fields: ["Digital Design"],
       course: "ES 4 Digital Logic Circuits",
       date: "Sept. 2025 to Dec. 2025",
-      summary: "An eight-octave synthesizer (16Hz to 8kHz) implemented in SystemVerilog for a MIDI keyboard.",
+      summary: "An 8-octave synthesizer (16Hz to 8kHz) written in SystemVerilog for a MIDI keyboard.",
       tools: ["SystemVerilog", "FPGA", "PWM"],
       cover: "youtube:cmLPXOcdjE4",
       sections: [
         { heading: "Problem", body: [
-          "Each octave doubles a note's frequency, so the initial design computed every note through division on the chip. Division is so resource-intensive in hardware that the design required more than 250% of the FPGA's capacity."
+          "Since each octave doubles a note's frequency, my first design calculated every note by dividing on the chip. Division is so costly in hardware that the design needed over 250% of the FPGA's space."
         ]},
         { heading: "Solution", body: [
-          "Since dividing by two is equivalent to a bit shift, I hand-calculated a single octave and derived the remaining octaves through bit shifts, bringing the design within the capacity of the chip.",
-          "Subsequent testing revealed that chords distorted when notes combined, which I resolved by mixing the notes with PWM so that six notes play clearly at once."
+          "Dividing by 2 is the same as shifting bits, so I hand-calculated one octave and used bit shifts for the rest, which brought the design within the chip's capacity.",
+          "Testing the octaves then revealed that chords distorted when notes combined, so I mixed the notes with PWM, which lets 6 notes play clearly at once."
         ]},
         { heading: "Result", body: [
-          "The synthesizer plays a complete 12-note scale across eight octaves, with chords of up to six distinct notes."
+          "The keyboard plays a full 12-note scale across 8 octaves, with chords of up to 6 clear notes."
         ]}
       ],
       gallery: [
@@ -225,19 +225,19 @@ const SITE = {
       fields: ["Embedded Systems"],
       course: "EE 20",
       date: "Fall 2025",
-      summary: "An adaptive traffic light that counts passing vehicles and adjusts the duration of its red and green phases accordingly.",
+      summary: "A traffic light that counts the cars passing it and adjusts how long its red and green lights last.",
       tools: ["Arduino", "Photodiode", "Op-amp comparator", "MOSFETs", "Analog Discovery 2"],
       cover: "youtube:9rmVGDoX5m4",
       sections: [
         { heading: "Problem", body: [
-          "A traffic light on a fixed timer holds drivers for the same interval on an empty road as on a busy one. The objective was a light that responds to the traffic it detects, so that heavier traffic shortens the red phase and lengthens the green, while lighter traffic does the opposite."
+          "A traffic light on a fixed timer makes drivers wait just as long on an empty road as on a busy one. Our goal was a light that reacts to the traffic it sees, so more cars shorten the red light and lengthen the green, and fewer cars do the opposite."
         ]},
         { heading: "Design", body: [
-          "A light source illuminates a photodiode, and each object passing between them represents a vehicle. Since the photodiode signal is noisy, an op-amp compares it against a stable reference voltage and outputs a distinct digital pulse for each vehicle.",
-          "An Arduino counts these pulses during each green phase and sets the duration of the following red phase with a timer, while MOSFETs act as electronic switches that allow the Arduino to drive all six LEDs."
+          "Each car is an object passing between a light and a photodiode. Since the photodiode's signal is noisy, an op-amp compares it with a clean, stable reference voltage and turns each car into one clear digital pulse.",
+          "An Arduino counts those pulses during each green light and uses a timer to set the length of the next red light, while MOSFETs act as switches so the Arduino can drive all six LEDs."
         ]},
         { heading: "Result", body: [
-          "In the demonstration, light traffic produced an extended red phase, and heavy traffic produced a shorter red phase and a longer green."
+          "In our demo, light traffic produced a long red light, and heavy traffic produced a shorter red light and a longer green."
         ]}
       ],
       gallery: [
@@ -253,21 +253,21 @@ const SITE = {
       fields: ["Machine Learning"],
       course: "Tufts Emerging Circuits and Systems Lab",
       date: "Sept. 2025 to April 2026",
-      summary: "An extension of a published AI framework for RRAM memory design, testing whether a more aggressive model can discover better designs without proposing ones that cannot physically exist.",
+      summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
       tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
       cover: "pareto.png",
       sections: [
         { heading: "Problem", body: [
-          "The published framework relied on a CVAE, a model that averages its training data. This made it dependable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
+          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
         ]},
         { heading: "Approach", body: [
-          "I replaced the CVAE with a CTGAN, a model that explores those extremes more aggressively. Since an aggressive search can also generate designs that cannot physically exist, I used the framework's physics-informed neural network (PINN) as a referee to reject them."
+          "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
         ]},
         { heading: "Scaling the Data", body: [
-          "The CTGAN collapsed at 500 training samples and remained noisy at 2,500, so I scaled the dataset to 5,000 samples, at which point it converged across three oxide materials (Al2O3, HfO2 and TiO2)."
+          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2)."
         ]},
         { heading: "Result", body: [
-          "The best Al2O3 design achieved 25% higher endurance and 11% lower switching energy than the published result, in exchange for slightly slower switching (6.57ns versus 4.07ns). This demonstrated that the adversarial approach succeeds once it has sufficient data."
+          "The best Al2O3 design reached 25% higher endurance and 11% lower switching energy than the published result, in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
         ]}
       ],
       gallery: [
@@ -285,18 +285,18 @@ const SITE = {
       fields: ["Signal Processing"],
       course: "EE 23 Linear Systems",
       date: "Jan. 2026 to May 2026",
-      summary: "A PID controller that stabilizes a UAV in pitch, paired with a Wiener filter that restores the RF signals it collects.",
+      summary: "A PID controller that keeps a UAV level in pitch, paired with a Wiener filter that restores the RF signals it collects.",
       tools: ["MATLAB", "PID control", "Wiener filtering"],
       cover: "controllers.png",
       sections: [
         { heading: "Problem", body: [
-          "A UAV that shakes while collecting RF signals blurs them, which makes keeping it level the first step toward clear signals."
+          "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward collecting clear signals from the air."
         ]},
         { heading: "Controller Design", body: [
-          "Through Routh-Hurwitz analysis, I demonstrated that P and PI controllers can never stabilize the UAV, which established the need for a full PID controller. A search across 15,625 gain combinations then produced a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specifications."
+          "Using Routh-Hurwitz analysis, I first proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs."
         ]},
         { heading: "Signal Restoration", body: [
-          "Since even a stable UAV shakes slightly and blurs the signals it receives, I restored a blurred, noisy RF signal with a Wiener filter, reducing error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
+          "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred, noisy RF signal with a Wiener filter in MATLAB, cutting error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
         ]}
       ],
       gallery: [
@@ -318,21 +318,21 @@ const SITE = {
       fields: ["Embedded Systems"],
       course: "EE 31 Junior Design",
       date: "Sept. 2026 to Present",
-      summary: "An autonomous robot that follows a colored lane and avoids obstacles using infrared and color sensing.",
+      summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
       cover: "",
       sections: [
         { heading: "Problem", body: [
-          "The robot must follow a colored lane and avoid obstacles without human input while also receiving commands from a partner team's robot, so every decision it makes depends on sensor readings it can trust."
+          "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, while also taking commands from a partner team's robot. That means every decision it makes depends on sensor readings it can trust."
         ]},
         { heading: "State Machine", body: [
-          "I am building a seven-state state machine on the ESP32. A pushbutton interrupt advances the robot to its next state, an LED indicates the active state, and a command sent over a websocket can move the robot directly to a chosen state. Each websocket command is authenticated with a team key, and all others are rejected."
+          "I am building a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED shows which state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
         ]},
         { heading: "Obstacle Sensing", body: [
-          "An infrared LED shines forward while a photodetector measures the light reflected back from an obstacle. Since light already in the room also reaches the detector and distorts that measurement, I selected the resistor values for the LED and photodetector and subtract the ambient light from each reading."
+          "To detect obstacles, an IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector and throws off that measurement, so I chose the resistor values for the LED and photodetector and subtract the room's background light from each reading."
         ]},
         { heading: "Lane Following", body: [
-          "The color sensor reads light reflected from the track, and noise in those readings can cause the robot to mistake one lane color for another. I am developing detection logic that filters this noise before the robot identifies the color, so that its steering corrections act on reliable data."
+          "The color sensor reads light reflected off the track, and noise in those readings can make the robot mistake one lane color for another. I am programming the sensing to filter that noise before the robot decides which color it is on, so its steering acts on reliable data."
         ]},
         { heading: "Physical Design", body: [
           "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB to replace the breadboard wiring inside it."
@@ -349,21 +349,21 @@ const SITE = {
       fields: ["Instrument Design"],
       course: "EE 95",
       date: "Fall 2026",
-      summary: "The design and construction of an original electronic musical instrument, from concept to working prototype.",
+      summary: "Designing and building my own electronic musical instrument from scratch.",
       tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
       cover: "",
       sections: [
         { heading: "Objective", body: [
-          "The objective is to design and build an electronic musical instrument that is both creative and functional for the person using it."
+          "The goal is to build an electronic instrument that is creative and also useful to the person playing it."
         ]},
         { heading: "Concept Under Consideration", body: [
-          "One concept serves musicians who read sheet music on a tablet while practicing with a recorded accompaniment. With both hands occupied, a player cannot slow the recording down; the accompaniment would instead follow the passage being read, slowing down or speeding up with the player."
+          "One idea I am considering is for musicians who read sheet music on a tablet while practicing with a recorded accompaniment. Since their hands are busy playing, they cannot slow the recording down, so the accompaniment would follow the spot they are reading and slow down or speed up with them."
         ]},
         { heading: "Progress", body: [
-          "To date, I have learned the fundamentals of sound programming with the NN-19 sampler and the Subtractor synthesizer, configured drum pads and a MIDI keyboard, and begun development in Max."
+          "So far I have learned the basics of sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max."
         ]},
         { heading: "Next Steps", body: [
-          "With project teams now forming, the next steps are selecting a concept and building the instrument."
+          "Our teams are forming now, and the next steps are choosing a concept and building the instrument."
         ]}
       ],
       gallery: [],
