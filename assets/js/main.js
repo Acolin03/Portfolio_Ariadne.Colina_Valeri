@@ -78,11 +78,10 @@
     $("hero-tagline").hidden = !keep(S.tagline);
     if (S.photo) $("hero-photo").innerHTML = `<img src="${esc(S.photo)}" alt="${esc(S.name)}" onerror="this.parentNode.remove()">`;
     $("hero-seeking").textContent = S.contactNote || "";
-    $("hero-email").textContent = S.email;
     $("hero-email").href = `mailto:${S.email}`;
 
     const card = (p) => `
-      <a class="card reveal" href="project.html?id=${encodeURIComponent(p.id)}">
+      <a class="card reveal" data-fields="${esc((p.fields || []).join("|"))}" href="project.html?id=${encodeURIComponent(p.id)}">
         ${p.cover ? `<div class="card-img" data-media>
           <img src="${imgPath(p, p.cover)}" alt="${esc(p.title)}" loading="lazy" onerror="__imgMissing(this)">
         </div>` : ""}
@@ -91,14 +90,29 @@
           <h3>${esc(p.title)}</h3>
           ${keep(p.date) ? `<p class="card-date">${txt(p.date)}</p>` : ""}
           <p>${keep(p.summary) ? txt(p.summary) : ""}</p>
-          <p class="card-foot"><b>View project →</b></p>
+          <p class="card-foot"><b>View Project</b></p>
         </div>
       </a>`;
     const shown = S.projects.filter((p) => p.featured);
     const building = shown.filter((p) => p.status);
     $("progress-grid").innerHTML = building.map(card).join("");
     $("progress-block").hidden = !building.length;
-    $("project-grid").innerHTML = shown.filter((p) => !p.status).map(card).join("");
+    const done = shown.filter((p) => !p.status);
+    $("project-grid").innerHTML = done.map(card).join("");
+
+    // Filter buttons, one per field that a finished project belongs to.
+    const fields = [...new Set(done.flatMap((p) => p.fields || []))];
+    $("project-filters").innerHTML = ["All", ...fields].map((f, i) => `<button type="button" class="${i ? "" : "on"}" data-field="${esc(f)}">${esc(f)}</button>`).join("");
+    $("project-filters").hidden = fields.length < 2;
+    $("project-filters").addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      $("project-filters").querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+      $("project-grid").querySelectorAll(".card").forEach((c) => {
+        c.hidden = b.dataset.field !== "All" && !c.dataset.fields.split("|").includes(b.dataset.field);
+        if (!c.hidden) c.classList.add("in-view");
+      });
+    });
 
     const job = (e) => {
       const pts = e.points.filter(keep);
@@ -122,7 +136,7 @@
       ["Education", esc(`${S.school}, ${S.graduation}`)],
       ["Languages", S.languages.map(esc).join(", ")],
       ...Object.entries(S.skills).map(([group, items]) => [group, list(items, ", ")]),
-      ["Outside of class", list(S.interests || [], ", ")]
+      ["Beyond the Classroom", list(S.interests || [], ", ")]
     ].filter(([, text]) => text);
     $("about-facts").innerHTML = facts.map(([label, text]) => `<div class="fact reveal"><h3>${esc(label)}</h3><p>${text}</p></div>`).join("");
 
@@ -172,8 +186,8 @@
     // A section is plain paragraphs, or a picture beside "what was missing" and "what this does".
     const section = (s) => {
       const words = `<h2>${esc(s.heading)}</h2>
-          ${keep(s.missing) ? `<p class="pair"><span>What was missing</span>${txt(s.missing)}</p>` : ""}
-          ${keep(s.fix) ? `<p class="pair"><span>What ${esc(p.title.replace(/ App$/, ""))} does</span>${txt(s.fix)}</p>` : ""}
+          ${keep(s.missing) ? `<p class="pair"><span>The Gap</span>${txt(s.missing)}</p>` : ""}
+          ${keep(s.fix) ? `<p class="pair"><span>The Solution</span>${txt(s.fix)}</p>` : ""}
           ${s.body.map((b) => `<p>${txt(b)}</p>`).join("")}`;
       if (!s.image) return `<section class="panel reveal">${words}</section>`;
       const src = imgPath(p, s.image);
@@ -231,7 +245,6 @@
       ? `<i class="float star" style="top:${top}; ${side}; font-size:${size}rem; color:var(--${starColors[i % 3]}); ${when}">${look}</i>`
       : `<i class="float${diamond ? " diamond" : ""}" style="top:${top}; ${side}; width:${size}px; height:${size}px; background:var(--${look}); ${when}"></i>`;
   };
-  if ($("hero")) $("hero").insertAdjacentHTML("afterbegin", `<div class="hero-bits" aria-hidden="true">${HERO_BITS.map(bit).join("")}</div>`);
   document.body.insertAdjacentHTML("afterbegin", `<div class="sky-bits" aria-hidden="true">${BITS.map(bit).join("")}</div>`);
 
   reveal();

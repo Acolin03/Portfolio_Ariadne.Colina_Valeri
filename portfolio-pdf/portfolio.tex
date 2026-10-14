@@ -117,15 +117,15 @@
   {In progress \textbar{} EE 31 Junior Design \textbar{} Fall 2026}
   {ESP32 \textbar{} Arduino \textbar{} IR LED \& photodetector \textbar{} PCB design \textbar{} Onshape}
   {
-    \item The robot has to follow a colored lane and avoid obstacles without human input.
-    \item It also has to receive commands from a partner team's robot.
-    \item Every decision it makes depends on sensor readings it can trust.
+    \item The robot must follow a colored lane and avoid obstacles without human input.
+    \item It must also receive commands from a partner team's robot.
+    \item Every decision depends on sensor readings it can trust.
   }
   {
     \sofar{
-      \item Programmed a 7-state state machine on the ESP32, advanced by a pushbutton interrupt or a websocket command.
-      \item Selected the IR LED and photodetector resistor values and subtract the room's background light from each reading.
-      \item Developing detection logic that filters noise in the color readings before the robot decides which lane color it is on.
+      \item Programmed a seven-state state machine on the ESP32, driven by a pushbutton interrupt or a websocket command.
+      \item Selected the IR LED and photodetector resistor values and subtract ambient light from each reading.
+      \item Developing detection logic that filters noise in the color readings before the lane color is identified.
     }
     \nextsteps{
       \item Designing the robot's custom ESP32 PCB.
@@ -140,19 +140,19 @@
   {dj-circuit.png}{The board: microphone, speaker and effect buttons}
   {dj-scope.png}{Oscilloscope captures of the effect outputs}
   {
-    \item A real-time audio effects board records sound and remixes it with 7 effect buttons.
+    \item A real-time audio effects processor records sound and remixes it through 7 effects.
     \item Every effect depends on a clean recording.
-    \item The first playback came out with a high-pitched hiss and clicks.
+    \item The initial playback was marred by a high-pitched hiss and audible clicks.
   }
   {
     \solution{
-      \item Wrote a timer-driven state machine so every sample is recorded and played at a steady rate.
-      \item Gave each microphone reading more time to finish so no sample was cut short.
-      \item Held the speaker at a steady resting level between clips and faded each clip in and out.
+      \item Implemented a timer-driven state machine that records and plays every sample at a constant rate.
+      \item Allowed each microphone reading additional time to complete so that no sample was cut short.
+      \item Held the output at a steady resting level between clips and faded each clip in and out.
     }
     \result{
-      \item An oscilloscope confirmed that the playback matched the original recording.
-      \item All 7 effects run using only 64KB of on-chip memory.
+      \item Oscilloscope measurements confirmed that playback matched the original recording.
+      \item All 7 effects operate within 64KB of on-chip memory.
     }
   }
 
@@ -160,21 +160,21 @@
   {FPGA Audio Synthesizer}
   {ES 4 Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
   {SystemVerilog \textbar{} FPGA \textbar{} PWM}
-  {fpga-board.png}{The full board}
+  {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
   {
     \item Each octave doubles a note's frequency.
-    \item The first design calculated every note by dividing on the chip.
-    \item Division needed over 250\% of the FPGA's space.
+    \item The initial design computed every note through division on the chip.
+    \item Division required more than 250\% of the FPGA's capacity.
   }
   {
     \solution{
-      \item Hand-calculated one octave and used bit shifts for the rest, since dividing by 2 is the same as shifting bits.
-      \item Mixed the notes with PWM after testing showed that chords distorted.
+      \item Hand-calculated one octave and derived the rest through bit shifts, since dividing by 2 is equivalent to a bit shift.
+      \item Mixed the notes with PWM after testing revealed that chords distorted.
     }
     \result{
       \item An 8-octave synthesizer, from 16Hz to 8kHz, for a MIDI keyboard.
-      \item 6 notes play clearly at once.
+      \item Chords of up to 6 notes play clearly.
     }
   }
 
@@ -186,18 +186,18 @@
   {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
   {
     \item A published AI framework designs RRAM memory devices.
-    \item Its model averaged the training data, which smoothed away extreme designs.
+    \item Its model averaged the training data, smoothing away the extreme designs where peak performance lies.
   }
   {
     \solution{
-      \item Replaced the model with a CTGAN, which searches those extremes more aggressively.
-      \item Scaled the training data 10 times, to 5,000 samples, so the CTGAN could learn reliably.
-      \item Used the framework's physics model as a referee to reject impossible designs.
+      \item Replaced the model with a CTGAN, which explores those extremes more aggressively.
+      \item Scaled the training data tenfold, to 5,000 samples, so that the CTGAN could learn reliably.
+      \item Employed the framework's physics model as a referee to reject impossible designs.
     }
     \result{
       \item 25\% higher endurance than the published result.
       \item 11\% lower switching energy.
-      \item Slightly slower switching: 6.57ns vs 4.07ns.
+      \item Slightly slower switching: 6.57ns versus 4.07ns.
     }
   }
 
@@ -205,20 +205,20 @@
   {UAV Pitch Control and RF Signal Restoration}
   {EE 23 Linear Systems \textbar{} Jan. 2026 to May 2026}
   {MATLAB \textbar{} PID control \textbar{} Wiener filtering}
-  {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV}
+  {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV model}
   {uav-wiener.png}{Wiener filter error (left) and the restored RF signal (right)}
   {
-    \item Keeping a UAV level in pitch is the first step toward collecting clear RF signals from the air.
+    \item Stabilizing a UAV in pitch is the first step toward collecting clear RF signals from the air.
     \item Even a stable UAV shakes slightly and blurs the signals it receives.
   }
   {
     \solution{
-      \item Showed with Routh-Hurwitz analysis that P and PI controllers can never stabilize the UAV.
-      \item Searched 15,625 gain combinations for the best PID settings.
+      \item Demonstrated through Routh-Hurwitz analysis that P and PI controllers cannot stabilize the UAV.
+      \item Searched 15,625 gain combinations for the optimal PID settings.
       \item Restored a blurred, noisy RF signal with a Wiener filter.
     }
     \result{
-      \item 52ms rise time, 2.6\% overshoot and 500ms settling time, within real UAV specs.
+      \item 52ms rise time, 2.6\% overshoot and 500ms settling time, within real UAV specifications.
       \item 77\% lower error than a direct inverse (MSE 2.272 to 0.521).
     }
   }

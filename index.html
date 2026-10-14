@@ -9,7 +9,7 @@
   <meta name="description" content="Portfolio of Ariadne Colina-Valeri, electrical engineering student at Tufts University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
-        <a id="nav-resume" href="#" target="_blank" rel="noopener">Resume</a>
+        <a class="nav-resume" id="nav-resume" href="#" target="_blank" rel="noopener">Resume</a>
       </nav>
     </header>
   </div>
@@ -29,12 +29,16 @@
     <div class="tab-panel" data-tab="about">
       <section class="hero" id="hero">
         <div class="hero-photo" id="hero-photo"></div>
-        <p class="kicker" id="hero-kicker"></p>
-        <p class="sparkle" aria-hidden="true">✦ ✧ ✦</p>
-        <h1 id="hero-name"></h1>
-        <p class="lead" id="hero-tagline"></p>
-        <p id="hero-seeking"></p>
-        <a class="hero-email" id="hero-email" href="#"></a>
+        <div class="hero-text">
+          <p class="eyebrow" id="hero-kicker"></p>
+          <h1 id="hero-name"></h1>
+          <p class="lead" id="hero-tagline"></p>
+          <p class="hero-seeking" id="hero-seeking"></p>
+          <div class="btn-row">
+            <a class="btn" id="hero-email" href="#">Contact Me</a>
+            <a class="btn secondary" href="#projects">View Projects</a>
+          </div>
+        </div>
       </section>
       <section class="block about">
         <div class="panel reveal" id="about-text"></div>
@@ -43,17 +47,18 @@
     </div>
 
     <div class="tab-panel" data-tab="projects" hidden>
-      <a class="corner-link" id="portfolio-link" href="#" target="_blank" rel="noopener">Portfolio as a PDF ↓</a>
+      <a class="corner-link" id="portfolio-link" href="#" target="_blank" rel="noopener">Download Portfolio (PDF)</a>
       <section class="block" id="progress-block">
         <div class="section-head">
-          <h2>Currently building</h2>
+          <h2>Current Projects</h2>
         </div>
         <div class="card-grid two" id="progress-grid"></div>
       </section>
       <section class="block">
         <div class="section-head">
-          <h2>Projects</h2>
+          <h2>Selected Projects</h2>
         </div>
+        <div class="filters" id="project-filters" role="group" aria-label="Filter projects by field"></div>
         <div class="card-grid" id="project-grid"></div>
       </section>
     </div>
