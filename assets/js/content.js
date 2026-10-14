@@ -16,6 +16,9 @@ const SITE = {
   title: "Electrical Engineering Student",
   school: "Tufts University",
   graduation: "B.S. Electrical Engineering, May 2028",
+  gpa: "3.37/4.00",
+  honors: ["SHPE Scholar", "HSF Scholar", "Dean's List (2024 to 2026)", "BEST Scholar", "HIFF Scholar", "QuestBridge Scholar"],
+  coursework: ["Junior Design", "Embedded Systems", "Circuits and Electronics", "Linear Systems", "Modern Physics"],
   tagline: "",
   email: "ariadne.colina_valeri@tufts.edu",
   linkedin: "https://www.linkedin.com/in/ariadne-colina-valeri",
@@ -33,12 +36,12 @@ const SITE = {
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
 
-  interests: ["Tufts Climbing Team", "Vocal training"],
+  interests: ["Singing", "Rock climbing (Tufts Climbing Team)", "Artistic swimming: 2021 USA Florida Junior Champion and 2022 Olympic Trials Qualifier"],
 
   skills: {
-    "Programming": ["C", "C++", "Python", "PyTorch", "pandas", "CUDA", "MATLAB", "SystemVerilog", "Arduino"],
-    "Hardware": ["STM32", "ESP32", "FPGA", "PCB design", "Sensor circuits", "UART"],
-    "Tools": ["Oscilloscope", "Analog Discovery 2", "SolidWorks", "AutoCAD", "Onshape", "Max"],
+    "Programming": ["C", "C++", "Python (PyTorch, pandas, CUDA)", "MATLAB", "SystemVerilog", "Arduino", "UART"],
+    "Hardware and Design": ["AutoCAD", "SolidWorks", "Onshape", "PCB design"],
+    "Lab Tools and Components": ["Oscilloscope", "FPGA board", "Analog Discovery 2", "STM32 microcontroller", "ESP32"],
     "Methods": ["State machines", "Signal filtering", "PID control", "Machine learning (CTGAN, PINN)"]
   },
 
@@ -49,9 +52,9 @@ const SITE = {
       org: "GE Transportation / Wabtec, Erie, PA",
       date: "May 2026 to July 2026",
       points: [
-        "Developed a live diagnostics tool that monitors current and voltage feedback from 63 locomotive devices and identifies failing components before they break down.",
-        "Defined failure thresholds from the locomotive circuit schematics and production data, then tested failure modes by forcing each device open and closed.",
-        "Automated a manual inspection that previously required a full afternoon, reducing it to approximately one hour of data recording.",
+        "Automated the extraction of locomotive diagnostic data in Python, reducing a process that required a full afternoon to approximately one hour.",
+        "Built a Fault Analysis Module (FAM) from circuit schematics that flags failing parts across 63 locomotive devices.",
+        "Conducted forced open and closed fault tests on each device, exposing an FPGA offset that skewed the data differently on each train.",
         "Authored device-specific fault analysis documentation to shorten troubleshooting time on the locomotive."
       ]
     },
@@ -61,18 +64,18 @@ const SITE = {
       org: "Tufts Emerging Circuits and Systems Lab",
       date: "Sept. 2025 to April 2026",
       points: [
-        "Replaced a CVAE with a CTGAN to explore beyond conservative training data toward higher-performing RRAM designs.",
-        "Applied a physics-informed neural network (PINN) to keep generated designs within realistic switching bounds.",
-        "Expanded the training dataset so that the CTGAN could reliably distinguish top-performing designs from noise."
+        "Replaced a published RRAM memory model (CVAE) with a CTGAN to search for higher-performing designs.",
+        "Expanded the training data tenfold, to 5,000 samples, and used a physics-informed neural network (PINN) to reject physically impossible designs.",
+        "Identified an Al2O3 design with 25% higher endurance and 11% lower switching energy than the published result."
       ]
     },
     {
       group: "Leadership Experience",
-      role: "Resident Assistant",
+      role: "Residential Assistant",
       org: "Tufts Residential Life and Learning",
       date: "Jan. 2026 to Present",
       points: [
-        "Respond to resident incidents and mediate conflicts within a house of 60 residents.",
+        "Respond to resident incidents and resolve issues in high-pressure situations, mediating disputes and fostering a collaborative living environment in a house of 60 residents.",
         "Serve 24-hour on-call duty shifts, addressing lockouts, noise complaints and inquiries from residents and campus police.",
         "Plan and execute three programs per month within a fixed budget, ranging from house events to neighborhood events across several residence halls.",
         "Conduct health and safety inspections and coordinate shift coverage across a staff of 18 Resident Assistants."
@@ -84,7 +87,7 @@ const SITE = {
       org: "SOLES (Tufts chapter of SHPE) and IEEE at Tufts",
       date: "Sept. 2024 to Present, head treasurer since March 2026",
       points: [
-        "Manage all purchasing requests through Tufts Treasury; rebuilt the annual budgets and negotiated a 10% increase in funding.",
+        "Manage all purchasing requests through Tufts Treasury and maintain a spending tracker; rebuilt the annual budgets, negotiating a 10% increase in funding and preventing budget cuts.",
         "Lead the five-person SOLES treasury team within an executive board of approximately 17, coordinating with the events team so that every event is funded and supplied.",
         "Direct the logistics of the chapter's attendance at the SHPE National Convention, including flights, tickets and check-in.",
         "Prepare members for the convention, including guidance on their portfolios and LinkedIn profiles."
@@ -313,16 +316,16 @@ const SITE = {
       title: "Autonomous ESP32 Robot",
       fields: ["Embedded Systems"],
       course: "EE 31 Junior Design",
-      date: "Fall 2026",
+      date: "Sept. 2026 to Present",
       summary: "An autonomous robot that follows a colored lane and avoids obstacles using infrared and color sensing.",
-      tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "Onshape"],
+      tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
       cover: "",
       sections: [
         { heading: "Problem", body: [
           "The robot must follow a colored lane and avoid obstacles without human input while also receiving commands from a partner team's robot, so every decision it makes depends on sensor readings it can trust."
         ]},
         { heading: "State Machine", body: [
-          "I programmed a seven-state state machine on the ESP32. A pushbutton interrupt advances the robot to its next state, an LED indicates the active state, and a command sent over a websocket can move the robot directly to a chosen state."
+          "I am building a seven-state state machine on the ESP32. A pushbutton interrupt advances the robot to its next state, an LED indicates the active state, and a command sent over a websocket can move the robot directly to a chosen state. Each websocket command is authenticated with a team key, and all others are rejected."
         ]},
         { heading: "Obstacle Sensing", body: [
           "An infrared LED shines forward while a photodetector measures the light reflected back from an obstacle. Since light already in the room also reaches the detector and distorts that measurement, I selected the resistor values for the LED and photodetector and subtract the ambient light from each reading."
@@ -330,8 +333,8 @@ const SITE = {
         { heading: "Lane Following", body: [
           "The color sensor reads light reflected from the track, and noise in those readings can cause the robot to mistake one lane color for another. I am developing detection logic that filters this noise before the robot identifies the color, so that its steering corrections act on reliable data."
         ]},
-        { heading: "Next Steps", body: [
-          "The next phase is the design of the robot's custom ESP32 PCB and of its outer body in Onshape."
+        { heading: "Physical Design", body: [
+          "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB to replace the breadboard wiring inside it."
         ]}
       ],
       gallery: [],

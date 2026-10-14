@@ -133,7 +133,9 @@
 
     $("about-text").innerHTML = S.about.filter(keep).map((p) => `<p>${txt(p)}</p>`).join("");
     const facts = [
-      ["Education", esc(`${S.school}, ${S.graduation}`)],
+      ["Education", esc(`${S.school}, ${S.graduation}`) + (S.gpa ? `<br>GPA: ${esc(S.gpa)}` : "")],
+      ["Honors", (S.honors || []).map(esc).join(", ")],
+      ["Relevant Coursework", (S.coursework || []).map(esc).join(", ")],
       ["Languages", S.languages.map(esc).join(", ")],
       ...Object.entries(S.skills).map(([group, items]) => [group, list(items, ", ")]),
       ["Beyond the Classroom", list(S.interests || [], ", ")]
