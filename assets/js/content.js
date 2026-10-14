@@ -31,8 +31,8 @@ const SITE = {
   contactNote: "Open to internships in signal processing, embedded systems and machine learning, in biotech or defense.",
 
   about: [
-    "I enjoy problems that push me past the obvious approach to find the right answer. My work spans signal processing, embedded systems and machine learning, and much of it centers on cleaning up noisy signals so that a system can act on them with confidence.",
-    "This semester I am focused on two projects: an autonomous ESP32 robot for EE 31 Junior Design, where I am building the sensing logic and designing a custom PCB, and an original electronic musical instrument for EE 95. Long term, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing. I am also open to related fields such as telecommunications, networking and audio engineering, and I welcome the chance to work in areas I have not explored yet."
+    "I am an electrical engineer who enjoys problems that invite different perspectives. The projects I have chosen throughout my undergraduate studies have led me to signal processing, embedded systems, machine learning, networking, communications and audio.",
+    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the EE 31 Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for EE 95, which lets me explore how technology can be both creative and unconventional. Building on these projects, I aim to work in the biotech or defense industries, or in a related field."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
