@@ -174,8 +174,9 @@ section.about{padding-top:8px;}
 .group-title{font-size:0.9rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); text-align:center; margin:34px 0 16px;}
 .group-title:first-child{margin-top:0;}
 /* Contact: one block per way to reach me. */
-.contact-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:16px; max-width:860px; margin:0 auto;}
-.contact-grid > *{flex:1 1 230px; max-width:280px;}
+/* Two by two on wider screens, one column on phones. */
+.contact-grid{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; max-width:720px; margin:0 auto;}
+@media (max-width:560px){ .contact-grid{grid-template-columns:1fr;} }
 .way{display:block; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; text-decoration:none; font-weight:600; overflow-wrap:anywhere; transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;}
 .way span{display:block; font-family:var(--display); font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); margin-bottom:4px;}
 a.way:hover{transform:translateY(-3px); box-shadow:0 12px 26px rgba(31,42,68,0.12); border-color:var(--mist);}

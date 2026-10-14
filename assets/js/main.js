@@ -137,8 +137,7 @@
       ["Honors", (S.honors || []).map(esc).join(", ")],
       ["Relevant Coursework", (S.coursework || []).map(esc).join(", ")],
       ["Languages", S.languages.map(esc).join(", ")],
-      ...Object.entries(S.skills).map(([group, items]) => [group, list(items, ", ")]),
-      ["Beyond the Classroom", list(S.interests || [], ", ")]
+      ...Object.entries(S.skills).map(([group, items]) => [group, list(items, ", ")])
     ].filter(([, text]) => text);
     $("about-facts").innerHTML = facts.map(([label, text]) => `<div class="fact reveal"><h3>${esc(label)}</h3><p>${text}</p></div>`).join("");
 

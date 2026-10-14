@@ -28,11 +28,11 @@ const SITE = {
   portfolioPdf: "portfolio.pdf",
   url: "https://acolin03.github.io/Portfolio_Ariadne.Colina_Valeri/",
   photo: "assets/img/profile.jpg",
-  contactNote: "Open to internships in embedded systems, signal processing and machine learning, in biotech or defense.",
+  contactNote: "Open to internships in signal processing, embedded systems and machine learning, in biotech or defense.",
 
   about: [
-    "I approach engineering problems by looking beyond the expected method to find the path to the right answer. My work spans embedded systems, signal processing and machine learning, with a focus on extracting reliable information from noisy signals so that a system can act on it with confidence.",
-    "This semester, my principal projects are an autonomous ESP32 robot for EE 31 Junior Design, for which I am developing the sensing logic and preparing a custom PCB, and an original electronic musical instrument for EE 95. Going forward, I intend to apply this work to biotechnology, particularly brain-computer interfaces and neural signal processing, or to defense and aerospace through RF signal processing."
+    "I enjoy problems that push me past the obvious approach to find the right answer. My work spans signal processing, embedded systems and machine learning, and much of it centers on cleaning up noisy signals so that a system can act on them with confidence.",
+    "This semester I am focused on two projects: an autonomous ESP32 robot for EE 31 Junior Design, where I am building the sensing logic and designing a custom PCB, and an original electronic musical instrument for EE 95. Long term, I want to bring this work into biotech, especially brain-computer interfaces and neural signal processing, or into defense and aerospace through RF signal processing. I am also open to related fields such as telecommunications, networking and audio engineering, and I welcome the chance to work in areas I have not explored yet."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
