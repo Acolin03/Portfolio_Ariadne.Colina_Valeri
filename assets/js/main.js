@@ -144,7 +144,8 @@
 
     $("contact-note").textContent = S.contactLine || "";
     const ways = [
-      ["Email", S.email, `mailto:${S.email}`],
+      ["Personal Email", S.email, `mailto:${S.email}`],
+      ["School Email", S.schoolEmail, S.schoolEmail ? `mailto:${S.schoolEmail}` : ""],
       ["LinkedIn", (S.linkedin || "").replace(/^https?:\/\/(www\.)?/, ""), S.linkedin],
       ["GitHub", (S.github || "").replace(/^https?:\/\//, ""), S.github]
     ].filter(([, text, url]) => text && (!String(url).includes("TODO") || DRAFT));
