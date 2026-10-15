@@ -142,9 +142,9 @@ const SITE = {
         { heading: "A Calendar That Includes Real Life", image: "today.png",
           missing: "Calendars only hold appointments and leave out the rest of the day, like sleep, meals and work shifts.",
           fix: "Classes, office hours, shifts, meals, workouts and sleep all show up as real blocks. Free time is whatever is left, shown as actual windows like \"2 PM to 5 PM\" instead of a number of hours." },
-        { heading: "The Journal", image: "journal.png", body: [
-          "A page a day, with an optional prompt: a short quotation, mostly from Carl Jung, followed by one line to start from. The months you have written stand on a shelf, and the journal can be locked with a password and is encrypted."
-        ]},
+        { heading: "Room for Self-Reflection", image: "journal.png",
+          missing: "Self-reflection is something people download a whole separate app to do.",
+          fix: "I based the journal on a shadow journal setup, which is meant to help with self-improvement and understanding your own identity. Each day gets a page with an optional prompt: a short quotation, mostly from Carl Jung, followed by one line to start from. The months you have written stand on a shelf, and the journal can be locked with a password and is encrypted." },
         { heading: "A Habit Tracker You Do Not Want to Lose", image: "voyage.png",
           missing: "Habit apps count streaks with points that only go up, so missing a day costs nothing.",
           fix: "Your consistency is a ship sailing through the history of navigation, from a Greek galley to Apollo landing on the Moon, with 365 levels in all. Each day you keep clears a level, a missed day damages the ship and three in a row send you back to the start of that era. A loss is felt about twice as strongly as an equal gain (Kahneman and Tversky, 1979), so something you built and could lose motivates more than a score. Two hours before bed, the app lists what is left." },
