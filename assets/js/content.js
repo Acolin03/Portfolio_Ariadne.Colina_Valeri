@@ -135,19 +135,19 @@ const SITE = {
         ]},
         { heading: "A Single Starting Point", image: "focus.png",
           missing: "Planning my day took longer than doing what was in it.",
-          fix: "The first screen, \"Focus\", has one text box and three answers: what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\", and the app reads the date, time and type and files it in the right place." },
+          fix: "The first screen, \"Focus\", has one text box and three answers: what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\" or \"coffee $4.50\", and the app turns it into a task, an expense or a repeating plan, with a card to check before it saves. A sentence with several deadlines becomes separate tasks, each with its own date." },
         { heading: "Tasks That Schedule Themselves", image: "tasks.png",
           missing: "A task list tells you what is due, but not when you will actually do the work.",
-          fix: "Each task has an estimate of how many hours it needs. One button, \"Plan my week\", fits those hours into your free time over the next seven days, before each due date, with no more than four hours of planned work on any day. Since people tend to underestimate their own work, the app sets aside more time than the estimate." },
+          fix: "Each task has an estimate of how long it needs. Since people tend to underestimate their own work, the app adds half again to each estimate, or uses what it learns from how long your tasks actually take. One button, \"Plan my week\", fits that time into your free time before each due date and puts it on the calendar. Anything that cannot fit is named, so you find out on Monday and not the night before." },
         { heading: "A Calendar That Includes Real Life", image: "today.png",
-          missing: "Calendars only hold appointments and leave out the rest of the day, like sleep, meals and the time it takes to get ready and get somewhere.",
-          fix: "Classes, work, plans and sleep all show up at their real length, and only stretches of an hour or more count as free time." },
+          missing: "Calendars only hold appointments and leave out the rest of the day, like sleep, meals and work shifts.",
+          fix: "Classes, office hours, shifts, meals, workouts and sleep all show up as real blocks. Free time is whatever is left, shown as actual windows like \"2 PM to 5 PM\" instead of a number of hours." },
         { heading: "Reminders Instead of Restrictions", image: "right-now.png",
           missing: "Apps that block distractions take the choice away from you.",
-          fix: "Astrolabe never blocks anything. You can start a planned session in one tap, the app checks in halfway through and at the end, and you can move a session to your next free time, so skipping it becomes a decision with a new time attached instead of a silent miss." },
-        { heading: "Lists That Fill Themselves", body: [
-          "The shopping list fills itself from the meals you plan and the supplies you mark as in use, and items drop off once you buy them or mark that you already have them."
-        ]},
+          fix: "Astrolabe never blocks anything. It warns you when something clashes and still lets you do it. When you are free and something is due, one button starts it for a set time, or just five minutes, which is often all it takes to begin, and a bar shows the time running down until you press \"I finished\"." },
+        { heading: "A Habit Tracker You Do Not Want to Lose", image: "voyage.png",
+          missing: "Habit apps count streaks with points that only go up, so missing a day costs nothing.",
+          fix: "Your consistency is a ship sailing through the history of navigation, from a Greek galley to Apollo landing on the Moon, with 365 levels in all. Each day you keep clears a level, a missed day damages the ship and three in a row send you back to the start of that era. A loss is felt about twice as strongly as an equal gain (Kahneman and Tversky, 1979), so something you built and could lose motivates more than a score. Two hours before bed, the app lists what is left." },
         { heading: "How I Built It", body: [
           "I wrote Astrolabe in plain HTML, CSS and JavaScript, with no framework. Everything saves in the browser first and syncs through Firebase when you sign in, so it follows you across devices, and the whole app works in English, Spanish, French, Italian and German."
         ]}
