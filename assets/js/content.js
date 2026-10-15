@@ -19,7 +19,7 @@ const SITE = {
   gpa: "3.37/4.00",
   honors: ["SHPE Scholar", "HSF Scholar", "Dean's List (2024 to 2026)", "BEST Scholar", "HIFF Scholar", "QuestBridge Scholar"],
   coursework: ["Junior Design", "Embedded Systems", "Circuits and Electronics", "Linear Systems", "Modern Physics"],
-  tagline: "",
+  tagline: "Electrical engineering student focused on signal processing, embedded systems and machine learning.",
   email: "ariadnecolina@gmail.com",
   schoolEmail: "ariadne.colina_valeri@tufts.edu",
   linkedin: "https://www.linkedin.com/in/ariadne-colina-valeri",
@@ -40,9 +40,9 @@ const SITE = {
   interests: ["Singing", "Rock climbing (Tufts Climbing Team)", "Artistic swimming: 2021 USA Florida Junior Champion and 2022 Olympic Trials Qualifier"],
 
   skills: {
-    "Programming": ["C", "C++", "Python (PyTorch, pandas, CUDA)", "MATLAB", "SystemVerilog", "Arduino", "UART"],
-    "Hardware and Design": ["AutoCAD", "SolidWorks", "Onshape", "PCB design"],
-    "Lab Tools and Components": ["Oscilloscope", "FPGA board", "Analog Discovery 2", "STM32 microcontroller", "ESP32"],
+    "Programming": ["C", "C++", "Python (PyTorch, pandas, CUDA)", "MATLAB", "SystemVerilog", "Arduino", "UART", "SPI", "I2C"],
+    "Hardware and Design": ["AutoCAD", "SolidWorks", "Onshape", "LTspice", "PCB design"],
+    "Lab Tools and Components": ["Oscilloscope", "FPGA board", "Analog Discovery 2 (logic/spectrum analyzer)", "STM32 microcontroller", "ESP32"],
     "Methods": ["State machines", "Signal filtering", "PID control", "Machine learning (CTGAN, PINN)"]
   },
 
@@ -72,7 +72,7 @@ const SITE = {
     },
     {
       group: "Leadership Experience",
-      role: "Residential Assistant",
+      role: "Resident Assistant",
       org: "Tufts Residential Life and Learning",
       date: "Jan. 2026 to Present",
       points: [
@@ -323,7 +323,7 @@ const SITE = {
       cover: "",
       sections: [
         { heading: "Problem", body: [
-          "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, while also taking commands from a partner team's robot. That means every decision it makes depends on sensor readings it can trust."
+          "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
         ]},
         { heading: "State Machine", body: [
           "I am building a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED shows which state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
@@ -335,7 +335,7 @@ const SITE = {
           "The color sensor reads light reflected off the track, and noise in those readings can make the robot mistake one lane color for another. I am programming the sensing to filter that noise before the robot decides which color it is on, so its steering acts on reliable data."
         ]},
         { heading: "Physical Design", body: [
-          "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB to replace the breadboard wiring inside it."
+          "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it."
         ]}
       ],
       gallery: [],
