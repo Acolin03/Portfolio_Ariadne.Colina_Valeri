@@ -68,22 +68,45 @@
   \end{tabular}
   \end{center}}
 
-% One page per project.
-%   #1 number   #2 title   #3 course and date   #4 one short paragraph
-%   #5 first picture   #6 its caption   #7 second picture   #8 its caption
-\newcommand{\project}[8]{%
+% Two wide pictures stacked, each with a caption, fitted inside a #5 by #6 inch box.
+\newcommand{\stackpics}[6]{%
+  \sbox0{\includegraphics[height=100pt]{#1}}\picA=\wd0
+  \sbox2{\includegraphics[height=100pt]{#3}}\picB=\wd2
+  \edef\picw{\fpeval{min(#5 * 72.27, (#6 * 72.27 - 60) / (100 / \picA + 100 / \picB))}}%
+  \centering
+  \includegraphics[width=\picw pt]{#1}\par\vspace{2pt}
+  \parbox{\picw pt}{\centering\small\color{sub}#2}\par\vspace{12pt}
+  \includegraphics[width=\picw pt]{#3}\par\vspace{2pt}
+  \parbox{\picw pt}{\centering\small\color{sub}#4}\par}
+
+% The top of a project page: number, course and date, title, bar.
+\newcommand{\projecthead}[3]{%
   \clearpage
   \begin{center}
-    {\small\bfseries\color{blue}PROJECT #1 \quad\textbar\quad \MakeUppercase{#3}}\par
+    {\small\bfseries\color{blue}PROJECT #1 \textbar{} \MakeUppercase{#3}}\par
     \vspace{0.08in}
     {\fontsize{30}{34}\selectfont\bfseries #2}\par
     \vspace{0.1in}
     \titlebar\par
-    \vspace{0.16in}
-    \parbox{0.8\textwidth}{\centering\fontsize{13}{19}\selectfont #4}\par
-  \end{center}
+  \end{center}}
+
+% One page per project: the paragraph on top, two pictures side by side underneath.
+%   #1 number   #2 title   #3 course and date   #4 one short paragraph
+%   #5 first picture   #6 its caption   #7 second picture   #8 its caption
+\newcommand{\project}[8]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.04in}
+  \begin{center}\parbox{0.8\textwidth}{\centering\fontsize{13}{19}\selectfont #4}\end{center}
   \vspace{0.05in}
   \twopics{#5}{#6}{#7}{#8}
+}
+
+% The same, for wide pictures: the paragraph on the left, the pictures stacked on the right.
+\newcommand{\projectwide}[8]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.2in}
+  \begin{minipage}[c]{0.36\textwidth}\centering\fontsize{13}{20}\selectfont #4\end{minipage}\hfill
+  \begin{minipage}[c]{0.6\textwidth}\stackpics{#5}{#6}{#7}{#8}{5.8}{5.3}\end{minipage}
 }
 
 % A line on the contents page.
@@ -96,10 +119,12 @@
 % =====================================================================
 \thispagestyle{empty}
 \begin{center}
-  \vspace*{0.15in}
+  \vspace*{\fill}
   {\large\bfseries\color{blue}ENGINEERING PORTFOLIO}\par
   \vspace{0.1in}
   {\fontsize{40}{46}\selectfont\bfseries \myname}\par
+  \vspace{0.06in}
+  {\large\color{sub}B.S. Electrical Engineering, Tufts University, May 2028}\par
   \vspace{0.12in}
   \titlebar\par
 \end{center}
@@ -116,9 +141,8 @@
   {\large\bfseries \href{mailto:ariadnecolina@gmail.com}{\myemail}}\par
   \vspace{0.04in}
   {\color{sub}\href{mailto:ariadne.colina_valeri@tufts.edu}{\myschoolemail}}\par
-  \vspace{0.04in}
-  {\color{sub}B.S. Electrical Engineering, Tufts University, May 2028}
 \end{minipage}
+\vspace*{\fill}
 
 % =====================================================================
 %  CONTENTS
@@ -160,14 +184,14 @@
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
 
-\project{3}
+\projectwide{3}
   {CTGAN Design Discovery for RRAM}
   {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
   {The published framework I extended used a CVAE, a model that averages its training data and smooths away the extreme designs where the best performance is found. I replaced it with a CTGAN, which searches those extremes more aggressively, used the framework's physics model as a referee, and grew the training data tenfold to 5,000 samples. \textbf{The best design reached 25\% higher endurance and 11\% lower switching energy than the published result}, with slightly slower switching (6.57ns vs 4.07ns).\label{p3}}
   {rram-pareto.png}{Final results with 5,000 training samples}
   {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
 
-\project{4}
+\projectwide{4}
   {UAV Pitch Control and RF Signal Restoration}
   {EE 23 Linear Systems \textbar{} Jan. 2026 to May 2026}
   {A UAV that shakes while collecting RF signals blurs them, so keeping it level comes first. Using Routh-Hurwitz analysis, I proved that P and PI controllers can never stabilize it, then searched 15,625 gain combinations for the best PID settings, reaching \textbf{a 52ms rise time and 2.6\% overshoot}. I then restored a blurred, noisy RF signal with a Wiener filter, \textbf{cutting error by 77\%} compared with a direct inverse.\label{p4}}
