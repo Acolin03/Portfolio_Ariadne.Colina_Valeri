@@ -32,7 +32,7 @@ const SITE = {
 
   about: [
     "I am an electrical engineer who enjoys problems that invite different perspectives. The projects I have chosen throughout my undergraduate studies have led me to signal processing, embedded systems, machine learning, networking, communications and audio.",
-    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the EE 31 Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for EE 95, which lets me explore how technology can be both creative and unconventional. Building on these projects, I aim to work in the biotech or defense industries, or in a related field."
+    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for EE 95, which lets me explore how technology can be both creative and unconventional. Building on these projects, I aim to work in the biotech or defense industries, or in a related field."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
@@ -162,7 +162,7 @@ const SITE = {
       featured: true,
       title: "DJ Board on an STM32",
       fields: ["Embedded Systems", "Signal Processing"],
-      course: "EE 14 Embedded Systems",
+      course: "Embedded Systems",
       date: "Jan. 2026 to May 2026",
       summary: "A real-time audio effects board that records sound and lets users remix it with seven effects, using only on-chip memory.",
       tools: ["STM32L432KC", "C", "ADC and DAC", "Oscilloscope"],
@@ -192,7 +192,7 @@ const SITE = {
       featured: true,
       title: "FPGA Audio Synthesizer",
       fields: ["Digital Design"],
-      course: "ES 4 Digital Logic Circuits",
+      course: "Digital Logic Circuits",
       date: "Sept. 2025 to Dec. 2025",
       summary: "An 8-octave synthesizer (16Hz to 8kHz) written in SystemVerilog for a MIDI keyboard.",
       tools: ["SystemVerilog", "FPGA", "PWM"],
@@ -223,7 +223,7 @@ const SITE = {
       featured: true,
       title: "Smart Traffic Light",
       fields: ["Embedded Systems"],
-      course: "EE 20",
+      course: "Circuits and Electronics",
       date: "Fall 2025",
       summary: "A traffic light that counts the cars passing it and adjusts how long its red and green lights last.",
       tools: ["Arduino", "Photodiode", "Op-amp comparator", "MOSFETs", "Analog Discovery 2"],
@@ -283,7 +283,7 @@ const SITE = {
       featured: true,
       title: "UAV Pitch Control and RF Signal Restoration",
       fields: ["Signal Processing"],
-      course: "EE 23 Linear Systems",
+      course: "Linear Systems",
       date: "Jan. 2026 to May 2026",
       summary: "A PID controller that keeps a UAV level in pitch, paired with a Wiener filter that restores the RF signals it collects.",
       tools: ["MATLAB", "PID control", "Wiener filtering"],
@@ -316,7 +316,7 @@ const SITE = {
       featured: true,
       title: "Autonomous ESP32 Robot",
       fields: ["Embedded Systems"],
-      course: "EE 31 Junior Design",
+      course: "Junior Design",
       date: "Sept. 2026 to Present",
       summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
