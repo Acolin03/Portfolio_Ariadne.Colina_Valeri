@@ -172,8 +172,9 @@ const SITE = {
           "The board records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem I had to solve was that playback came out with a high-pitched hiss and clicks."
         ]},
         { heading: "Solution", body: [
-          "To fix the hiss, I wrote a timer-driven state machine so every sample was recorded and played at a steady rate, and I gave each microphone reading more time to finish so no sample was cut short.",
-          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at a steady resting level between clips and faded each clip in and out."
+          "To fix the hiss, I wrote a state machine driven by a 4kHz timer interrupt, so every sample was recorded and played at the same rate, and I lengthened the ADC sampling time to 12.5 cycles so each microphone reading had time to settle.",
+          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail, its resting level, between clips and faded each clip in and out over 256 samples (64ms).",
+          "Memory decided how long a recording could be. At 8kHz only 2 seconds fit, so I dropped to 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer."
         ]},
         { heading: "Result", body: [
           "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope, such as speed and pitch, to make sure the signal processing was correct."

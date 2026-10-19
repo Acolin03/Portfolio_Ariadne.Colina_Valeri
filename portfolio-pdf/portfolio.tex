@@ -123,7 +123,7 @@
 \newcommand{\projectfour}[4]{%
   \projecthead{#1}{#2}{#3}
   \vspace{0.1in}
-  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{11}{15.5}\selectfont #4\end{minipage}\hfill
   \projectfourpics}
 \newcommand{\projectfourpics}[8]{%
   \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-14pt}\twopics{#5}{#6}{#7}{#8}\end{minipage}}
@@ -198,8 +198,8 @@
   {Embedded Systems \textbar{} Jan. 2026 to May 2026}
   {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
    {\small\color{sub}Microphone $\rightarrow$ ADC $\rightarrow$ buffer $\rightarrow$ effects $\rightarrow$ DAC $\rightarrow$ amplifier $\rightarrow$ speaker}\par\vspace{9pt}
-   \approach{To remove the hiss, I wrote a timer-driven state machine so every sample was recorded and played at the same steady rate, and gave each ADC reading time to finish so no sample was cut short. The clicks came from sudden jumps in the speaker signal, so I held the output at a steady resting level between clips and faded each clip in and out.}
-   \outcome{All 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume) run within 64KB, and the playback waveform on the oscilloscope matched the original recording.}\label{p3}}
+   \approach{To remove the hiss, I used a 4kHz timer interrupt to record and play every sample at the same rate, and lengthened the ADC sampling time to 12.5 cycles so the microphone signal settles before each reading. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms). Dropping from 8kHz to 4kHz stretched each recording from 2 to 5 seconds.}
+   \outcome{5 seconds of 12-bit audio in a 40KB buffer, all 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), and a playback waveform that matched the original on the oscilloscope.}\label{p3}}
   {dj-circuit.png}{The board}
   {dj-hardware.png}{Hardware: wiring diagram}
   {dj-software.png}{Software: the state machine}
