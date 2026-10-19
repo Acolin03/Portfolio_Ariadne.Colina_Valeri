@@ -22,6 +22,7 @@ const SITE = {
   tagline: "Electrical engineering student focused on signal processing, embedded systems and machine learning.",
   email: "ariadnecolina@gmail.com",
   schoolEmail: "ariadne.colina_valeri@tufts.edu",
+  phone: "(813) 847-5642",
   linkedin: "https://www.linkedin.com/in/ariadne-colina-valeri",
   github: "https://github.com/Acolin03",
   resume: "resume.pdf",
@@ -120,47 +121,76 @@ const SITE = {
      ------------------------------------------------------------------- */
   projects: [
     {
-      id: "astrolabe",
+      id: "uav-control",
       featured: true,
-      title: "Astrolabe App",
-      fields: ["Software"],
-      course: "Personal project",
-      date: "Aug. 2026 to Present",
-      summary: "An app I built to stay organized without spending more time planning than doing.",
-      tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
-      cover: "focus.png",
+      title: "UAV Pitch Control and RF Signal Restoration",
+      fields: ["Signal Processing"],
+      course: "Linear Systems",
+      date: "Jan. 2026 to May 2026",
+      summary: "A PID controller that keeps a UAV level in pitch, paired with a Wiener filter that restores the RF signals it collects.",
+      tools: ["MATLAB", "PID control", "Wiener filtering"],
+      cover: "controllers.png",
       sections: [
         { heading: "Problem", body: [
-          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
+          "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward collecting clear signals from the air."
         ]},
-        { heading: "A Single Starting Point", image: "focus.png",
-          missing: "Planning my day took longer than doing what was in it.",
-          fix: "The first screen, \"Focus\", has one text box and three answers: what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\" or \"coffee $4.50\", and the app turns it into a task, an expense or a repeating plan, with a card to check before it saves. A sentence with several deadlines becomes separate tasks, each with its own date." },
-        { heading: "Tasks That Schedule Themselves", image: "tasks.png",
-          missing: "A task list tells you what is due, but not when you will actually do the work.",
-          fix: "Each task has an estimate of how long it needs. Since people tend to underestimate their own work, the app adds half again to each estimate, or uses what it learns from how long your tasks actually take. One button, \"Plan my week\", fits that time into your free time before each due date and puts it on the calendar. Anything that cannot fit is named, so you find out on Monday and not the night before." },
-        { heading: "A Calendar That Includes Real Life", image: "today.png",
-          missing: "Calendars only hold appointments and leave out the rest of the day, like sleep, meals and work shifts.",
-          fix: "Classes, office hours, shifts, meals, workouts and sleep all show up as real blocks. Free time is whatever is left, shown as actual windows like \"2 PM to 5 PM\" instead of a number of hours." },
-        { heading: "Room for Self-Reflection", image: "journal.png",
-          missing: "Self-reflection is something people download a whole separate app to do.",
-          fix: "I based the journal on a shadow journal setup, which is meant to help with self-improvement and understanding your own identity. Each day gets a page with an optional prompt: a short quotation, mostly from Carl Jung, followed by one line to start from. The months you have written stand on a shelf, and the journal can be locked with a password and is encrypted." },
-        { heading: "A Habit Tracker You Do Not Want to Lose", image: "voyage.png",
-          missing: "Habit apps count streaks with points that only go up, so missing a day costs nothing.",
-          fix: "Your consistency is a ship sailing through the history of navigation, from a Greek galley to Apollo landing on the Moon, with 365 levels in all. Each day you keep clears a level, a missed day damages the ship and three in a row send you back to the start of that era. A loss is felt about twice as strongly as an equal gain (Kahneman and Tversky, 1979), so something you built and could lose motivates more than a score. Two hours before bed, the app lists what is left." },
-        { heading: "How I Built It", body: [
-          "I wrote Astrolabe in plain HTML, CSS and JavaScript, with no framework. Everything saves in the browser first and syncs through Firebase when you sign in, so it follows you across devices, and the whole app works in English, Spanish, French, Italian and German."
+        { heading: "Controller Design", body: [
+          "Using Routh-Hurwitz analysis, I first proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations, refined the grid 10 times, and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs. The 88.3° phase margin is well above the usual 45° guideline."
+        ]},
+        { heading: "Signal Restoration", body: [
+          "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred RF signal made of radar, chirp and communications components with noise at 40dB SNR. A generalized Wiener filter in MATLAB cut error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
+        ]},
+        { heading: "Linking the Two", body: [
+          "The controller's settling time sets how long the blur lasts. When I simulated a controller that settles in 2 seconds instead of 0.5, the blur grew from 11 to 44 samples and the recovery error was 1.5 times worse (MSE 0.539 to 0.827), so better control directly means cleaner RF data."
         ]}
       ],
-      gallery: [],
+      gallery: [
+        { type: "image", src: "controllers.png", wide: true, caption: "Four controllers on the same UAV model: P-only oscillates indefinitely, PI diverges, PD settles with a steady-state error, and only the full PID (green) holds level." },
+        { type: "image", src: "step-response.png", caption: "Step response of the optimal PID controller: 52ms rise time and 2.6% overshoot." },
+        { type: "image", src: "cost-map.png", caption: "Cost of each gain combination. Dark regions fail the specifications, and the red star marks the optimum." },
+        { type: "image", src: "wiener.png", wide: true, caption: "Wiener filter: error against the filter setting (left) and the restored RF signal over the original (right)." },
+        { type: "image", src: "coupling.png", wide: true, caption: "A steadier UAV produces a shorter blur and a lower restoration error." }
+      ],
       links: [
-        { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
+        { label: "Read the Full Report (PDF)", url: "assets/docs/EE23_UAV_Report.pdf" }
+      ]
+    },
+    {
+      id: "ml-research",
+      featured: true,
+      title: "CTGAN Design Discovery for RRAM",
+      fields: ["Machine Learning"],
+      course: "Tufts Emerging Circuits and Systems Lab",
+      date: "Sept. 2025 to April 2026",
+      summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
+      tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
+      cover: "pareto.png",
+      sections: [
+        { heading: "Problem", body: [
+          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
+        ]},
+        { heading: "Approach", body: [
+          "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
+        ]},
+        { heading: "Scaling the Data", body: [
+          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2). Along the way, the best design's endurance rose from 2.79×10⁸ cycles at 500 samples to 4.84×10⁹ at 5,000."
+        ]},
+        { heading: "Result", body: [
+          "The best Al2O3 design reached 4.84×10⁹ cycles against the published 3.85×10⁹ (25% higher endurance) and 310.7pJ against 350.6pJ (11% lower switching energy), in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
+        ]}
+      ],
+      gallery: [
+        { type: "image", src: "pareto.png", wide: true, caption: "Final results with 5,000 training samples. Each point is a generated design, and lower and further left is better. The star marks the best overall Al2O3 design." },
+        { type: "image", src: "evolution.png", wide: true, caption: "Effect of dataset size: with 500 samples (left) the model collapses, and with 2,500 (right) it improves but remains noisy." }
+      ],
+      links: [
+        { label: "Read the Paper (PDF)", url: "assets/docs/EE94_RRAM_Paper.pdf" }
       ]
     },
     {
       id: "dj-board",
       featured: true,
-      title: "DJ Board on an STM32",
+      title: "DJ Board on an STM32 (Audio Recorder and Effects Processor)",
       fields: ["Embedded Systems", "Signal Processing"],
       course: "Embedded Systems",
       date: "Jan. 2026 to May 2026",
@@ -251,70 +281,41 @@ const SITE = {
       links: []
     },
     {
-      id: "ml-research",
+      id: "astrolabe",
       featured: true,
-      title: "CTGAN Design Discovery for RRAM",
-      fields: ["Machine Learning"],
-      course: "Tufts Emerging Circuits and Systems Lab",
-      date: "Sept. 2025 to April 2026",
-      summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
-      tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
-      cover: "pareto.png",
+      title: "Astrolabe App",
+      fields: ["Software"],
+      course: "Personal project",
+      date: "Aug. 2026 to Present",
+      summary: "An app I built to stay organized without spending more time planning than doing.",
+      tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
+      cover: "focus.png",
       sections: [
         { heading: "Problem", body: [
-          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
+          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
         ]},
-        { heading: "Approach", body: [
-          "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
-        ]},
-        { heading: "Scaling the Data", body: [
-          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2). Along the way, the best design's endurance rose from 2.79×10⁸ cycles at 500 samples to 4.84×10⁹ at 5,000."
-        ]},
-        { heading: "Result", body: [
-          "The best Al2O3 design reached 4.84×10⁹ cycles against the published 3.85×10⁹ (25% higher endurance) and 310.7pJ against 350.6pJ (11% lower switching energy), in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
+        { heading: "A Single Starting Point", image: "focus.png",
+          missing: "Planning my day took longer than doing what was in it.",
+          fix: "The first screen, \"Focus\", has one text box and three answers: what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\" or \"coffee $4.50\", and the app turns it into a task, an expense or a repeating plan, with a card to check before it saves. A sentence with several deadlines becomes separate tasks, each with its own date." },
+        { heading: "Tasks That Schedule Themselves", image: "tasks.png",
+          missing: "A task list tells you what is due, but not when you will actually do the work.",
+          fix: "Each task has an estimate of how long it needs. Since people tend to underestimate their own work, the app adds half again to each estimate, or uses what it learns from how long your tasks actually take. One button, \"Plan my week\", fits that time into your free time before each due date and puts it on the calendar. Anything that cannot fit is named, so you find out on Monday and not the night before." },
+        { heading: "A Calendar That Includes Real Life", image: "today.png",
+          missing: "Calendars only hold appointments and leave out the rest of the day, like sleep, meals and work shifts.",
+          fix: "Classes, office hours, shifts, meals, workouts and sleep all show up as real blocks. Free time is whatever is left, shown as actual windows like \"2 PM to 5 PM\" instead of a number of hours." },
+        { heading: "Room for Self-Reflection", image: "journal.png",
+          missing: "Self-reflection is something people download a whole separate app to do.",
+          fix: "I based the journal on a shadow journal setup, which is meant to help with self-improvement and understanding your own identity. Each day gets a page with an optional prompt: a short quotation, mostly from Carl Jung, followed by one line to start from. The months you have written stand on a shelf, and the journal can be locked with a password and is encrypted." },
+        { heading: "A Habit Tracker You Do Not Want to Lose", image: "voyage.png",
+          missing: "Habit apps count streaks with points that only go up, so missing a day costs nothing.",
+          fix: "Your consistency is a ship sailing through the history of navigation, from a Greek galley to Apollo landing on the Moon, with 365 levels in all. Each day you keep clears a level, a missed day damages the ship and three in a row send you back to the start of that era. A loss is felt about twice as strongly as an equal gain (Kahneman and Tversky, 1979), so something you built and could lose motivates more than a score. Two hours before bed, the app lists what is left." },
+        { heading: "How I Built It", body: [
+          "I wrote Astrolabe in plain HTML, CSS and JavaScript, with no framework. Everything saves in the browser first and syncs through Firebase when you sign in, so it follows you across devices, and the whole app works in English, Spanish, French, Italian and German."
         ]}
       ],
-      gallery: [
-        { type: "image", src: "pareto.png", wide: true, caption: "Final results with 5,000 training samples. Each point is a generated design, and lower and further left is better. The star marks the best overall Al2O3 design." },
-        { type: "image", src: "evolution.png", wide: true, caption: "Effect of dataset size: with 500 samples (left) the model collapses, and with 2,500 (right) it improves but remains noisy." }
-      ],
+      gallery: [],
       links: [
-        { label: "Read the Paper (PDF)", url: "assets/docs/EE94_RRAM_Paper.pdf" }
-      ]
-    },
-    {
-      id: "uav-control",
-      featured: true,
-      title: "UAV Pitch Control and RF Signal Restoration",
-      fields: ["Signal Processing"],
-      course: "Linear Systems",
-      date: "Jan. 2026 to May 2026",
-      summary: "A PID controller that keeps a UAV level in pitch, paired with a Wiener filter that restores the RF signals it collects.",
-      tools: ["MATLAB", "PID control", "Wiener filtering"],
-      cover: "controllers.png",
-      sections: [
-        { heading: "Problem", body: [
-          "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward collecting clear signals from the air."
-        ]},
-        { heading: "Controller Design", body: [
-          "Using Routh-Hurwitz analysis, I first proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations, refined the grid 10 times, and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs. The 88.3° phase margin is well above the usual 45° guideline."
-        ]},
-        { heading: "Signal Restoration", body: [
-          "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred RF signal made of radar, chirp and communications components with noise at 40dB SNR. A generalized Wiener filter in MATLAB cut error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
-        ]},
-        { heading: "Linking the Two", body: [
-          "The controller's settling time sets how long the blur lasts. When I simulated a controller that settles in 2 seconds instead of 0.5, the blur grew from 11 to 44 samples and the recovery error was 1.5 times worse (MSE 0.539 to 0.827), so better control directly means cleaner RF data."
-        ]}
-      ],
-      gallery: [
-        { type: "image", src: "controllers.png", wide: true, caption: "Four controllers on the same UAV model: P-only oscillates indefinitely, PI diverges, PD settles with a steady-state error, and only the full PID (green) holds level." },
-        { type: "image", src: "step-response.png", caption: "Step response of the optimal PID controller: 52ms rise time and 2.6% overshoot." },
-        { type: "image", src: "cost-map.png", caption: "Cost of each gain combination. Dark regions fail the specifications, and the red star marks the optimum." },
-        { type: "image", src: "wiener.png", wide: true, caption: "Wiener filter: error against the filter setting (left) and the restored RF signal over the original (right)." },
-        { type: "image", src: "coupling.png", wide: true, caption: "A steadier UAV produces a shorter blur and a lower restoration error." }
-      ],
-      links: [
-        { label: "Read the Full Report (PDF)", url: "assets/docs/EE23_UAV_Report.pdf" }
+        { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
       ]
     },
     {

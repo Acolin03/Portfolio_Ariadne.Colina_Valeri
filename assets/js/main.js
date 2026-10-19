@@ -144,6 +144,7 @@
     $("contact-note").textContent = S.contactLine || "";
     const ways = [
       ["Personal Email", S.email, `mailto:${S.email}`],
+      ["Phone", S.phone, S.phone ? `tel:+1${String(S.phone).replace(/\D/g, "")}` : ""],
       ["School Email", S.schoolEmail, S.schoolEmail ? `mailto:${S.schoolEmail}` : ""],
       ["LinkedIn", (S.linkedin || "").replace(/^https?:\/\/(www\.)?/, ""), S.linkedin],
       ["GitHub", (S.github || "").replace(/^https?:\/\//, ""), S.github]
