@@ -32,7 +32,7 @@ const SITE = {
 
   about: [
     "I am an electrical engineer who enjoys problems that invite different perspectives. The projects I have chosen throughout my undergraduate studies have led me to signal processing, embedded systems, machine learning, networking, communications and audio.",
-    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for EE 95, which lets me explore how technology can be both creative and unconventional. Building on these projects, I aim to work in the biotech or defense industries, or in a related field."
+    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for Electronic Musical Instrument Design, which lets me explore how technology can be both creative and unconventional. Building on these projects, I aim to work in the biotech or defense industries, or in a related field."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
@@ -347,7 +347,7 @@ const SITE = {
       featured: true,
       title: "MIDI Instrument Creation",
       fields: ["Instrument Design"],
-      course: "EE 95",
+      course: "Electronic Musical Instrument Design",
       date: "Fall 2026",
       summary: "Designing and building my own electronic musical instrument from scratch.",
       tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
