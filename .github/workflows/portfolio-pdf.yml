@@ -20,10 +20,24 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Compile portfolio.tex
+        id: compile
+        continue-on-error: true
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: portfolio-pdf
           root_file: portfolio.tex
+
+      # If the PDF does not compile, save LaTeX's log in the repository so the error can be read.
+      - name: Save the error log
+        if: steps.compile.outcome == 'failure'
+        run: |
+          cp portfolio-pdf/portfolio.log portfolio-pdf/build-error.log
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f portfolio-pdf/build-error.log
+          git commit -m "Save the PDF build error log"
+          git push
+          exit 1
 
       - name: Save the PDF to the site
         run: |
