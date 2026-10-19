@@ -110,6 +110,14 @@
   \begin{minipage}[c]{0.6\textwidth}\stackpics{#5}{#6}{#7}{#8}{5.8}{5.4}\end{minipage}
 }
 
+% The same with two pictures side by side on the right.
+\newcommand{\projectside}[8]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.15in}
+  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \begin{minipage}[c]{0.63\textwidth}\twopics{#5}{#6}{#7}{#8}\end{minipage}
+}
+
 % The same with four pictures: two rows of two on the right, each row the same height.
 %   #5 to #12: four pictures, each followed by its caption
 \newcommand{\projectfour}[4]{%
@@ -196,11 +204,10 @@
   {dj-software.png}{Software: the state machine}
   {dj-scope.png}{Oscilloscope captures of the effects}
 
-\project{4}
+\projectside{4}
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {\raggedright\fontsize{12}{17}\selectfont
-   \challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space.}
+  {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space.}
    \approach{Since dividing by 2 is the same as shifting bits, I hand-calculated one octave and used bit shifts for the rest, then mixed the notes with PWM after chords distorted.}
    \outcome{A full 12-note scale across 8 octaves (16Hz to 8kHz) on a MIDI keyboard, with chords of up to 6 clear notes.}\label{p4}}
   {fpga-board.png}{The complete board}
