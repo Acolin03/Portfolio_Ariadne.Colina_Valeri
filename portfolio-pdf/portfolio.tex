@@ -32,6 +32,7 @@
 \newcommand{\myname}{Ariadne Colina-Valeri}
 \newcommand{\myemail}{ariadnecolina@gmail.com}
 \newcommand{\myschoolemail}{ariadne.colina\_valeri@tufts.edu}
+\newcommand{\myphone}{(813) 847-5642}
 \newcommand{\mysite}{acolin03.github.io/Portfolio\_Ariadne.Colina\_Valeri}
 \newcommand{\mysiteurl}{https://acolin03.github.io/Portfolio_Ariadne.Colina_Valeri/}
 
@@ -101,101 +102,108 @@
   \twopics{#5}{#6}{#7}{#8}
 }
 
-% The same, for wide pictures: the paragraph on the left, the pictures stacked on the right.
+% The same, for wide pictures: the words on the left, the pictures stacked on the right.
 \newcommand{\projectwide}[8]{%
   \projecthead{#1}{#2}{#3}
-  \vspace{0.2in}
-  \begin{minipage}[c]{0.36\textwidth}\centering\fontsize{13}{20}\selectfont #4\end{minipage}\hfill
-  \begin{minipage}[c]{0.6\textwidth}\stackpics{#5}{#6}{#7}{#8}{5.8}{5.3}\end{minipage}
+  \vspace{0.15in}
+  \begin{minipage}[c]{0.36\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \begin{minipage}[c]{0.6\textwidth}\stackpics{#5}{#6}{#7}{#8}{5.8}{5.4}\end{minipage}
 }
 
-% A line on the contents page.
-\newcommand{\projectline}[2]{\item[\color{blue}\bfseries #1.] #2 \dotfill \pageref{p#1}}
+% The same with four pictures: two rows of two on the right, each row the same height.
+%   #5 to #12: four pictures, each followed by its caption
+\newcommand{\projectfour}[4]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.1in}
+  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \projectfourpics}
+\newcommand{\projectfourpics}[8]{%
+  \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-14pt}\twopics{#5}{#6}{#7}{#8}\end{minipage}}
+
+% The three parts of every project.
+\newcommand{\challenge}[1]{{\small\bfseries\color{blue}THE CHALLENGE}\par\vspace{2pt}#1\par\vspace{9pt}}
+\newcommand{\approach}[1]{{\small\bfseries\color{blue}WHAT I DID}\par\vspace{2pt}#1\par\vspace{9pt}}
+\newcommand{\outcome}[1]{{\small\bfseries\color{blue}THE RESULT}\par\vspace{2pt}\textbf{#1}\par}
+
+% A small picture of a project on the cover, with its name and page.
+\newcommand{\thumb}[3]{\begin{minipage}[t]{0.235\textwidth}\centering
+  \hyperref[p#3]{\includegraphics[height=1.25in, width=\linewidth, keepaspectratio]{#1}}\par\vspace{4pt}
+  {\small\bfseries #2}\par{\footnotesize\color{sub}page \pageref{p#3}}\end{minipage}}
 
 \begin{document}
 
 % =====================================================================
-%  COVER
+%  INTRODUCTION
 % =====================================================================
 \thispagestyle{empty}
 \begin{center}
-  \vspace*{\fill}
   {\large\bfseries\color{blue}ENGINEERING PORTFOLIO}\par
-  \vspace{0.1in}
-  {\fontsize{40}{46}\selectfont\bfseries \myname}\par
   \vspace{0.06in}
-  {\large\color{sub}B.S. Electrical Engineering, Tufts University, May 2028}\par
-  \vspace{0.12in}
+  {\fontsize{38}{44}\selectfont\bfseries \myname}\par
+  \vspace{0.1in}
   \titlebar\par
 \end{center}
-\vspace{0.3in}
-\begin{minipage}[c]{0.6\textwidth}\centering\fontsize{13}{20}\selectfont
-  I am an electrical engineer who enjoys problems that invite different perspectives. The projects I have chosen throughout my undergraduate studies have led me to signal processing, embedded systems, machine learning, networking, communications and audio.
-
-  \vspace{0.18in}
-  Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the EE 31 Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for EE 95, which lets me explore how technology can be both creative and unconventional.
+\vspace{0.12in}
+\begin{minipage}[c]{0.62\textwidth}\centering\fontsize{14}{22}\selectfont
+  Hi! My name is Ariadne, and I'm a junior studying Electrical Engineering at Tufts University. I have experience in signal processing, embedded systems and machine learning, from restoring RF signals with a Wiener filter to building a real-time audio effects board and an autonomous robot. I'm looking for internships in signal processing, embedded systems and machine learning, in biotech or defense.
 \end{minipage}\hfill
 \begin{minipage}[c]{0.34\textwidth}\centering
-  \includegraphics[width=2.9in]{profile-round.png}\par
-  \vspace{0.18in}
-  {\large\bfseries \href{mailto:ariadnecolina@gmail.com}{\myemail}}\par
-  \vspace{0.04in}
-  {\color{sub}\href{mailto:ariadne.colina_valeri@tufts.edu}{\myschoolemail}}\par
-\end{minipage}
-\vspace*{\fill}
-
-% =====================================================================
-%  CONTENTS
-% =====================================================================
-\clearpage
-\begin{center}
-  \vspace*{0.6in}
-  {\fontsize{34}{40}\selectfont\bfseries Projects}\par
+  \includegraphics[width=2.2in]{profile-round.png}\par
   \vspace{0.12in}
-  \titlebar\par
-\end{center}
-\vspace{0.4in}
-\begin{center}
-\begin{minipage}{0.62\textwidth}\fontsize{17}{30}\selectfont
-\begin{description}\setlength{\itemsep}{6pt}
-  \projectline{1}{DJ Board on an STM32}
-  \projectline{2}{FPGA Audio Synthesizer}
-  \projectline{3}{CTGAN Design Discovery for RRAM}
-  \projectline{4}{UAV Pitch Control and RF Signal Restoration}
-\end{description}
+  {\large\bfseries \href{mailto:ariadnecolina@gmail.com}{\myemail}}\par
+  \vspace{0.03in}
+  {\large \myphone}\par
 \end{minipage}
-\end{center}
+
+\vspace{0.3in}
+{\centering{\small\bfseries\color{blue}SELECTED PROJECTS}\par}
+\vspace{0.1in}
+\thumb{uav-controllers.png}{UAV Pitch Control}{1}\hfill
+\thumb{rram-pareto.png}{CTGAN for RRAM}{2}\hfill
+\thumb{dj-circuit.png}{DJ Board on an STM32}{3}\hfill
+\thumb{fpga-board.png}{FPGA Synthesizer}{4}
 
 % =====================================================================
-%  PROJECTS
+%  PROJECTS, strongest first
 % =====================================================================
 
-\project{1}
-  {DJ Board on an STM32}
-  {EE 14 Embedded Systems \textbar{} Jan. 2026 to May 2026}
-  {A real-time audio effects board that records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Playback first came out with a high-pitched hiss and clicks, so I wrote a timer-driven state machine that records and plays every sample at a steady rate, and faded each clip in and out. \textbf{An oscilloscope confirmed that the playback matched the original recording.}\label{p1}}
-  {dj-circuit.png}{The board: microphone, speaker and effect buttons}
-  {dj-scope.png}{Oscilloscope captures of the effect outputs}
+\projectwide{1}
+  {UAV Pitch Control and RF Signal Restoration}
+  {Linear Systems \textbar{} Jan. 2026 to May 2026}
+  {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level first.}
+   \approach{I proved with Routh-Hurwitz analysis that P and PI controllers can never stabilize it, searched 15,625 gain combinations for the best PID settings, then restored a blurred, noisy RF signal with a Wiener filter in MATLAB.}
+   \outcome{A 52ms rise time and 2.6\% overshoot, within real UAV specs, and 77\% less error than a direct inverse.}\label{p1}}
+  {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV model}
+  {uav-wiener.png}{Wiener filter error (left) and the restored RF signal (right)}
 
-\project{2}
-  {FPGA Audio Synthesizer}
-  {ES 4 Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {An 8-octave synthesizer, from 16Hz to 8kHz, written in SystemVerilog for a MIDI keyboard. My first design divided on the chip to calculate every note and needed over 250\% of the FPGA's space. Since dividing by 2 is the same as shifting bits, I hand-calculated one octave and used bit shifts for the rest, then mixed the notes with PWM. \textbf{The keyboard plays 8 octaves, with chords of up to 6 clear notes.}\label{p2}}
-  {fpga-board.png}{The complete board}
-  {fpga-octaves.png}{The switch that selects the octave}
-
-\projectwide{3}
+\projectwide{2}
   {CTGAN Design Discovery for RRAM}
   {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {The published framework I extended used a CVAE, a model that averages its training data and smooths away the extreme designs where the best performance is found. I replaced it with a CTGAN, which searches those extremes more aggressively, used the framework's physics model as a referee, and grew the training data tenfold to 5,000 samples. \textbf{The best design reached 25\% higher endurance and 11\% lower switching energy than the published result}, with slightly slower switching (6.57ns vs 4.07ns).\label{p3}}
+  {\challenge{The published framework I extended used a CVAE, which averages its training data and smooths away the extreme designs where the best performance is found.}
+   \approach{I replaced it with a CTGAN that searches those extremes more aggressively, used the framework's physics model (PINN) to reject impossible designs, and grew the training data tenfold to 5,000 samples after the model collapsed at 500.}
+   \outcome{A design with 25\% higher endurance and 11\% lower switching energy than the published result, with slightly slower switching (6.57ns vs 4.07ns).}\label{p2}}
   {rram-pareto.png}{Final results with 5,000 training samples}
   {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
 
-\projectwide{4}
-  {UAV Pitch Control and RF Signal Restoration}
-  {EE 23 Linear Systems \textbar{} Jan. 2026 to May 2026}
-  {A UAV that shakes while collecting RF signals blurs them, so keeping it level comes first. Using Routh-Hurwitz analysis, I proved that P and PI controllers can never stabilize it, then searched 15,625 gain combinations for the best PID settings, reaching \textbf{a 52ms rise time and 2.6\% overshoot}. I then restored a blurred, noisy RF signal with a Wiener filter, \textbf{cutting error by 77\%} compared with a direct inverse.\label{p4}}
-  {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV model}
-  {uav-wiener.png}{Wiener filter error (left) and the restored RF signal (right)}
+\projectfour{3}
+  {DJ Board on an STM32}
+  {Embedded Systems \textbar{} Jan. 2026 to May 2026}
+  {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
+   \approach{I wrote a timer-driven state machine so every sample was recorded and played at a steady rate, gave each microphone reading more time to finish, and faded each clip in and out to remove the clicks.}
+   \outcome{An oscilloscope confirmed that the playback matched the original recording.}\label{p3}}
+  {dj-circuit.png}{The board}
+  {dj-hardware.png}{Hardware: wiring diagram}
+  {dj-software.png}{Software: the state machine}
+  {dj-scope.png}{Oscilloscope captures of the effects}
+
+\project{4}
+  {FPGA Audio Synthesizer}
+  {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
+  {\raggedright\fontsize{12}{17}\selectfont
+   \challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space.}
+   \approach{Since dividing by 2 is the same as shifting bits, I hand-calculated one octave and used bit shifts for the rest, then mixed the notes with PWM after chords distorted.}
+   \outcome{A full 12-note scale across 8 octaves (16Hz to 8kHz) on a MIDI keyboard, with chords of up to 6 clear notes.}\label{p4}}
+  {fpga-board.png}{The complete board}
+  {fpga-octaves.png}{The switch that selects the octave}
 
 \end{document}
