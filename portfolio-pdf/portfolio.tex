@@ -197,8 +197,9 @@
   {DJ Board on an STM32}
   {Embedded Systems \textbar{} Jan. 2026 to May 2026}
   {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
-   \approach{I wrote a timer-driven state machine so every sample was recorded and played at a steady rate, gave each microphone reading more time to finish, and faded each clip in and out to remove the clicks.}
-   \outcome{An oscilloscope confirmed that the playback matched the original recording.}\label{p3}}
+   {\small\color{sub}Microphone $\rightarrow$ ADC $\rightarrow$ buffer $\rightarrow$ effects $\rightarrow$ DAC $\rightarrow$ amplifier $\rightarrow$ speaker}\par\vspace{9pt}
+   \approach{To remove the hiss, I wrote a timer-driven state machine so every sample was recorded and played at the same steady rate, and gave each ADC reading time to finish so no sample was cut short. The clicks came from sudden jumps in the speaker signal, so I held the output at a steady resting level between clips and faded each clip in and out.}
+   \outcome{All 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume) run within 64KB, and the playback waveform on the oscilloscope matched the original recording.}\label{p3}}
   {dj-circuit.png}{The board}
   {dj-hardware.png}{Hardware: wiring diagram}
   {dj-software.png}{Software: the state machine}
