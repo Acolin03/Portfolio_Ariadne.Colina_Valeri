@@ -128,6 +128,17 @@
 \newcommand{\projectfourpics}[8]{%
   \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-14pt}\twopics{#5}{#6}{#7}{#8}\end{minipage}}
 
+% The same with three pictures: two side by side on top, one wide picture underneath.
+%   #5 to #10: three pictures, each followed by its caption
+\newcommand{\projectthree}[4]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.1in}
+  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{11}{15.5}\selectfont #4\end{minipage}\hfill
+  \projectthreepics}
+\newcommand{\projectthreepics}[6]{%
+  \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-6pt}\centering
+    \includegraphics[width=0.8\linewidth]{#5}\par\vspace{3pt}{\small\color{sub}#6}\end{minipage}}
+
 % The three parts of every project.
 \newcommand{\challenge}[1]{{\small\bfseries\color{blue}THE CHALLENGE}\par\vspace{2pt}#1\par\vspace{9pt}}
 \newcommand{\approach}[1]{{\small\bfseries\color{blue}WHAT I DID}\par\vspace{2pt}#1\par\vspace{9pt}}
@@ -175,23 +186,26 @@
 %  PROJECTS, strongest first
 % =====================================================================
 
-\projectwide{1}
+\\projectfour{1}
   {UAV Pitch Control and RF Signal Restoration}
   {Linear Systems \textbar{} Jan. 2026 to May 2026}
-  {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level first.}
-   \approach{I proved with Routh-Hurwitz analysis that P and PI controllers can never stabilize it, searched 15,625 gain combinations for the best PID settings, then restored a blurred, noisy RF signal with a Wiener filter in MATLAB.}
-   \outcome{A 52ms rise time and 2.6\% overshoot, within real UAV specs, and 77\% less error than a direct inverse.}\label{p1}}
-  {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV model}
-  {uav-wiener.png}{Wiener filter error (left) and the restored RF signal (right)}
+  {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level before the signals can be trusted.}
+   \approach{I proved with Routh-Hurwitz analysis that P and PI controllers can never stabilize it, then searched 15,625 PID gain combinations and refined the grid 10 times. I restored a blurred RF signal (radar, chirp and communications components at 40dB SNR) with a generalized Wiener filter in MATLAB, and linked the two parts: the controller's settling time sets how long the blur lasts.}
+   \outcome{A 52ms rise time, 2.6\% overshoot and 88.3$^\circ$ phase margin, 77\% less error than a direct inverse, and proof that a controller settling in 2s instead of 0.5s makes recovery 1.5$\times$ worse.}\label{p1}}
+  {uav-controllers.png}{P, PI, PD and PID controllers}
+  {cost-map.png}{Cost of each gain pair; the star is the optimum}
+  {uav-wiener.png}{Wiener filter error and the restored signal}
+  {coupling.png}{Longer settling, longer blur, worse recovery}
 
-\projectwide{2}
+\projectthree{2}
   {CTGAN Design Discovery for RRAM}
   {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
   {\challenge{The published framework I extended used a CVAE, which averages its training data and smooths away the extreme designs where the best performance is found.}
-   \approach{I replaced it with a CTGAN that searches those extremes more aggressively, used the framework's physics model (PINN) to reject impossible designs, and grew the training data tenfold to 5,000 samples after the model collapsed at 500.}
-   \outcome{A design with 25\% higher endurance and 11\% lower switching energy than the published result, with slightly slower switching (6.57ns vs 4.07ns).}\label{p2}}
-  {rram-pareto.png}{Final results with 5,000 training samples}
-  {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
+   \approach{I replaced it with a CTGAN that searches those extremes more aggressively and used the framework's physics model (PINN) as a referee to reject impossible designs. The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the data to 5,000, where it converged across 3 oxides (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
+   \outcome{An Al\textsubscript{2}O\textsubscript{3} design with 4.84$\times$10\textsuperscript{9} cycles against the published 3.85$\times$10\textsuperscript{9} (25\% higher endurance) and 310.7pJ against 350.6pJ (11\% less energy), with slower switching (6.57ns vs 4.07ns).}\label{p2}}
+  {rram-baseline.png}{Published CVAE results}
+  {rram-pareto.png}{My CTGAN with 5,000 samples}
+  {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
 
 \projectfour{3}
   {DJ Board on an STM32}
@@ -205,13 +219,15 @@
   {dj-software.png}{Software: the state machine}
   {dj-scope.png}{Oscilloscope captures of the effects}
 
-\projectside{4}
+\projectfour{4}
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space.}
-   \approach{Since dividing by 2 is the same as shifting bits, I hand-calculated one octave and used bit shifts for the rest, then mixed the notes with PWM after chords distorted.}
-   \outcome{A full 12-note scale across 8 octaves (16Hz to 8kHz) on a MIDI keyboard, with chords of up to 6 clear notes.}\label{p4}}
+  {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, turned into static.}
+   \approach{A tuner showed every note playing an octave low, which meant the clock ran at twice the rate in the code. Since dividing by 2 is the same as shifting bits, I hand-calculated one octave, used bit shifts for the rest, and widened the period counter so notes below 92Hz could play. To find the static, I plotted C and E summed in octave 3 and octave 7 in Desmos, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
+   \outcome{All 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p4}}
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
+  {fpga-chord-high.png}{C + E summed in octave 7 (red)}
+  {fpga-chord-low.png}{C + E summed in octave 3 (blue)}
 
 \end{document}

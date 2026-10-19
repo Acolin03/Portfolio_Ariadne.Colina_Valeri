@@ -203,17 +203,20 @@ const SITE = {
           "Since each octave doubles a note's frequency, my first design calculated every note by dividing on the chip. Division is so costly in hardware that the design needed over 250% of the FPGA's space."
         ]},
         { heading: "Solution", body: [
-          "Dividing by 2 is the same as shifting bits, so I hand-calculated one octave and used bit shifts for the rest, which brought the design within the chip's capacity.",
-          "Testing the octaves then revealed that chords distorted when notes combined, so I mixed the notes with PWM, which lets 6 notes play clearly at once."
+          "Testing the first notes with a tuner showed every note playing an octave low, which meant the clock was running at twice the rate the code assumed. Once we knew the real clock, we could build a correct 12-note scale.",
+          "Dividing by 2 is the same as shifting bits, so I hand-calculated one octave and used bit shifts for the rest, which brought the design within the chip's capacity. The lowest note it could reach was F#2 (about 92Hz), so I widened the counter that holds each note's period, which completed all 8 octaves down to 16Hz.",
+          "Chords of more than 2 notes, or any chord in a low octave, turned into static. Plotting C and E summed in octave 3 and octave 7 in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM. A 3-bit PWM bus gave the best balance, since more bits made chords clearer but quieter."
         ]},
         { heading: "Result", body: [
-          "The keyboard plays a full 12-note scale across 8 octaves, with chords of up to 6 clear notes."
+          "The keyboard plays a full 12-note scale across 8 octaves (16Hz to 8kHz), with chords of 5 to 6 notes in the lowest octave and every note at once in the highest."
         ]}
       ],
       gallery: [
         { type: "youtube", id: "7ZHiCPOwTYU", caption: "The synthesizer running on the board" },
         { type: "youtube", id: "cmLPXOcdjE4", vertical: true, caption: "MIDI keyboard demonstration, part 1" },
-        { type: "youtube", id: "s6099okv2E0", vertical: true, caption: "MIDI keyboard demonstration, part 2" }
+        { type: "youtube", id: "s6099okv2E0", vertical: true, caption: "MIDI keyboard demonstration, part 2" },
+        { type: "image", src: "fpga-chord-high.png", caption: "C and E summed in octave 7 (red), where 2-note chords played cleanly." },
+        { type: "image", src: "fpga-chord-low.png", caption: "C and E summed in octave 3 (blue), where the same chord turned to static before PWM mixing." }
       ],
       links: [
         { label: "Read the Full Report (PDF)", url: "assets/docs/ES4_Synthesizer_Report.pdf" }
@@ -265,10 +268,10 @@ const SITE = {
           "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
         ]},
         { heading: "Scaling the Data", body: [
-          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2)."
+          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2). Along the way, the best design's endurance rose from 2.79×10⁸ cycles at 500 samples to 4.84×10⁹ at 5,000."
         ]},
         { heading: "Result", body: [
-          "The best Al2O3 design reached 25% higher endurance and 11% lower switching energy than the published result, in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
+          "The best Al2O3 design reached 4.84×10⁹ cycles against the published 3.85×10⁹ (25% higher endurance) and 310.7pJ against 350.6pJ (11% lower switching energy), in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
         ]}
       ],
       gallery: [
@@ -294,10 +297,13 @@ const SITE = {
           "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward collecting clear signals from the air."
         ]},
         { heading: "Controller Design", body: [
-          "Using Routh-Hurwitz analysis, I first proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs."
+          "Using Routh-Hurwitz analysis, I first proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations, refined the grid 10 times, and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs. The 88.3° phase margin is well above the usual 45° guideline."
         ]},
         { heading: "Signal Restoration", body: [
-          "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred, noisy RF signal with a Wiener filter in MATLAB, cutting error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
+          "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred RF signal made of radar, chirp and communications components with noise at 40dB SNR. A generalized Wiener filter in MATLAB cut error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
+        ]},
+        { heading: "Linking the Two", body: [
+          "The controller's settling time sets how long the blur lasts. When I simulated a controller that settles in 2 seconds instead of 0.5, the blur grew from 11 to 44 samples and the recovery error was 1.5 times worse (MSE 0.539 to 0.827), so better control directly means cleaner RF data."
         ]}
       ],
       gallery: [
