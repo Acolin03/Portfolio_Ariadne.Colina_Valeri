@@ -1,40 +1,38 @@
 % =====================================================================
-%  Condensed portfolio: one project per page.
+%  Condensed portfolio: a cover, a contents page, then one project per page.
 %
 %  HOW TO EDIT
 %  - On Overleaf: upload this whole "portfolio-pdf" folder (portfolio.tex
 %    plus the images folder), then press Recompile.
 %  - Each project is one \project{...} block at the bottom of this file.
 %    Change the words between the braces. Keep the braces themselves.
-%  - Every \item is ONE short sentence. Three items per column at most.
-%  - To add a project, copy a whole \project block and change it.
-%    To remove one, delete its block.
-%    \projectinprogress is the same thing without pictures.
+%  - Keep each project to one short paragraph (3 or 4 sentences), and put
+%    the main result in \textbf{...} so it stands out.
+%  - The two pictures are sized for you so they come out the same height.
+%  - To add a project, copy a whole \project block, change it, and add its
+%    line to the contents page. To remove one, delete both.
 %  - Write \% for a percent sign and \& for an ampersand.
 %
 %  When you push a change to GitHub, the PDF on the website is rebuilt
 %  for you (see .github/workflows/portfolio-pdf.yml).
 % =====================================================================
 \documentclass[11pt]{article}
-\usepackage[landscape, letterpaper, margin=0.6in, top=0.55in, bottom=0.55in]{geometry}
+\usepackage[landscape, letterpaper, margin=0.6in, top=0.5in, bottom=0.7in, footskip=0.35in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \graphicspath{{images/}}
-\pagestyle{empty}
 \setlength{\parindent}{0pt}
 
 % ---- Your details: change them here once ----
 \newcommand{\myname}{Ariadne Colina-Valeri}
 \newcommand{\myemail}{ariadnecolina@gmail.com}
-\newcommand{\myemailurl}{mailto:ariadnecolina@gmail.com}
 \newcommand{\myschoolemail}{ariadne.colina\_valeri@tufts.edu}
-\newcommand{\myschoolemailurl}{mailto:ariadne.colina_valeri@tufts.edu}
+\newcommand{\myphone}{(813) 847-5642}
 \newcommand{\mysite}{acolin03.github.io/Portfolio\_Ariadne.Colina\_Valeri}
 \newcommand{\mysiteurl}{https://acolin03.github.io/Portfolio_Ariadne.Colina_Valeri/}
 
@@ -46,183 +44,173 @@
 \definecolor{sea}{HTML}{A8D6C3}
 \color{ink}
 
-\setlist[itemize]{leftmargin=1.1em, itemsep=3pt, topsep=4pt, parsep=0pt, label={\color{lilac}\rule[0.15ex]{0.45em}{0.45em}}}
+% A small footer: your name and website, and the page number.
+\makeatletter
+\def\ps@portfolio{\def\@oddhead{}\def\@evenhead{}%
+  \def\@oddfoot{\footnotesize\color{sub}\myname\hfill\href{\mysiteurl}{\mysite}\hfill\thepage}\let\@evenfoot\@oddfoot}
+\makeatother
+\pagestyle{portfolio}
 
-% A column heading: PROBLEM, SOLUTION, RESULT
-\newcommand{\colhead}[1]{\raggedright{\small\bfseries\color{blue}\MakeUppercase{#1}}\par}
+% The lilac and sea green bar under a title.
+\newcommand{\titlebar}{{\color{lilac}\rule{0.6in}{4pt}}{\color{sea}\rule{0.6in}{4pt}}}
 
-% One page per project.
-%   #1 title            #2 course and date      #3 skills, separated by \textbar
-%   #4 first picture    #5 its caption          #6 second picture    #7 its caption
-%   #8 problem items    #9 solution and result (use \solution and \result inside)
-\newcommand{\project}[9]{%
+% Two pictures side by side at the same height, each with a caption.
+\newdimen\picA \newdimen\picB \newdimen\picgap \picgap=0.35in
+\newcommand{\maxpic}{250}  % tallest a picture may be, in points (72 points = 1 inch)
+\newcommand{\twopics}[4]{%
+  \sbox0{\includegraphics[height=100pt]{#1}}\picA=\wd0
+  \sbox2{\includegraphics[height=100pt]{#3}}\picB=\wd2
+  \edef\pich{\fpeval{min(\maxpic, (\linewidth - \picgap) * 100 / (\picA + \picB))}}%
+  \edef\wa{\fpeval{\pich * \picA / 100}}\edef\wb{\fpeval{\pich * \picB / 100}}%
+  \begin{center}
+  \begin{tabular}{@{}c@{\hspace{\picgap}}c@{}}
+    \includegraphics[height=\pich pt]{#1} & \includegraphics[height=\pich pt]{#3} \\[3pt]
+    \parbox[t]{\wa pt}{\centering\small\color{sub}#2} & \parbox[t]{\wb pt}{\centering\small\color{sub}#4}
+  \end{tabular}
+  \end{center}}
+
+% Two wide pictures stacked, each with a caption, fitted inside a #5 by #6 inch box.
+\newcommand{\stackpics}[6]{%
+  \sbox0{\includegraphics[height=100pt]{#1}}\picA=\wd0
+  \sbox2{\includegraphics[height=100pt]{#3}}\picB=\wd2
+  \edef\picw{\fpeval{min(#5 * 72.27, (#6 * 72.27 - 60) / (100 / \picA + 100 / \picB))}}%
+  \centering
+  \includegraphics[width=\picw pt]{#1}\par\vspace{2pt}
+  \parbox{\picw pt}{\centering\small\color{sub}#2}\par\vspace{12pt}
+  \includegraphics[width=\picw pt]{#3}\par\vspace{2pt}
+  \parbox{\picw pt}{\centering\small\color{sub}#4}\par}
+
+% The top of a project page: number, course and date, title, bar.
+\newcommand{\projecthead}[3]{%
   \clearpage
-  {\small\color{sub}\myname \hfill \href{\myemailurl}{\myemail} \quad\textbar\quad \href{\myschoolemailurl}{\myschoolemail} \quad\textbar\quad \href{\mysiteurl}{\mysite}}\par
-  \vspace{0.16in}
-  {\footnotesize\bfseries\color{blue}\MakeUppercase{#2}}\par
-  \vspace{0.09in}
-  {\fontsize{26}{30}\selectfont\bfseries #1}\par
-  \vspace{0.06in}
-  {\color{lilac}\rule{0.55in}{3.5pt}}{\color{sea}\rule{0.55in}{3.5pt}}\par
-  \vspace{0.07in}
-  {\small\color{sub}#3}\par
-  \vspace{0.2in}
-  \begin{minipage}[t]{0.485\textwidth}\centering
-    \raisebox{-\height}{\includegraphics[width=\linewidth, height=3.1in, keepaspectratio]{#4}}\par
-    \vspace{3pt}{\footnotesize\color{sub}#5}
-  \end{minipage}\hfill
-  \begin{minipage}[t]{0.485\textwidth}\centering
-    \raisebox{-\height}{\includegraphics[width=\linewidth, height=3.1in, keepaspectratio]{#6}}\par
-    \vspace{3pt}{\footnotesize\color{sub}#7}
-  \end{minipage}\par
-  \vspace{0.22in}
-  \begin{minipage}[t]{0.31\textwidth}
-    \colhead{Problem}
-    \begin{itemize}#8\end{itemize}
-  \end{minipage}\hfill
-  #9
-}
-\newcommand{\solution}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{Solution}\begin{itemize}#1\end{itemize}\end{minipage}\hfill}
-\newcommand{\result}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{Result}\begin{itemize}#1\end{itemize}\end{minipage}}
+  \begin{center}
+    {\small\bfseries\color{blue}PROJECT #1 \textbar{} \MakeUppercase{#3}}\par
+    \vspace{0.08in}
+    {\fontsize{30}{34}\selectfont\bfseries #2}\par
+    \vspace{0.1in}
+    \titlebar\par
+  \end{center}}
 
-% A project that has no pictures yet (something still being built).
-%   #1 title   #2 course and date   #3 skills   #4 problem items   #5 \sofar{...} and \nextsteps{...}
-\newcommand{\projectinprogress}[5]{%
-  \clearpage
-  {\small\color{sub}\myname \hfill \href{\myemailurl}{\myemail} \quad\textbar\quad \href{\myschoolemailurl}{\myschoolemail} \quad\textbar\quad \href{\mysiteurl}{\mysite}}\par
-  \vspace{0.16in}
-  {\footnotesize\bfseries\color{blue}\MakeUppercase{#2}}\par
-  \vspace{0.09in}
-  {\fontsize{26}{30}\selectfont\bfseries #1}\par
-  \vspace{0.06in}
-  {\color{lilac}\rule{0.55in}{3.5pt}}{\color{sea}\rule{0.55in}{3.5pt}}\par
-  \vspace{0.07in}
-  {\small\color{sub}#3}\par
-  \vspace{0.45in}
-  \begin{minipage}[t]{0.31\textwidth}
-    \colhead{Problem}
-    \begin{itemize}#4\end{itemize}
-  \end{minipage}\hfill
-  #5
+% One page per project: the paragraph on top, two pictures side by side underneath.
+%   #1 number   #2 title   #3 course and date   #4 one short paragraph
+%   #5 first picture   #6 its caption   #7 second picture   #8 its caption
+\newcommand{\project}[8]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.04in}
+  \begin{center}\parbox{0.8\textwidth}{\centering\fontsize{13}{19}\selectfont #4}\end{center}
+  \vspace{0.05in}
+  \twopics{#5}{#6}{#7}{#8}
 }
-\newcommand{\sofar}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{So far}\begin{itemize}#1\end{itemize}\end{minipage}\hfill}
-\newcommand{\nextsteps}[1]{\begin{minipage}[t]{0.31\textwidth}\colhead{Next}\begin{itemize}#1\end{itemize}\end{minipage}}
+
+% The same, for wide pictures: the words on the left, the pictures stacked on the right.
+\newcommand{\projectwide}[8]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.15in}
+  \begin{minipage}[c]{0.36\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \begin{minipage}[c]{0.6\textwidth}\stackpics{#5}{#6}{#7}{#8}{5.8}{5.4}\end{minipage}
+}
+
+% The same with two pictures side by side on the right.
+\newcommand{\projectside}[8]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.15in}
+  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \begin{minipage}[c]{0.63\textwidth}\twopics{#5}{#6}{#7}{#8}\end{minipage}
+}
+
+% The same with four pictures: two rows of two on the right, each row the same height.
+%   #5 to #12: four pictures, each followed by its caption
+\newcommand{\projectfour}[4]{%
+  \projecthead{#1}{#2}{#3}
+  \vspace{0.1in}
+  \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{12}{17}\selectfont #4\end{minipage}\hfill
+  \projectfourpics}
+\newcommand{\projectfourpics}[8]{%
+  \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-14pt}\twopics{#5}{#6}{#7}{#8}\end{minipage}}
+
+% The three parts of every project.
+\newcommand{\challenge}[1]{{\small\bfseries\color{blue}THE CHALLENGE}\par\vspace{2pt}#1\par\vspace{9pt}}
+\newcommand{\approach}[1]{{\small\bfseries\color{blue}WHAT I DID}\par\vspace{2pt}#1\par\vspace{9pt}}
+\newcommand{\outcome}[1]{{\small\bfseries\color{blue}THE RESULT}\par\vspace{2pt}\textbf{#1}\par}
+
+% A small picture of a project on the cover, with its name and page.
+\newcommand{\thumb}[3]{\begin{minipage}[t]{0.235\textwidth}\centering
+  \hyperref[p#3]{\includegraphics[height=1.25in, width=\linewidth, keepaspectratio]{#1}}\par\vspace{4pt}
+  {\small\bfseries #2}\par{\footnotesize\color{sub}page \pageref{p#3}}\end{minipage}}
 
 \begin{document}
 
 % =====================================================================
-%  PROJECTS
+%  INTRODUCTION
+% =====================================================================
+\thispagestyle{empty}
+\begin{center}
+  {\large\bfseries\color{blue}ENGINEERING PORTFOLIO}\par
+  \vspace{0.06in}
+  {\fontsize{38}{44}\selectfont\bfseries \myname}\par
+  \vspace{0.1in}
+  \titlebar\par
+\end{center}
+\vspace{0.12in}
+\begin{minipage}[c]{0.62\textwidth}\centering\fontsize{14}{22}\selectfont
+  Hi! My name is Ariadne, and I'm a junior studying Electrical Engineering at Tufts University. I have experience in signal processing, embedded systems and machine learning, from restoring RF signals with a Wiener filter to building a real-time audio effects board and an autonomous robot. I'm looking for internships in signal processing, embedded systems and machine learning, in biotech or defense.
+\end{minipage}\hfill
+\begin{minipage}[c]{0.34\textwidth}\centering
+  \includegraphics[width=2.2in]{profile-round.png}\par
+  \vspace{0.12in}
+  {\large\bfseries \href{mailto:ariadnecolina@gmail.com}{\myemail}}\par
+  \vspace{0.03in}
+  {\large \myphone}\par
+\end{minipage}
+
+\vspace{0.3in}
+{\centering{\small\bfseries\color{blue}SELECTED PROJECTS}\par}
+\vspace{0.1in}
+\thumb{uav-controllers.png}{UAV Pitch Control}{1}\hfill
+\thumb{rram-pareto.png}{CTGAN for RRAM}{2}\hfill
+\thumb{dj-circuit.png}{DJ Board on an STM32}{3}\hfill
+\thumb{fpga-board.png}{FPGA Synthesizer}{4}
+
+% =====================================================================
+%  PROJECTS, strongest first
 % =====================================================================
 
-\projectinprogress
-  {Autonomous ESP32 Robot}
-  {In progress \textbar{} EE 31 Junior Design \textbar{} Sept. 2026 to Present}
-  {ESP32 \textbar{} Arduino \textbar{} IR LED \& photodetector \textbar{} PCB design \textbar{} SolidWorks}
-  {
-    \item The robot must follow a colored lane and avoid obstacles without human input.
-    \item It may only accept commands from our own team.
-    \item Every decision depends on sensor readings it can trust.
-  }
-  {
-    \sofar{
-      \item Building a seven-state ESP32 state machine that authenticates websocket commands with a team key and rejects all others.
-      \item Selected the IR LED and photodetector resistor values and subtract ambient light from each reading.
-      \item Developing detection logic that filters noise in the color readings before the lane color is identified.
-    }
-    \nextsteps{
-      \item Designing a ladybug-shaped body in SolidWorks.
-      \item Designing a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside.
-    }
-  }
-
-\project
-  {DJ Board on an STM32}
-  {EE 14 Embedded Systems \textbar{} Jan. 2026 to May 2026}
-  {STM32L432KC \textbar{} C \textbar{} ADC \& DAC \textbar{} Oscilloscope}
-  {dj-circuit.png}{The board: microphone, speaker and effect buttons}
-  {dj-scope.png}{Oscilloscope captures of the effect outputs}
-  {
-    \item A real-time audio effects processor records sound and remixes it through 7 effects.
-    \item Every effect depends on a clean recording.
-    \item The initial playback was marred by a high-pitched hiss and audible clicks.
-  }
-  {
-    \solution{
-      \item Implemented a timer-driven state machine that records and plays every sample at a constant rate.
-      \item Allowed each microphone reading additional time to complete so that no sample was cut short.
-      \item Held the output at a steady resting level between clips and faded each clip in and out.
-    }
-    \result{
-      \item Oscilloscope measurements confirmed that playback matched the original recording.
-      \item All 7 effects operate within 64KB of on-chip memory.
-    }
-  }
-
-\project
-  {FPGA Audio Synthesizer}
-  {ES 4 Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {SystemVerilog \textbar{} FPGA \textbar{} PWM}
-  {fpga-board.png}{The complete board}
-  {fpga-octaves.png}{The switch that selects the octave}
-  {
-    \item Each octave doubles a note's frequency.
-    \item The initial design computed every note through division on the chip.
-    \item Division required more than 250\% of the FPGA's capacity.
-  }
-  {
-    \solution{
-      \item Hand-calculated one octave and derived the rest through bit shifts, since dividing by 2 is equivalent to a bit shift.
-      \item Mixed the notes with PWM after testing revealed that chords distorted.
-    }
-    \result{
-      \item An 8-octave synthesizer, from 16Hz to 8kHz, for a MIDI keyboard.
-      \item Chords of up to 6 notes play clearly.
-    }
-  }
-
-\project
-  {CTGAN Design Discovery for RRAM}
-  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {Python \textbar{} PyTorch \textbar{} pandas \textbar{} CUDA \textbar{} CTGAN \textbar{} PINN}
-  {rram-pareto.png}{Final results with 5,000 training samples}
-  {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
-  {
-    \item A published AI framework designs RRAM memory devices.
-    \item Its model averaged the training data, smoothing away the extreme designs where peak performance lies.
-  }
-  {
-    \solution{
-      \item Replaced the model with a CTGAN, which explores those extremes more aggressively.
-      \item Scaled the training data tenfold, to 5,000 samples, so that the CTGAN could learn reliably.
-      \item Employed the framework's physics model as a referee to reject impossible designs.
-    }
-    \result{
-      \item 25\% higher endurance than the published result.
-      \item 11\% lower switching energy.
-      \item Slightly slower switching: 6.57ns versus 4.07ns.
-    }
-  }
-
-\project
+\projectwide{1}
   {UAV Pitch Control and RF Signal Restoration}
-  {EE 23 Linear Systems \textbar{} Jan. 2026 to May 2026}
-  {MATLAB \textbar{} PID control \textbar{} Wiener filtering}
+  {Linear Systems \textbar{} Jan. 2026 to May 2026}
+  {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level first.}
+   \approach{I proved with Routh-Hurwitz analysis that P and PI controllers can never stabilize it, searched 15,625 gain combinations for the best PID settings, then restored a blurred, noisy RF signal with a Wiener filter in MATLAB.}
+   \outcome{A 52ms rise time and 2.6\% overshoot, within real UAV specs, and 77\% less error than a direct inverse.}\label{p1}}
   {uav-controllers.png}{P, PI, PD and PID controllers on the same UAV model}
   {uav-wiener.png}{Wiener filter error (left) and the restored RF signal (right)}
-  {
-    \item Stabilizing a UAV in pitch is the first step toward collecting clear RF signals from the air.
-    \item Even a stable UAV shakes slightly and blurs the signals it receives.
-  }
-  {
-    \solution{
-      \item Demonstrated through Routh-Hurwitz analysis that P and PI controllers cannot stabilize the UAV.
-      \item Searched 15,625 gain combinations for the optimal PID settings.
-      \item Restored a blurred, noisy RF signal with a Wiener filter.
-    }
-    \result{
-      \item 52ms rise time, 2.6\% overshoot and 500ms settling time, within real UAV specifications.
-      \item 77\% lower error than a direct inverse (MSE 2.272 to 0.521).
-    }
-  }
+
+\projectwide{2}
+  {CTGAN Design Discovery for RRAM}
+  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
+  {\challenge{The published framework I extended used a CVAE, which averages its training data and smooths away the extreme designs where the best performance is found.}
+   \approach{I replaced it with a CTGAN that searches those extremes more aggressively, used the framework's physics model (PINN) to reject impossible designs, and grew the training data tenfold to 5,000 samples after the model collapsed at 500.}
+   \outcome{A design with 25\% higher endurance and 11\% lower switching energy than the published result, with slightly slower switching (6.57ns vs 4.07ns).}\label{p2}}
+  {rram-pareto.png}{Final results with 5,000 training samples}
+  {rram-evolution.png}{The same search with 500 samples (left) and 2,500 (right)}
+
+\projectfour{3}
+  {DJ Board on an STM32}
+  {Embedded Systems \textbar{} Jan. 2026 to May 2026}
+  {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
+   \approach{I wrote a timer-driven state machine so every sample was recorded and played at a steady rate, gave each microphone reading more time to finish, and faded each clip in and out to remove the clicks.}
+   \outcome{An oscilloscope confirmed that the playback matched the original recording.}\label{p3}}
+  {dj-circuit.png}{The board}
+  {dj-hardware.png}{Hardware: wiring diagram}
+  {dj-software.png}{Software: the state machine}
+  {dj-scope.png}{Oscilloscope captures of the effects}
+
+\projectside{4}
+  {FPGA Audio Synthesizer}
+  {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
+  {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space.}
+   \approach{Since dividing by 2 is the same as shifting bits, I hand-calculated one octave and used bit shifts for the rest, then mixed the notes with PWM after chords distorted.}
+   \outcome{A full 12-note scale across 8 octaves (16Hz to 8kHz) on a MIDI keyboard, with chords of up to 6 clear notes.}\label{p4}}
+  {fpga-board.png}{The complete board}
+  {fpga-octaves.png}{The switch that selects the octave}
 
 \end{document}

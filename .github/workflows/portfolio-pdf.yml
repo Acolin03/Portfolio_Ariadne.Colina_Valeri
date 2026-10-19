@@ -4,7 +4,7 @@ name: Build portfolio PDF
 
 on:
   push:
-    branches: [main]
+    branches: [main, pdf-redesign]
     paths:
       - "portfolio-pdf/**"
       - ".github/workflows/portfolio-pdf.yml"
