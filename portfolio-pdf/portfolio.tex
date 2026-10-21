@@ -24,6 +24,8 @@
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, fit}
 \usepackage[hidelinks]{hyperref}
 \graphicspath{{images/}}
 \setlength{\parindent}{0pt}
@@ -126,7 +128,27 @@
   \begin{minipage}[c]{0.34\textwidth}\raggedright\fontsize{11}{15.5}\selectfont #4\end{minipage}\hfill
   \projectfourpics}
 \newcommand{\projectfourpics}[8]{%
-  \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-14pt}\twopics{#5}{#6}{#7}{#8}\end{minipage}}
+  \begin{minipage}[c]{0.63\textwidth}\vspace{-6pt}\twopics{#1}{#2}{#3}{#4}\vspace{-14pt}\twopics{#5}{#6}{#7}{#8}\projectfourextra\end{minipage}}
+% Anything to show under the four pictures (set just before a project, then cleared).
+\newcommand{\projectfourextra}{}
+
+% The DJ Board's signal chain: what runs inside the STM32 is boxed, every sample moves on a 4 kHz timer.
+\newcommand{\djchain}{%
+\begin{tikzpicture}[x=1in, y=1in,
+    blk/.style={draw=blue, fill=blue!7, rounded corners=2pt, minimum width=0.7in, minimum height=0.36in, align=center, font=\scriptsize, text=ink, inner sep=1pt},
+    ext/.style={blk, draw=sub, fill=white},
+    arr/.style={-{Stealth[length=4pt]}, semithick, draw=sub}]
+  \node[ext] (mic) at (0, 0)    {Microphone};
+  \node[blk] (adc) at (0.86, 0) {ADC\\12-bit};
+  \node[blk] (buf) at (1.72, 0) {Buffer\\40KB};
+  \node[blk] (fx)  at (2.58, 0) {7 effects};
+  \node[blk] (dac) at (3.44, 0) {DAC};
+  \node[ext] (amp) at (4.30, 0) {Amplifier};
+  \node[ext] (spk) at (5.16, 0) {Speaker};
+  \foreach \a/\b in {mic/adc, adc/buf, buf/fx, fx/dac, dac/amp, amp/spk} \draw[arr] (\a) -- (\b);
+  \node[draw=lilac, dashed, rounded corners=4pt, inner sep=5pt, fit=(adc)(dac)] (stm) {};
+  \node[font=\scriptsize\bfseries, text=blue, anchor=south] at (stm.north) {STM32: every sample moves on a 4kHz timer};
+\end{tikzpicture}}
 
 % The same with three pictures: two side by side on top, one wide picture underneath.
 %   #5 to #10: three pictures, each followed by its caption
@@ -206,17 +228,18 @@
   {rram-pareto.png}{My CTGAN with 5,000 samples}
   {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
 
+\renewcommand{\projectfourextra}{\par\vspace{10pt}\centering\djchain}
 \projectfour{3}
   {DJ Board on an STM32\par\vspace{4pt}{\fontsize{15}{19}\selectfont\mdseries\color{sub}(Audio Recorder and Effects Processor)}}
   {Embedded Systems \textbar{} Jan. 2026 to May 2026}
   {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
-   {\small\color{sub}Microphone $\rightarrow$ ADC $\rightarrow$ buffer $\rightarrow$ effects $\rightarrow$ DAC $\rightarrow$ amplifier $\rightarrow$ speaker}\par\vspace{9pt}
    \approach{To remove the hiss, I used a 4kHz timer interrupt to record and play every sample at the same rate, and lengthened the ADC sampling time to 12.5 cycles so the microphone signal settles before each reading. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms). Dropping from 8kHz to 4kHz stretched each recording from 2 to 5 seconds.}
    \outcome{5 seconds of 12-bit audio in a 40KB buffer, all 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), and a playback waveform that matched the original on the oscilloscope.}\label{p3}}
   {dj-circuit.png}{The board}
   {dj-hardware.png}{Hardware: wiring diagram}
   {dj-software.png}{Software: the state machine}
   {dj-scope.png}{Oscilloscope captures of the effects}
+\renewcommand{\projectfourextra}{}
 
 \projectfour{4}
   {FPGA Audio Synthesizer}
