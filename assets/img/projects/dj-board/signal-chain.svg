@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="150" viewBox="0 0 780 150" font-family="Helvetica, Arial, sans-serif">
+  <!-- DJ Board signal chain: the STM32's part is boxed; every sample moves on a 4 kHz timer. -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6781"/>
+    </marker>
+  </defs>
+  <rect width="780" height="150" fill="#ffffff"/>
+  <rect x="112" y="42" width="440" height="86" rx="10" fill="none" stroke="#cdbbe6" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="332" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#4c63a0">STM32: every sample moves on a 4kHz timer</text>
+  <g font-size="13" fill="#1f2a44" text-anchor="middle">
+    <rect x="10" y="64" width="86" height="44" rx="5" fill="#fff" stroke="#5b6781" stroke-width="1.4"/>
+    <text x="53" y="91">Microphone</text>
+    <rect x="124" y="64" width="86" height="44" rx="5" fill="#eef1f8" stroke="#4c63a0" stroke-width="1.4"/>
+    <text x="167" y="83">ADC</text><text x="167" y="100" font-size="12">12-bit</text>
+    <rect x="234" y="64" width="86" height="44" rx="5" fill="#eef1f8" stroke="#4c63a0" stroke-width="1.4"/>
+    <text x="277" y="83">Buffer</text><text x="277" y="100" font-size="12">40KB</text>
+    <rect x="344" y="64" width="86" height="44" rx="5" fill="#eef1f8" stroke="#4c63a0" stroke-width="1.4"/>
+    <text x="387" y="91">7 effects</text>
+    <rect x="454" y="64" width="86" height="44" rx="5" fill="#eef1f8" stroke="#4c63a0" stroke-width="1.4"/>
+    <text x="497" y="91">DAC</text>
+    <rect x="574" y="64" width="86" height="44" rx="5" fill="#fff" stroke="#5b6781" stroke-width="1.4"/>
+    <text x="617" y="91">Amplifier</text>
+    <rect x="684" y="64" width="86" height="44" rx="5" fill="#fff" stroke="#5b6781" stroke-width="1.4"/>
+    <text x="727" y="91">Speaker</text>
+  </g>
+  <g stroke="#5b6781" stroke-width="1.6" marker-end="url(#arrow)">
+    <line x1="96" y1="86" x2="122" y2="86"/>
+    <line x1="210" y1="86" x2="232" y2="86"/>
+    <line x1="320" y1="86" x2="342" y2="86"/>
+    <line x1="430" y1="86" x2="452" y2="86"/>
+    <line x1="540" y1="86" x2="572" y2="86"/>
+    <line x1="660" y1="86" x2="682" y2="86"/>
+  </g>
+</svg>

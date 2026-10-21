@@ -212,7 +212,8 @@ const SITE = {
       ],
       gallery: [
         { type: "youtube", id: "uLtt11RuFwQ", caption: "Demonstration, part 1" },
-        { type: "youtube", id: "Z741Z0-d_P4", vertical: true, caption: "Demonstration, part 2" }
+        { type: "youtube", id: "Z741Z0-d_P4", vertical: true, caption: "Demonstration, part 2" },
+        { type: "image", src: "signal-chain.svg", wide: true, caption: "Signal chain: everything inside the dashed box runs on the STM32, one sample at a time on a 4kHz timer." }
       ],
       links: [
         { label: "View the Poster (PDF)", url: "assets/docs/EE14_DJ_Board_Poster.pdf" }
