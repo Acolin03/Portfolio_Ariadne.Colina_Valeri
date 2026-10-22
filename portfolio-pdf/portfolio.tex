@@ -166,9 +166,13 @@
 \newcommand{\approach}[1]{{\small\bfseries\color{blue}WHAT I DID}\par\vspace{2pt}#1\par\vspace{9pt}}
 \newcommand{\outcome}[1]{{\small\bfseries\color{blue}THE RESULT}\par\vspace{2pt}\textbf{#1}\par}
 
+% The labels for a project still being built.
+\newcommand{\sofar}[1]{{\small\bfseries\color{blue}WHAT I'M DOING}\par\vspace{2pt}#1\par\vspace{9pt}}
+\newcommand{\upnext}[1]{{\small\bfseries\color{blue}NEXT}\par\vspace{2pt}#1\par}
+
 % A small picture of a project on the cover, with its name and page.
-\newcommand{\thumb}[3]{\begin{minipage}[t]{0.235\textwidth}\centering
-  \hyperref[p#3]{\includegraphics[height=1.25in, width=\linewidth, keepaspectratio]{#1}}\par\vspace{4pt}
+\newcommand{\thumb}[3]{\begin{minipage}[t]{0.19\textwidth}\centering
+  \hyperref[p#3]{\includegraphics[height=1.1in, width=\linewidth, keepaspectratio]{#1}}\par\vspace{4pt}
   {\small\bfseries #2}\par{\footnotesize\color{sub}page \pageref{p#3}}\end{minipage}}
 
 \begin{document}
@@ -202,7 +206,8 @@
 \thumb{uav-controllers.png}{UAV Pitch Control}{1}\hfill
 \thumb{rram-pareto.png}{CTGAN for RRAM}{2}\hfill
 \thumb{dj-circuit.png}{DJ Board on an STM32}{3}\hfill
-\thumb{fpga-board.png}{FPGA Synthesizer}{4}
+\thumb{fpga-board.png}{FPGA Synthesizer}{4}\hfill
+\thumb{robot.jpg}{Autonomous Robot}{5}
 
 % =====================================================================
 %  PROJECTS, strongest first
@@ -251,5 +256,14 @@
   {fpga-octaves.png}{The switch that selects the octave}
   {fpga-chord-high.png}{C + E summed in octave 7 (red)}
   {fpga-chord-low.png}{C + E summed in octave 3 (blue)}
+
+\projectside{5}
+  {Autonomous ESP32 Robot}
+  {In progress \textbar{} Junior Design \textbar{} Sept. 2026 to Present}
+  {\challenge{The robot has to follow a colored lane and avoid obstacles with no one controlling it, and accept commands only from our own team.}
+   \sofar{I'm building a 7-state state machine on the ESP32 that authenticates every websocket command with our team key and rejects the rest. For obstacles, an IR LED and photodetector measure reflected light, and I subtract the room's background light from each reading. For the lane, I filter noise from the color sensor before the robot decides which color it is on.}
+   \upnext{A ladybug-shaped body I'm designing in SolidWorks, and a custom ESP32 PCB with parts chosen from datasheets to replace the breadboard wiring.}\label{p5}}
+  {robot.jpg}{The robot so far, wired on a breadboard around the ESP32}
+  {ladybug-body.png}{The ladybug body I'm designing in SolidWorks}
 
 \end{document}
