@@ -348,6 +348,7 @@ const SITE = {
         ]}
       ],
       gallery: [
+        { type: "youtube", id: "9TOmrrsm1gQ", vertical: true, caption: "The robot moving on remote commands" },
         { type: "image", src: "robot.jpg", caption: "The robot so far, wired on a breadboard around the ESP32." }
       ],
       links: []
