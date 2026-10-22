@@ -329,7 +329,7 @@ const SITE = {
       date: "Sept. 2026 to Present",
       summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
-      cover: "",
+      cover: "robot.jpg",
       sections: [
         { heading: "Problem", body: [
           "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
@@ -343,11 +343,13 @@ const SITE = {
         { heading: "Lane Following", body: [
           "The color sensor reads light reflected off the track, and noise in those readings can make the robot mistake one lane color for another. I am programming the sensing to filter that noise before the robot decides which color it is on, so its steering acts on reliable data."
         ]},
-        { heading: "Physical Design", body: [
+        { heading: "Physical Design", image: "ladybug-body.png", body: [
           "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it."
         ]}
       ],
-      gallery: [],
+      gallery: [
+        { type: "image", src: "robot.jpg", caption: "The robot so far, wired on a breadboard around the ESP32." }
+      ],
       links: []
     },
     {
