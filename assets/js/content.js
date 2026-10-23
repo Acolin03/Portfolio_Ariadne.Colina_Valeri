@@ -29,7 +29,7 @@ const SITE = {
   portfolioPdf: "portfolio.pdf",
   url: "https://acolin03.github.io/Portfolio_Ariadne.Colina_Valeri/",
   photo: "assets/img/profile.jpg",
-  contactNote: "Open to internships in signal processing, embedded systems and machine learning, in biotech or defense.",
+  contactNote: "Open to internships in signal processing, embedded systems and machine learning.",
 
   about: [
     "I am an electrical engineer who enjoys problems that invite different perspectives. The projects I have chosen throughout my undergraduate studies have led me to signal processing, embedded systems, machine learning, networking, communications and audio.",
