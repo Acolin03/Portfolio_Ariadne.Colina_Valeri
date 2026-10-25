@@ -171,9 +171,6 @@ const SITE = {
         ]},
         { heading: "Feet", body: [
           "A laser-cut floorboard holds three sliders under the left foot for volume, panning and pitch bend, and buttons under the right foot for instrument, octave, mode and sustain. A screen shows the key and the note being played."
-        ]},
-        { heading: "My Part", body: [
-          "I'm working on the Max patch and on integrating the sensors. We just started, and the floorboard is already laser cut."
         ]}
       ],
       gallery: [
