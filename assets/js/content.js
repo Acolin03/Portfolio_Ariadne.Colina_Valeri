@@ -189,26 +189,26 @@ const SITE = {
       date: "Aug. 2026 to Present",
       summary: "An app I built to stay organized without spending more time planning than doing.",
       tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
-      cover: "focus.png",
+      cover: "typeit.png",
       sections: [
         { heading: "Problem", body: [
           "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
         ]},
-        { heading: "One Screen That Answers \"What Now?\"", image: "focus.png",
-          missing: "Other apps give you lists you have to sort through.",
-          fix: "Focus shows what is happening now, what is next and what is due soon, with one button to start. You type things the way you would say them, like \"Bio quiz Friday at 10\", and the app makes the task." },
-        { heading: "Plan My Week", image: "planweek.png",
-          missing: "Other apps only know due dates.",
-          fix: "You pick a task, and the app offers a time in your real free windows before it is due. Only the times you say yes to go on the calendar." },
+        { heading: "Type It Like a Text", image: "typeit.png",
+          missing: "Other apps make you fill out forms and fields.",
+          fix: "One message like \"pset 4 due monday, coffee 5.25, work at the library tues thurs 4-8\" becomes a task, an expense and a weekly shift. You can also ask \"what's due this week?\" or say \"move pset 4 to tuesday\"." },
         { heading: "A Syllabus in One Paste", image: "syllabus.png",
           missing: "Adding a class means filling out form after form.",
           fix: "Paste a syllabus or drop its PDF, and the class is made from it: when it meets, its office hours and every dated hand-in as a task." },
+        { heading: "Just 5 Minutes", image: "focus-now.png",
+          missing: "Other apps give you lists you have to sort through.",
+          fix: "Focus shows what is happening right now and what is due soon. If you are free, one button starts the next task, or just 5 minutes of it, which is often all it takes to begin." },
+        { heading: "Plan My Week", image: "planweek.png",
+          missing: "Other apps only know due dates.",
+          fix: "You pick a task, and the app offers a time in your real free windows before it is due. Only the times you say yes to go on the calendar." },
         { heading: "A Habit Tracker That Is a Voyage", image: "voyage.png",
           missing: "Habit apps count streaks.",
           fix: "Every kept day earns a star and moves a boat through the history of navigation. You spend stars on zodiac signs to clear the mist ahead." },
-        { heading: "Share Only Your Free Time", image: "friends.png",
-          missing: "Other apps share your whole calendar, or nothing.",
-          fix: "Friends see only when you are free, never what fills the rest, and the app shows when you are both free." },
         { heading: "How I Built It", body: [
           "I wrote Astrolabe in plain HTML, CSS and JavaScript. It syncs through Firebase, can be end-to-end encrypted and works in five languages."
         ]}
