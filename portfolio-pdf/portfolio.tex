@@ -203,35 +203,34 @@
 \vspace{0.3in}
 {\centering{\small\bfseries\color{blue}SELECTED PROJECTS}\par}
 \vspace{0.1in}
-\thumb{uav-controllers.png}{UAV Pitch Control}{1}\hfill
-\thumb{rram-pareto.png}{CTGAN for RRAM}{2}\hfill
+\thumb{robot.jpg}{Autonomous Robot}{1}\hfill
+\thumb{uav-controllers.png}{UAV Pitch Control}{2}\hfill
 \thumb{dj-circuit.png}{DJ Board on an STM32}{3}\hfill
-\thumb{fpga-board.png}{FPGA Synthesizer}{4}\hfill
-\thumb{robot.jpg}{Autonomous Robot}{5}
+\thumb{rram-pareto.png}{CTGAN for RRAM}{4}\hfill
+\thumb{fpga-board.png}{FPGA Synthesizer}{5}
 
 % =====================================================================
-%  PROJECTS, strongest first
+%  PROJECTS, newest first
 % =====================================================================
 
-\projectthree{1}
+\projectside{1}
+  {Autonomous ESP32 Robot}
+  {In progress \textbar{} Junior Design \textbar{} Sept. 2026 to Present}
+  {\challenge{The robot has to follow a colored lane and avoid obstacles with no one controlling it, and accept commands only from our own team.}
+   \sofar{I'm building a 7-state state machine on the ESP32 that authenticates every websocket command with our team key and rejects the rest. For obstacles, an IR LED and photodetector measure reflected light, and I subtract the room's background light from each reading. For the lane, I filter noise from the color sensor before the robot decides which color it is on.}
+   \upnext{A ladybug-shaped body I'm designing in SolidWorks, and a custom ESP32 PCB with parts chosen from datasheets to replace the breadboard wiring.}\label{p1}}
+  {robot.jpg}{The robot so far, wired on a breadboard around the ESP32}
+  {ladybug-body.png}{The ladybug body I'm designing in SolidWorks}
+
+\projectthree{2}
   {UAV Pitch Control and RF Signal Restoration}
   {Linear Systems \textbar{} Jan. 2026 to May 2026}
   {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level before the signals can be trusted.}
    \approach{I proved with Routh-Hurwitz analysis that P and PI controllers can never stabilize it, then searched 15,625 PID gain combinations and refined the grid 10 times. I restored a blurred RF signal (radar, chirp and communications components at 40dB SNR) with a generalized Wiener filter in MATLAB, and linked the two parts: the controller's settling time sets how long the blur lasts.}
-   \outcome{A 52ms rise time, 2.6\% overshoot and 88.3$^\circ$ phase margin, 77\% less error than a direct inverse, and proof that a controller settling in 2s instead of 0.5s makes recovery 1.5$\times$ worse.}\label{p1}}
+   \outcome{A 52ms rise time, 2.6\% overshoot and 88.3$^\circ$ phase margin, 77\% less error than a direct inverse, and proof that a controller settling in 2s instead of 0.5s makes recovery 1.5$\times$ worse.}\label{p2}}
   {uav-controllers.png}{P, PI, PD and PID controllers}
   {cost-map.png}{Cost of each gain pair; the star is the optimum}
   {uav-wiener.png}{Wiener filter error (left) and the restored RF signal over the original (right)}
-
-\projectthree{2}
-  {CTGAN Design Discovery for RRAM}
-  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {\challenge{The published framework I extended used a CVAE, which averages its training data and smooths away the extreme designs where the best performance is found.}
-   \approach{I replaced it with a CTGAN that searches those extremes more aggressively and used the framework's physics model (PINN) as a referee to reject impossible designs. The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the data to 5,000, where it converged across 3 oxides (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
-   \outcome{An Al\textsubscript{2}O\textsubscript{3} design with 4.84$\times$10\textsuperscript{9} cycles against the published 3.85$\times$10\textsuperscript{9} (25\% higher endurance) and 310.7pJ against 350.6pJ (11\% less energy), with slower switching (6.57ns vs 4.07ns).}\label{p2}}
-  {rram-baseline.png}{Published CVAE results}
-  {rram-pareto.png}{My CTGAN with 5,000 samples}
-  {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
 
 \renewcommand{\projectfourextra}{\par\vspace{10pt}\centering\djchain}
 \projectfour{3}
@@ -246,24 +245,25 @@
   {dj-scope.png}{Oscilloscope captures of the effects}
 \renewcommand{\projectfourextra}{}
 
-\projectfour{4}
+\projectthree{4}
+  {CTGAN Design Discovery for RRAM}
+  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
+  {\challenge{The published framework I extended used a CVAE, which averages its training data and smooths away the extreme designs where the best performance is found.}
+   \approach{I replaced it with a CTGAN that searches those extremes more aggressively and used the framework's physics model (PINN) as a referee to reject impossible designs. The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the data to 5,000, where it converged across 3 oxides (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
+   \outcome{An Al\textsubscript{2}O\textsubscript{3} design with 4.84$\times$10\textsuperscript{9} cycles against the published 3.85$\times$10\textsuperscript{9} (25\% higher endurance) and 310.7pJ against 350.6pJ (11\% less energy), with slower switching (6.57ns vs 4.07ns).}\label{p4}}
+  {rram-baseline.png}{Published CVAE results}
+  {rram-pareto.png}{My CTGAN with 5,000 samples}
+  {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
+
+\projectfour{5}
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
   {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, turned into static.}
    \approach{A tuner showed every note playing an octave low, which meant the clock ran at twice the rate in the code. Since dividing by 2 is the same as shifting bits, I hand-calculated one octave, used bit shifts for the rest, and widened the period counter so notes below 92Hz could play. To find the static, I plotted C and E summed in octave 3 and octave 7 in Desmos, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
-   \outcome{All 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p4}}
+   \outcome{All 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
   {fpga-chord-high.png}{C + E summed in octave 7 (red)}
   {fpga-chord-low.png}{C + E summed in octave 3 (blue)}
-
-\projectside{5}
-  {Autonomous ESP32 Robot}
-  {In progress \textbar{} Junior Design \textbar{} Sept. 2026 to Present}
-  {\challenge{The robot has to follow a colored lane and avoid obstacles with no one controlling it, and accept commands only from our own team.}
-   \sofar{I'm building a 7-state state machine on the ESP32 that authenticates every websocket command with our team key and rejects the rest. For obstacles, an IR LED and photodetector measure reflected light, and I subtract the room's background light from each reading. For the lane, I filter noise from the color sensor before the robot decides which color it is on.}
-   \upnext{A ladybug-shaped body I'm designing in SolidWorks, and a custom ESP32 PCB with parts chosen from datasheets to replace the breadboard wiring.}\label{p5}}
-  {robot.jpg}{The robot so far, wired on a breadboard around the ESP32}
-  {ladybug-body.png}{The ladybug body I'm designing in SolidWorks}
 
 \end{document}
