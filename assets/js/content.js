@@ -121,6 +121,107 @@ const SITE = {
      ------------------------------------------------------------------- */
   projects: [
     {
+      id: "slam-robot",
+      status: "In progress",
+      featured: true,
+      title: "Autonomous ESP32 Robot",
+      fields: ["Embedded Systems"],
+      course: "Junior Design",
+      date: "Sept. 2026 to Present",
+      summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
+      tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
+      cover: "robot.jpg",
+      sections: [
+        { heading: "Problem", body: [
+          "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
+        ]},
+        { heading: "State Machine", body: [
+          "I am building a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED shows which state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
+        ]},
+        { heading: "Obstacle Sensing", body: [
+          "To detect obstacles, an IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector and throws off that measurement, so I chose the resistor values for the LED and photodetector and subtract the room's background light from each reading."
+        ]},
+        { heading: "Lane Following", body: [
+          "The color sensor reads light reflected off the track, and noise in those readings can make the robot mistake one lane color for another. I am programming the sensing to filter that noise before the robot decides which color it is on, so its steering acts on reliable data."
+        ]},
+        { heading: "Physical Design", image: "ladybug-body.png", body: [
+          "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it."
+        ]}
+      ],
+      gallery: [
+        { type: "youtube", id: "9TOmrrsm1gQ", vertical: true, caption: "The robot moving on remote commands" },
+        { type: "image", src: "robot.jpg", caption: "The robot so far, wired on a breadboard around the ESP32." }
+      ],
+      links: []
+    },
+    {
+      id: "midi-instrument",
+      status: "In progress",
+      featured: true,
+      title: "MIDI Instrument Creation",
+      fields: ["Instrument Design"],
+      course: "Electronic Musical Instrument Design",
+      date: "Fall 2026",
+      summary: "Designing and building my own electronic musical instrument from scratch.",
+      tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
+      cover: "",
+      sections: [
+        { heading: "Objective", body: [
+          "The goal is to build an electronic instrument that is creative and also useful to the person playing it."
+        ]},
+        { heading: "Concept Under Consideration", body: [
+          "One idea I am considering is for musicians who read sheet music on a tablet while practicing with a recorded accompaniment. Since their hands are busy playing, they cannot slow the recording down, so the accompaniment would follow the spot they are reading and slow down or speed up with them."
+        ]},
+        { heading: "Progress", body: [
+          "So far I have learned the basics of sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max."
+        ]},
+        { heading: "Next Steps", body: [
+          "Our teams are forming now, and the next steps are choosing a concept and building the instrument."
+        ]}
+      ],
+      gallery: [],
+      links: []
+    },
+    {
+      id: "astrolabe",
+      status: "In progress",
+      featured: true,
+      title: "Astrolabe App",
+      fields: ["Software"],
+      course: "Personal project",
+      date: "Aug. 2026 to Present",
+      summary: "An app I built to stay organized without spending more time planning than doing.",
+      tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
+      cover: "focus.png",
+      sections: [
+        { heading: "Problem", body: [
+          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
+        ]},
+        { heading: "A Single Starting Point", image: "focus.png",
+          missing: "Planning my day took longer than doing it.",
+          fix: "The first screen shows what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\", and the app turns it into a task, an expense or a repeating plan." },
+        { heading: "Tasks That Find Their Time", image: "tasks.png",
+          missing: "A task list tells you what is due, but not when you will do it.",
+          fix: "You pick a task, and \"Plan my week\" offers a time in your free windows before it is due. Only the times you say yes to go on the calendar." },
+        { heading: "A Calendar That Includes Real Life", image: "today.png",
+          missing: "Calendars leave out sleep, meals and work shifts.",
+          fix: "Classes, shifts, meals, workouts and sleep all show up as blocks, so free time shows as real windows like \"2 PM to 5 PM\"." },
+        { heading: "Room for Self-Reflection", image: "journal.png",
+          missing: "Self-reflection usually needs a separate app.",
+          fix: "Based on a shadow journal setup, each day gets a page with an optional prompt, mostly from Carl Jung. It can be locked with a password." },
+        { heading: "A Habit Tracker That Is a Voyage", image: "voyage.png",
+          missing: "Habit apps count streaks with points that only go up.",
+          fix: "Each day you keep earns a star and moves a boat one level through the history of navigation, from Ancient Greece to Apollo. You spend stars on zodiac signs to clear the mist ahead." },
+        { heading: "How I Built It", body: [
+          "I wrote Astrolabe in plain HTML, CSS and JavaScript. It syncs through Firebase, can be end-to-end encrypted and works in five languages."
+        ]}
+      ],
+      gallery: [],
+      links: [
+        { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
+      ]
+    },
+    {
       id: "uav-control",
       featured: true,
       title: "UAV Pitch Control and RF Signal Restoration",
@@ -156,38 +257,6 @@ const SITE = {
       ]
     },
     {
-      id: "ml-research",
-      featured: true,
-      title: "CTGAN Design Discovery for RRAM",
-      fields: ["Machine Learning"],
-      course: "Tufts Emerging Circuits and Systems Lab",
-      date: "Sept. 2025 to April 2026",
-      summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
-      tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
-      cover: "pareto.png",
-      sections: [
-        { heading: "Problem", body: [
-          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
-        ]},
-        { heading: "Approach", body: [
-          "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
-        ]},
-        { heading: "Scaling the Data", body: [
-          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2). Along the way, the best design's endurance rose from 2.79×10⁸ cycles at 500 samples to 4.84×10⁹ at 5,000."
-        ]},
-        { heading: "Result", body: [
-          "The best Al2O3 design reached 4.84×10⁹ cycles against the published 3.85×10⁹ (25% higher endurance) and 310.7pJ against 350.6pJ (11% lower switching energy), in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
-        ]}
-      ],
-      gallery: [
-        { type: "image", src: "pareto.png", wide: true, caption: "Final results with 5,000 training samples. Each point is a generated design, and lower and further left is better. The star marks the best overall Al2O3 design." },
-        { type: "image", src: "evolution.png", wide: true, caption: "Effect of dataset size: with 500 samples (left) the model collapses, and with 2,500 (right) it improves but remains noisy." }
-      ],
-      links: [
-        { label: "Read the Paper (PDF)", url: "assets/docs/EE94_RRAM_Paper.pdf" }
-      ]
-    },
-    {
       id: "dj-board",
       featured: true,
       title: "DJ Board on an STM32 (Audio Recorder and Effects Processor)",
@@ -217,6 +286,38 @@ const SITE = {
       ],
       links: [
         { label: "View the Poster (PDF)", url: "assets/docs/EE14_DJ_Board_Poster.pdf" }
+      ]
+    },
+    {
+      id: "ml-research",
+      featured: true,
+      title: "CTGAN Design Discovery for RRAM",
+      fields: ["Machine Learning"],
+      course: "Tufts Emerging Circuits and Systems Lab",
+      date: "Sept. 2025 to April 2026",
+      summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
+      tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
+      cover: "pareto.png",
+      sections: [
+        { heading: "Problem", body: [
+          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
+        ]},
+        { heading: "Approach", body: [
+          "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
+        ]},
+        { heading: "Scaling the Data", body: [
+          "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2). Along the way, the best design's endurance rose from 2.79×10⁸ cycles at 500 samples to 4.84×10⁹ at 5,000."
+        ]},
+        { heading: "Result", body: [
+          "The best Al2O3 design reached 4.84×10⁹ cycles against the published 3.85×10⁹ (25% higher endurance) and 310.7pJ against 350.6pJ (11% lower switching energy), in exchange for slightly slower switching (6.57ns vs 4.07ns). This showed that the adversarial approach works once it has enough data."
+        ]}
+      ],
+      gallery: [
+        { type: "image", src: "pareto.png", wide: true, caption: "Final results with 5,000 training samples. Each point is a generated design, and lower and further left is better. The star marks the best overall Al2O3 design." },
+        { type: "image", src: "evolution.png", wide: true, caption: "Effect of dataset size: with 500 samples (left) the model collapses, and with 2,500 (right) it improves but remains noisy." }
+      ],
+      links: [
+        { label: "Read the Paper (PDF)", url: "assets/docs/EE94_RRAM_Paper.pdf" }
       ]
     },
     {
@@ -279,107 +380,6 @@ const SITE = {
         { type: "youtube", id: "9rmVGDoX5m4", caption: "Demonstration with light and heavy traffic" },
         { type: "image", src: "breadboard.png", caption: "The complete circuit: photodiode and comparator, Arduino, and the LED traffic lights" }
       ],
-      links: []
-    },
-    {
-      id: "astrolabe",
-      status: "In progress",
-      featured: true,
-      title: "Astrolabe App",
-      fields: ["Software"],
-      course: "Personal project",
-      date: "Aug. 2026 to Present",
-      summary: "An app I built to stay organized without spending more time planning than doing.",
-      tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
-      cover: "focus.png",
-      sections: [
-        { heading: "Problem", body: [
-          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
-        ]},
-        { heading: "A Single Starting Point", image: "focus.png",
-          missing: "Planning my day took longer than doing it.",
-          fix: "The first screen shows what is happening now, what is next and what is due soon. You type something the way you would say it, like \"Bio quiz Friday at 10\", and the app turns it into a task, an expense or a repeating plan." },
-        { heading: "Tasks That Find Their Time", image: "tasks.png",
-          missing: "A task list tells you what is due, but not when you will do it.",
-          fix: "You pick a task, and \"Plan my week\" offers a time in your free windows before it is due. Only the times you say yes to go on the calendar." },
-        { heading: "A Calendar That Includes Real Life", image: "today.png",
-          missing: "Calendars leave out sleep, meals and work shifts.",
-          fix: "Classes, shifts, meals, workouts and sleep all show up as blocks, so free time shows as real windows like \"2 PM to 5 PM\"." },
-        { heading: "Room for Self-Reflection", image: "journal.png",
-          missing: "Self-reflection usually needs a separate app.",
-          fix: "Based on a shadow journal setup, each day gets a page with an optional prompt, mostly from Carl Jung. It can be locked with a password." },
-        { heading: "A Habit Tracker That Is a Voyage", image: "voyage.png",
-          missing: "Habit apps count streaks with points that only go up.",
-          fix: "Each day you keep earns a star and moves a boat one level through the history of navigation, from Ancient Greece to Apollo. You spend stars on zodiac signs to clear the mist ahead." },
-        { heading: "How I Built It", body: [
-          "I wrote Astrolabe in plain HTML, CSS and JavaScript. It syncs through Firebase, can be end-to-end encrypted and works in five languages."
-        ]}
-      ],
-      gallery: [],
-      links: [
-        { label: "Open Astrolabe", url: "https://myastrolabe.web.app" }
-      ]
-    },
-    {
-      id: "slam-robot",
-      status: "In progress",
-      featured: true,
-      title: "Autonomous ESP32 Robot",
-      fields: ["Embedded Systems"],
-      course: "Junior Design",
-      date: "Sept. 2026 to Present",
-      summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
-      tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
-      cover: "robot.jpg",
-      sections: [
-        { heading: "Problem", body: [
-          "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
-        ]},
-        { heading: "State Machine", body: [
-          "I am building a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED shows which state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
-        ]},
-        { heading: "Obstacle Sensing", body: [
-          "To detect obstacles, an IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector and throws off that measurement, so I chose the resistor values for the LED and photodetector and subtract the room's background light from each reading."
-        ]},
-        { heading: "Lane Following", body: [
-          "The color sensor reads light reflected off the track, and noise in those readings can make the robot mistake one lane color for another. I am programming the sensing to filter that noise before the robot decides which color it is on, so its steering acts on reliable data."
-        ]},
-        { heading: "Physical Design", image: "ladybug-body.png", body: [
-          "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it."
-        ]}
-      ],
-      gallery: [
-        { type: "youtube", id: "9TOmrrsm1gQ", vertical: true, caption: "The robot moving on remote commands" },
-        { type: "image", src: "robot.jpg", caption: "The robot so far, wired on a breadboard around the ESP32." }
-      ],
-      links: []
-    },
-    {
-      id: "midi-instrument",
-      status: "In progress",
-      featured: true,
-      title: "MIDI Instrument Creation",
-      fields: ["Instrument Design"],
-      course: "Electronic Musical Instrument Design",
-      date: "Fall 2026",
-      summary: "Designing and building my own electronic musical instrument from scratch.",
-      tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
-      cover: "",
-      sections: [
-        { heading: "Objective", body: [
-          "The goal is to build an electronic instrument that is creative and also useful to the person playing it."
-        ]},
-        { heading: "Concept Under Consideration", body: [
-          "One idea I am considering is for musicians who read sheet music on a tablet while practicing with a recorded accompaniment. Since their hands are busy playing, they cannot slow the recording down, so the accompaniment would follow the spot they are reading and slow down or speed up with them."
-        ]},
-        { heading: "Progress", body: [
-          "So far I have learned the basics of sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max."
-        ]},
-        { heading: "Next Steps", body: [
-          "Our teams are forming now, and the next steps are choosing a concept and building the instrument."
-        ]}
-      ],
-      gallery: [],
       links: []
     }
   ]
