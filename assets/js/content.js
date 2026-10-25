@@ -158,28 +158,28 @@ const SITE = {
       id: "midi-instrument",
       status: "In progress",
       featured: true,
-      title: "MIDI Instrument Creation",
+      title: "Hadouken MIDI Instrument",
       fields: ["Instrument Design"],
       course: "Electronic Musical Instrument Design",
       date: "Fall 2026",
-      summary: "Designing and building my own electronic musical instrument from scratch.",
-      tools: ["Max", "MIDI", "NN-19 sampler", "Subtractor synthesizer"],
-      cover: "",
+      summary: "A team of four building an instrument played with the hands and feet, meant to feel like controlling concentrated energy.",
+      tools: ["Max", "MIDI", "Arduino", "Flex sensors", "IR distance sensors", "Slide potentiometers", "Laser cutting"],
+      cover: "floorboard.jpg",
       sections: [
-        { heading: "Objective", body: [
-          "The goal is to build an electronic instrument that is creative and also useful to the person playing it."
+        { heading: "Hands", body: [
+          "Flex sensors on four fingers of each hand play 8 notes, a full octave. Each thumb presses a button on the pointer knuckle to shift the scale up or down, and IR distance sensors in the wristbands change the LFO intensity as the hands move closer or farther apart."
         ]},
-        { heading: "Concept Under Consideration", body: [
-          "One idea I am considering is for musicians who read sheet music on a tablet while practicing with a recorded accompaniment. Since their hands are busy playing, they cannot slow the recording down, so the accompaniment would follow the spot they are reading and slow down or speed up with them."
+        { heading: "Feet", body: [
+          "A laser-cut floorboard holds three sliders under the left foot for volume, panning and pitch bend, and buttons under the right foot for instrument, octave, mode and sustain. A screen shows the key and the note being played."
         ]},
-        { heading: "Progress", body: [
-          "So far I have learned the basics of sound programming with the NN-19 sampler and the Subtractor synthesizer, set up drum pads and a MIDI keyboard, and started working in Max."
-        ]},
-        { heading: "Next Steps", body: [
-          "Our teams are forming now, and the next steps are choosing a concept and building the instrument."
+        { heading: "My Part", body: [
+          "I'm working on the Max patch and on integrating the sensors. We just started, and the floorboard is already laser cut."
         ]}
       ],
-      gallery: [],
+      gallery: [
+        { type: "image", src: "floorboard.jpg", caption: "The laser-cut floorboard with its buttons, slider slots and screen opening." },
+        { type: "image", src: "sketch.jpg", caption: "Our first sketch of the hands and the floorboard." }
+      ],
       links: []
     },
     {
