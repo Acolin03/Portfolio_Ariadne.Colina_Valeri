@@ -226,8 +226,8 @@
   {UAV Pitch Control and RF Signal Restoration}
   {Linear Systems \textbar{} Jan. 2026 to May 2026}
   {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level before the signals can be trusted.}
-   \approach{I proved with Routh-Hurwitz analysis that P and PI controllers can never stabilize it, then searched 15,625 PID gain combinations and refined the grid 10 times. I restored a blurred RF signal (radar, chirp and communications components at 40dB SNR) with a generalized Wiener filter in MATLAB, and linked the two parts: the controller's settling time sets how long the blur lasts.}
-   \outcome{A 52ms rise time, 2.6\% overshoot and 88.3$^\circ$ phase margin, 77\% less error than a direct inverse, and proof that a controller settling in 2s instead of 0.5s makes recovery 1.5$\times$ worse.}\label{p2}}
+   \approach{First, I used Routh-Hurwitz analysis to prove that P and PI controllers can never keep the UAV stable, so it needed a full PID controller. I then tested 15,625 combinations of PID settings to find the best one. Next, I restored a blurred RF signal with a Wiener filter in MATLAB. Finally, I showed how the two parts connect: the longer the controller takes to settle, the longer the signal stays blurred.}
+   \outcome{The PID controller rises in 52ms with only 2.6\% overshoot and an 88.3$^\circ$ phase margin. The Wiener filter cut the error by 77\% compared with a direct inverse, and a controller that settles in 2s instead of 0.5s makes the recovery 1.5$\times$ worse.}\label{p2}}
   {uav-controllers.png}{P, PI, PD and PID controllers}
   {cost-map.png}{Cost of each gain pair; the star is the optimum}
   {uav-wiener.png}{Wiener filter error (left) and the restored RF signal over the original (right)}
@@ -238,7 +238,7 @@
   {Embedded Systems \textbar{} Jan. 2026 to May 2026}
   {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
    \approach{To remove the hiss, I used a 4kHz timer interrupt to record and play every sample at the same rate, and lengthened the ADC sampling time to 12.5 cycles so the microphone signal settles before each reading. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms). Dropping from 8kHz to 4kHz stretched each recording from 2 to 5 seconds.}
-   \outcome{5 seconds of 12-bit audio in a 40KB buffer, all 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), and a playback waveform that matched the original on the oscilloscope.}\label{p3}}
+   \outcome{The board records 5 seconds of 12-bit audio in a 40KB buffer, plays all 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), and its playback matched the original recording on the oscilloscope.}\label{p3}}
   {dj-circuit.png}{The board}
   {dj-hardware.png}{Hardware: wiring diagram}
   {dj-software.png}{Software: the state machine}
@@ -248,9 +248,9 @@
 \projectthree{4}
   {CTGAN Design Discovery for RRAM}
   {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {\challenge{The published framework I extended used a CVAE, which averages its training data and smooths away the extreme designs where the best performance is found.}
-   \approach{I replaced it with a CTGAN that searches those extremes more aggressively and used the framework's physics model (PINN) as a referee to reject impossible designs. The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the data to 5,000, where it converged across 3 oxides (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
-   \outcome{An Al\textsubscript{2}O\textsubscript{3} design with 4.84$\times$10\textsuperscript{9} cycles against the published 3.85$\times$10\textsuperscript{9} (25\% higher endurance) and 310.7pJ against 350.6pJ (11\% less energy), with slower switching (6.57ns vs 4.07ns).}\label{p4}}
+  {\challenge{The published framework I built on used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs, and those are where the best performance is.}
+   \approach{I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep it from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
+   \outcome{My best Al\textsubscript{2}O\textsubscript{3} design lasted 25\% longer than the published one (4.84 billion cycles against 3.85 billion) and used 11\% less energy, though it switched a little slower (6.57ns against 4.07ns).}\label{p4}}
   {rram-baseline.png}{Published CVAE results}
   {rram-pareto.png}{My CTGAN with 5,000 samples}
   {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
@@ -259,8 +259,8 @@
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
   {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, turned into static.}
-   \approach{A tuner showed every note playing an octave low, which meant the clock ran at twice the rate in the code. Since dividing by 2 is the same as shifting bits, I hand-calculated one octave, used bit shifts for the rest, and widened the period counter so notes below 92Hz could play. To find the static, I plotted C and E summed in octave 3 and octave 7 in Desmos, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
-   \outcome{All 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
+   \approach{First, a tuner showed every note playing an octave too low, which meant the clock was running at twice the rate the code assumed, so I rebuilt the scale for the real clock. To fit the design on the chip, I calculated one octave by hand and got the others with bit shifts, since each octave doubles the frequency. I also widened the period counter so notes below 92Hz could play. To fix the static, I plotted chords in Desmos, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
+   \outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
   {fpga-chord-high.png}{C + E summed in octave 7 (red)}
