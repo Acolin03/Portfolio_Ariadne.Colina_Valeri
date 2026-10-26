@@ -130,7 +130,7 @@ const SITE = {
       date: "Sept. 2026 to Present",
       summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
-      cover: "robot.jpg",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
@@ -164,7 +164,7 @@ const SITE = {
       date: "Fall 2026",
       summary: "A team of four building an instrument played with the hands and feet, meant to feel like controlling concentrated energy.",
       tools: ["Max", "Reason (Subtractor, NN-19)", "MIDI", "Arduino", "Flex sensors", "IR distance sensors", "Slide potentiometers", "Laser cutting"],
-      cover: "floorboard.jpg",
+      cover: "card.jpg",
       sections: [
         { heading: "Hands", body: [
           "Flex sensors on four fingers of each hand play 8 notes, a full octave. Each thumb presses a button on the pointer knuckle to shift the scale up or down, and IR distance sensors in the wristbands change the LFO intensity as the hands move closer or farther apart."
@@ -191,7 +191,7 @@ const SITE = {
       date: "Aug. 2026 to Present",
       summary: "An app I built to stay organized without spending more time planning than doing.",
       tools: ["JavaScript", "HTML and CSS", "Firebase", "Google Calendar sync"],
-      cover: "typeit.png",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
@@ -229,7 +229,7 @@ const SITE = {
       date: "Jan. 2026 to May 2026",
       summary: "A PID controller that keeps a UAV level in pitch, paired with a Wiener filter that restores the RF signals it collects.",
       tools: ["MATLAB", "PID control", "Wiener filtering"],
-      cover: "controllers.png",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward collecting clear signals from the air."
@@ -264,7 +264,7 @@ const SITE = {
       date: "Jan. 2026 to May 2026",
       summary: "A real-time audio effects board that records sound and lets users remix it with seven effects, using only on-chip memory.",
       tools: ["STM32L432KC", "C", "ADC and DAC", "Oscilloscope"],
-      cover: "youtube:uLtt11RuFwQ",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "The board records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem I had to solve was that playback came out with a high-pitched hiss and clicks."
@@ -296,7 +296,7 @@ const SITE = {
       date: "Sept. 2025 to April 2026",
       summary: "Testing whether a more aggressive AI model could find better RRAM memory designs without inventing ones that cannot physically exist.",
       tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
-      cover: "pareto.png",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
@@ -328,7 +328,7 @@ const SITE = {
       date: "Sept. 2025 to Dec. 2025",
       summary: "An 8-octave synthesizer (16Hz to 8kHz) written in SystemVerilog for a MIDI keyboard.",
       tools: ["SystemVerilog", "FPGA", "PWM"],
-      cover: "youtube:cmLPXOcdjE4",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "Since each octave doubles a note's frequency, my first design calculated every note by dividing on the chip. Division is so costly in hardware that the design needed over 250% of the FPGA's space."
@@ -362,7 +362,7 @@ const SITE = {
       date: "Fall 2025",
       summary: "A traffic light that counts the cars passing it and adjusts how long its red and green lights last.",
       tools: ["Arduino", "Photodiode", "Op-amp comparator", "MOSFETs", "Analog Discovery 2"],
-      cover: "youtube:9rmVGDoX5m4",
+      cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "A traffic light on a fixed timer makes drivers wait just as long on an empty road as on a busy one. Our goal was a light that reacts to the traffic it sees, so more cars shorten the red light and lengthen the green, and fewer cars do the opposite."
