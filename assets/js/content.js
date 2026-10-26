@@ -163,7 +163,7 @@ const SITE = {
       course: "Electronic Musical Instrument Design",
       date: "Fall 2026",
       summary: "A team of four building an instrument played with the hands and feet, meant to feel like controlling concentrated energy.",
-      tools: ["Max", "MIDI", "Arduino", "Flex sensors", "IR distance sensors", "Slide potentiometers", "Laser cutting"],
+      tools: ["Max", "Reason (Subtractor, NN-19)", "MIDI", "Arduino", "Flex sensors", "IR distance sensors", "Slide potentiometers", "Laser cutting"],
       cover: "floorboard.jpg",
       sections: [
         { heading: "Hands", body: [
@@ -175,7 +175,9 @@ const SITE = {
       ],
       gallery: [
         { type: "image", src: "floorboard.jpg", caption: "The laser-cut floorboard with its buttons, slider slots and screen opening." },
-        { type: "image", src: "sketch.jpg", caption: "Our first sketch of the hands and the floorboard." }
+        { type: "image", src: "sketch.jpg", caption: "Our first sketch of the hands and the floorboard." },
+        { type: "image", src: "max-arpeggiator.jpg", caption: "A list arpeggiator in Max, taking notes from an MPK225 keyboard and sending them to Reason." },
+        { type: "image", src: "reason.jpg", caption: "Reason's Subtractor synthesizer and NN-19 sampler, the instruments the notes play on." }
       ],
       links: []
     },
