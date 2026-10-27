@@ -218,7 +218,7 @@
   {In progress \textbar{} Junior Design \textbar{} Sept. 2026 to Present}
   {\challenge{The robot has to follow a colored lane and avoid obstacles with no one controlling it, and accept commands only from our own team.}
    \sofar{I built a 7-state state machine on the ESP32 that authenticates every websocket command with our team key. For obstacles, an IR LED and photodetector measure reflected light, and I subtract the room's background light from each reading. Now I'm building the lane color sensing. Colored LEDs light the track, and the robot compares their reflections to tell black, yellow, red and blue apart.}
-   \upnext{Assembling the robot inside the ladybug body I'm designing in SolidWorks, on a custom ESP32 PCB, then programming lane following. For the go-beyond part, sound will control its movements, with volume and certain notes each doing something different.}\label{p1}}
+   \upnext{Assembling the robot on a custom ESP32 PCB inside the ladybug body I'm designing in SolidWorks, then programming lane following. For the go-beyond part, sound will control its movements, with volume and certain notes each doing something different.}\label{p1}}
   {robot.jpg}{The robot so far, wired on a breadboard around the ESP32}
   {ladybug-body.png}{The ladybug body the robot will be assembled in}
 
@@ -249,7 +249,7 @@
   {CTGAN Design Discovery for RRAM}
   {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
   {\challenge{The project tests whether a more aggressive AI model can find better RRAM memory designs than a published framework, without inventing designs that cannot physically exist.}
-   \approach{The published framework used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs, and those are where the best performance is, so I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep the CTGAN from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
+   \approach{The published framework used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs where the best performance is, so I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep the CTGAN from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
    \outcome{My best Al\textsubscript{2}O\textsubscript{3} design lasted 25\% longer than the published one (4.84 billion cycles against 3.85 billion) and used 11\% less energy, though it switched a little slower (6.57ns against 4.07ns).}\label{p4}}
   {rram-baseline.png}{Published CVAE results}
   {rram-pareto.png}{My CTGAN with 5,000 samples}
@@ -259,7 +259,7 @@
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
   {\challenge{The synthesizer has to play notes and chords from a MIDI keyboard across 8 octaves on an FPGA.}
-   \approach{Calculating every note by division required over 250\% of the FPGA's resources. Since each octave doubles the frequency, and dividing by 2 is equivalent to a bit shift, I calculated one octave by hand and derived the remaining seven with bit shifts, which brought the design within the chip's capacity. Testing with a tuner showed every note an octave too low, meaning the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. Widening the counter that holds each note's period extended the range below 92Hz down to 16Hz. Chords of more than 2 notes, or in low octaves, turned into static; plotting them in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM on a 3-bit bus, which gave the best balance of volume and clarity.}
+   \approach{Calculating every note by division required over 250\% of the FPGA's resources. Since each octave doubles the frequency and dividing by 2 is equivalent to a bit shift, I calculated one octave by hand and derived the remaining seven with bit shifts, which brought the design within the chip's capacity. Testing with a tuner showed every note an octave too low, meaning the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. Widening the counter that holds each note's period extended the range below 92Hz down to 16Hz. Chords of more than 2 notes (or in low octaves) turned into static; plotting them in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM on a 3-bit bus, which gave the best balance of volume and clarity.}
    \outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}

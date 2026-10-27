@@ -33,7 +33,7 @@ const SITE = {
 
   about: [
     "I am an electrical engineer who enjoys problems that invite different perspectives. The projects I have chosen throughout my undergraduate studies have led me to signal processing, embedded systems, machine learning, networking, communications and audio.",
-    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the Junior Design project, in which I am building an autonomous robot, and on a MIDI instrument for Electronic Musical Instrument Design, which lets me explore how technology can be both creative and unconventional."
+    "Since most of my projects center on manipulating and filtering signals, I am seeking an internship connected to that work. This semester, I am focused on the Junior Design project (an autonomous robot) and on a MIDI instrument for Electronic Musical Instrument Design, which lets me explore how technology can be both creative and unconventional."
   ],
 
   languages: ["English (fluent)", "Spanish (fluent)", "French (fluent)", "Italian (beginner)"],
@@ -67,7 +67,7 @@ const SITE = {
       date: "Sept. 2025 to April 2026",
       points: [
         "Replaced a published RRAM memory model (CVAE) with a CTGAN to search for higher-performing designs.",
-        "Expanded the training data tenfold, to 5,000 samples, and used a physics-informed neural network (PINN) to reject physically impossible designs.",
+        "Expanded the training data tenfold (to 5,000 samples) and used a physics-informed neural network (PINN) to reject physically impossible designs.",
         "Identified an Al2O3 design with 25% higher endurance and 11% lower switching energy than the published result."
       ]
     },
@@ -139,7 +139,7 @@ const SITE = {
           "I built a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED blinks the number of the state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
         ]},
         { heading: "Obstacle Detection", body: [
-          "An IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector, so I chose the resistor values for the LED and photodetector, and each reading turns the LED off and on 32 times and subtracts the off value from the on value. Only the reflected IR is left.",
+          "An IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector and throws off that measurement. To isolate the reflection, I chose the resistor values for the LED and photodetector, and each reading turns the LED off and on 32 times and subtracts the off value from the on value, so only the reflected IR is left.",
           "At startup, the robot takes 50 readings with nothing in front of it to learn its normal level and how much it wobbles. It detects an object only when the signal rises 6 standard deviations above normal, and it stops the motor until the signal drops below a lower threshold, so it does not flicker between driving and stopping."
         ]},
         { heading: "Lane Color Sensing (now)", body: [
@@ -170,7 +170,7 @@ const SITE = {
       cover: "card.jpg",
       sections: [
         { heading: "Hands", body: [
-          "Flex sensors on four fingers of each hand play 8 notes, a full octave. Each thumb presses a button on the pointer knuckle to shift the scale up or down, and IR distance sensors in the wristbands change the LFO intensity as the hands move closer or farther apart."
+          "Flex sensors on four fingers of each hand play 8 notes (a full octave). Each thumb presses a button on the pointer knuckle to shift the scale up or down, and IR distance sensors in the wristbands change the LFO intensity as the hands move closer or farther apart."
         ]},
         { heading: "Feet", body: [
           "A laser-cut floorboard holds three sliders under the left foot for volume, panning and pitch bend, and buttons under the right foot for instrument, octave, mode and sustain. A screen shows the key and the note being played."
@@ -346,9 +346,9 @@ const SITE = {
           "The synthesizer has to play notes and chords from a MIDI keyboard across 8 octaves, using hardware written in SystemVerilog on an FPGA."
         ]},
         { heading: "What I Did", body: [
-          "Calculating the frequency of every note by division required over 250% of the FPGA's space. Since each octave is exactly double the frequency of the one below it, and dividing by 2 is equivalent to shifting the bits one place, I calculated one octave by hand and derived the other seven with bit shifts, which brought the design within the chip's capacity.",
+          "Calculating the frequency of every note by division required over 250% of the FPGA's space. Since each octave is exactly double the frequency of the one below it and dividing by 2 is equivalent to shifting the bits one place, I calculated one octave by hand and derived the other seven with bit shifts, which brought the design within the chip's capacity.",
           "Testing with a tuner showed every note playing an octave too low, meaning the clock ran at twice the rate the code assumed, so we rebuilt the 12-note scale for the real clock. The lowest note the design could reach was F#2 (about 92Hz), and widening the counter that holds each note's period extended the range down to 16Hz, completing all 8 octaves.",
-          "Chords of more than 2 notes, or any chord in a low octave, turned into static. Plotting C and E summed in octave 3 and octave 7 in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM instead. More PWM bits made chords clearer but quieter, and a 3-bit bus gave the best balance."
+          "Chords of more than 2 notes (or any chord in a low octave) turned into static. Plotting C and E summed in octave 3 and octave 7 in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM instead. More PWM bits made chords clearer but quieter, and a 3-bit bus gave the best balance."
         ]},
         { heading: "Result", body: [
           "The keyboard plays a full 12-note scale across 8 octaves (16Hz to 8kHz), with chords of 5 to 6 notes in the lowest octave and every note at once in the highest."
