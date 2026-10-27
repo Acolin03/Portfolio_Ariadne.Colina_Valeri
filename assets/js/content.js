@@ -211,15 +211,18 @@ const SITE = {
         { heading: "Plan My Week", image: "planweek.png",
           missing: "Other apps only know due dates, not when the work will actually get done.",
           fix: "You pick a task, and the app finds a free hour in your real schedule before it is due. Only the times you say yes to go on the calendar." },
-        { heading: "Dinner to Shopping List",
+        { heading: "Dinner to Shopping List", image: "shopping.png",
           missing: "At the store, it is easy to forget what tonight's dinner needed.",
           fix: "Pick tonight's dinner, and its groceries go on your shopping list." },
+        { heading: "Daily Care in One Tap", image: "care.png",
+          missing: "Drinking water, taking pills and stretching are easy to forget until bedtime.",
+          fix: "Each daily habit takes one tap, so the little things actually get done." },
+        { heading: "A Journal That Becomes a Book", image: "shelf.png",
+          missing: "Days fly by without a moment to stop and think about them.",
+          fix: "Writing a few lines each night turns every month into a book on a shelf." },
         { heading: "A Habit Tracker That Is a Voyage", image: "voyage.png",
           missing: "Habit apps count streaks, and a good habit is easy to drop by day three.",
           fix: "Every kept day earns a star and moves a boat through the history of navigation, so there is a reason to keep going. You spend stars on zodiac signs to clear the mist ahead." },
-        { heading: "Also in Astrolabe", body: [
-          "Daily habits like drinking water or stretching take one tap each, and a few lines of journal each night turn every month into a book on a shelf."
-        ]},
         { heading: "How I Built It", body: [
           "I wrote Astrolabe in plain HTML, CSS and JavaScript. It syncs through Firebase, can be end-to-end encrypted and works in five languages."
         ]}
