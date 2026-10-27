@@ -132,7 +132,7 @@ const SITE = {
       tools: ["ESP32", "Arduino", "IR LED and photodetector", "Colored LEDs", "PCB design", "SolidWorks"],
       cover: "card.jpg",
       sections: [
-        { heading: "Problem", body: [
+        { heading: "Challenge", body: [
           "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
         ]},
         { heading: "State Machine", body: [
@@ -234,11 +234,11 @@ const SITE = {
       tools: ["MATLAB", "PID control", "Wiener filtering"],
       cover: "card.jpg",
       sections: [
-        { heading: "Problem", body: [
-          "A UAV that shakes while collecting RF signals blurs them, so keeping it level is the first step toward collecting clear signals from the air."
+        { heading: "Challenge", body: [
+          "The UAV has to stay level while it collects RF signals, and the signals blurred by its shaking have to be restored."
         ]},
         { heading: "Controller Design", body: [
-          "Using Routh-Hurwitz analysis, I first proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations, refined the grid 10 times, and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs. The 88.3° phase margin is well above the usual 45° guideline."
+          "Using Routh-Hurwitz analysis, I proved that P and PI controllers can never stabilize the UAV, which meant it needed a full PID controller. To find the best PID settings, I searched 15,625 gain combinations, refined the grid 10 times, and reached a 52ms rise time, 2.6% overshoot and 500ms settling time, all within real UAV specs. The 88.3° phase margin is well above the usual 45° guideline."
         ]},
         { heading: "Signal Restoration", body: [
           "Since even a stable UAV shakes slightly and blurs the signals it receives, I then restored a blurred RF signal made of radar, chirp and communications components with noise at 40dB SNR. A generalized Wiener filter in MATLAB cut error by 77% compared with a direct inverse (MSE 2.272 to 0.521)."
@@ -269,13 +269,13 @@ const SITE = {
       tools: ["STM32L432KC", "C", "ADC and DAC", "Oscilloscope"],
       cover: "card.jpg",
       sections: [
-        { heading: "Problem", body: [
-          "The board records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem I had to solve was that playback came out with a high-pitched hiss and clicks."
+        { heading: "Challenge", body: [
+          "The board has to record sound and play it back in real time with 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), all within the STM32's 64KB of on-chip memory."
         ]},
-        { heading: "Solution", body: [
-          "To fix the hiss, I wrote a state machine driven by a 4kHz timer interrupt, so every sample was recorded and played at the same rate, and I lengthened the ADC sampling time to 12.5 cycles so each microphone reading had time to settle.",
-          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail, its resting level, between clips and faded each clip in and out over 256 samples (64ms).",
-          "Memory decided how long a recording could be. At 8kHz only 2 seconds fit, so I dropped to 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer."
+        { heading: "What I Did", body: [
+          "Recording at 8kHz left room for only 2 seconds of audio, so I lowered the sample rate to 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer.",
+          "Since every effect depends on a clean recording, the main problem to solve was that playback came out with a high-pitched hiss and clicks. To fix the hiss, I wrote a state machine driven by a 4kHz timer interrupt, so every sample was recorded and played at the same rate, and I lengthened the ADC sampling time to 12.5 cycles so each microphone reading had time to settle.",
+          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail, its resting level, between clips and faded each clip in and out over 256 samples (64ms)."
         ]},
         { heading: "Result", body: [
           "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope, such as speed and pitch, to make sure the signal processing was correct."
@@ -301,11 +301,11 @@ const SITE = {
       tools: ["Python", "PyTorch", "pandas", "CUDA", "CTGAN", "PINN"],
       cover: "card.jpg",
       sections: [
-        { heading: "Problem", body: [
-          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found."
+        { heading: "Challenge", body: [
+          "The project tests whether a more aggressive AI model can find better RRAM memory designs than a published framework, without inventing designs that cannot physically exist."
         ]},
         { heading: "Approach", body: [
-          "I replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
+          "The published framework I extended used a CVAE, a model that averages its training data. That made it reliable for standard designs, although it also smoothed away the extreme designs where the best performance is found. I therefore replaced the CVAE with a CTGAN, which searches those extremes more aggressively. Since an aggressive search can also invent designs that cannot physically exist, I used the framework's physics model (PINN) as a referee to reject them."
         ]},
         { heading: "Scaling the Data", body: [
           "The CTGAN collapsed at 500 training samples and stayed noisy at 2,500, so I grew the dataset tenfold to 5,000 samples, where it converged across 3 oxide materials (Al2O3, HfO2 and TiO2). Along the way, the best design's endurance rose from 2.79×10⁸ cycles at 500 samples to 4.84×10⁹ at 5,000."
@@ -333,14 +333,13 @@ const SITE = {
       tools: ["SystemVerilog", "FPGA", "PWM"],
       cover: "card.jpg",
       sections: [
-        { heading: "Problem", body: [
-          "My first design calculated the frequency of every note by dividing on the chip. Division takes a lot of hardware, so the design needed over 250% of the FPGA's space."
+        { heading: "Challenge", body: [
+          "The synthesizer has to play notes and chords from a MIDI keyboard across 8 octaves, using hardware written in SystemVerilog on an FPGA."
         ]},
-        { heading: "Solution", body: [
-          "Each octave is exactly double the frequency of the one below it, and dividing by 2 is the same as shifting the bits one place. So I calculated one octave by hand and got the other seven with bit shifts, which brought the design within the chip's capacity.",
-          "A tuner then showed every note playing an octave too low. That meant the clock ran at twice the rate the code assumed, so we rebuilt the 12-note scale for the real clock.",
-          "The lowest note it could reach was F#2 (about 92Hz). I widened the counter that holds each note's period, and the synthesizer reached 16Hz, completing all 8 octaves.",
-          "Chords of more than 2 notes, or any chord in a low octave, turned into static. I plotted C and E summed in octave 3 and octave 7 in Desmos, which showed the output was not following the summed wave. So I mixed the notes with PWM instead. More PWM bits made chords clearer but quieter, and 3 bits gave the best balance."
+        { heading: "What I Did", body: [
+          "Calculating the frequency of every note by division required over 250% of the FPGA's space. Since each octave is exactly double the frequency of the one below it, and dividing by 2 is equivalent to shifting the bits one place, I calculated one octave by hand and derived the other seven with bit shifts, which brought the design within the chip's capacity.",
+          "Testing with a tuner showed every note playing an octave too low, meaning the clock ran at twice the rate the code assumed, so we rebuilt the 12-note scale for the real clock. The lowest note the design could reach was F#2 (about 92Hz), and widening the counter that holds each note's period extended the range down to 16Hz, completing all 8 octaves.",
+          "Chords of more than 2 notes, or any chord in a low octave, turned into static. Plotting C and E summed in octave 3 and octave 7 in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM instead. More PWM bits made chords clearer but quieter, and a 3-bit bus gave the best balance."
         ]},
         { heading: "Result", body: [
           "The keyboard plays a full 12-note scale across 8 octaves (16Hz to 8kHz), with chords of 5 to 6 notes in the lowest octave and every note at once in the highest."
@@ -368,8 +367,8 @@ const SITE = {
       tools: ["Arduino", "Photodiode", "Op-amp comparator", "MOSFETs", "Analog Discovery 2"],
       cover: "card.jpg",
       sections: [
-        { heading: "Problem", body: [
-          "A traffic light on a fixed timer makes drivers wait just as long on an empty road as on a busy one. Our goal was a light that reacts to the traffic it sees, so more cars shorten the red light and lengthen the green, and fewer cars do the opposite."
+        { heading: "Challenge", body: [
+          "The traffic light has to react to the traffic it sees, so more cars shorten the red light and lengthen the green, and fewer cars do the opposite. A light on a fixed timer makes drivers wait just as long on an empty road as on a busy one."
         ]},
         { heading: "Design", body: [
           "Each car is an object passing between a light and a photodiode. Since the photodiode's signal is noisy, an op-amp compares it with a clean, stable reference voltage and turns each car into one clear digital pulse.",
