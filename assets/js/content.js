@@ -270,15 +270,15 @@ const SITE = {
       cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
-          "The board records sound and plays it back with 7 effects, such as echo, reverse, pitch and speed, using only the STM32's 64KB of on-chip memory. The first playback had a high-pitched hiss and clicks. Every effect is applied to the recording, so the recording had to be clean first."
+          "The board records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem I had to solve was that playback came out with a high-pitched hiss and clicks."
         ]},
         { heading: "Solution", body: [
-          "First, memory set the sample rate. At 8kHz only 2 seconds of audio fit, so I used 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer.",
-          "To remove the hiss, I made two changes. A 4kHz timer interrupt drives a state machine, so every sample is recorded and played back at exactly the same rate. I also lengthened the ADC sampling time to 12.5 cycles, so each microphone reading has time to settle.",
-          "The clicks came from sudden jumps in the speaker signal. To remove them, I held the speaker at mid-rail, its resting level, between clips, and faded each clip in and out over 256 samples (64ms)."
+          "To fix the hiss, I wrote a state machine driven by a 4kHz timer interrupt, so every sample was recorded and played at the same rate, and I lengthened the ADC sampling time to 12.5 cycles so each microphone reading had time to settle.",
+          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail, its resting level, between clips and faded each clip in and out over 256 samples (64ms).",
+          "Memory decided how long a recording could be. At 8kHz only 2 seconds fit, so I dropped to 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer."
         ]},
         { heading: "Result", body: [
-          "On the oscilloscope, the playback matched the original recording. I also checked each effect there, such as speed and pitch, to confirm it changed the signal correctly."
+          "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope, such as speed and pitch, to make sure the signal processing was correct."
         ]}
       ],
       gallery: [
