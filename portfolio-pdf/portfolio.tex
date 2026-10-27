@@ -225,8 +225,8 @@
 \projectthree{2}
   {UAV Pitch Control and RF Signal Restoration}
   {Linear Systems \textbar{} Jan. 2026 to May 2026}
-  {\challenge{A UAV that shakes while collecting RF signals blurs them, so it has to stay level before the signals can be trusted.}
-   \approach{First, I used Routh-Hurwitz analysis to prove that P and PI controllers can never keep the UAV stable, so it needed a full PID controller. I then tested 15,625 combinations of PID settings to find the best one. Next, I restored a blurred RF signal with a Wiener filter in MATLAB. Finally, I showed how the two parts connect, because the longer the controller takes to settle, the longer the signal stays blurred.}
+  {\challenge{The UAV has to stay level while it collects RF signals, and the signals blurred by its shaking have to be restored.}
+   \approach{Routh-Hurwitz analysis proved that P and PI controllers can never keep the UAV stable, so the design needed a full PID controller. To find the best PID settings, I tested 15,625 combinations of gains. With the controller in place, I restored a blurred RF signal using a Wiener filter in MATLAB. Connecting the two parts showed that the longer the controller takes to settle, the longer the signal stays blurred.}
    \outcome{The PID controller rises in 52ms with only 2.6\% overshoot and an 88.3$^\circ$ phase margin. The Wiener filter cut the error by 77\% compared with a direct inverse, and a controller that settles in 2s instead of 0.5s makes the recovery 1.5$\times$ worse.}\label{p2}}
   {uav-controllers.png}{P, PI, PD and PID controllers}
   {cost-map.png}{Cost of each gain pair; the star is the optimum}
@@ -248,8 +248,8 @@
 \projectthree{4}
   {CTGAN Design Discovery for RRAM}
   {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {\challenge{The published framework I built on used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs, and those are where the best performance is.}
-   \approach{I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep it from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
+  {\challenge{The project tests whether a more aggressive AI model can find better RRAM memory designs than a published framework, without inventing designs that cannot physically exist.}
+   \approach{The published framework used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs, and those are where the best performance is, so I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep the CTGAN from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
    \outcome{My best Al\textsubscript{2}O\textsubscript{3} design lasted 25\% longer than the published one (4.84 billion cycles against 3.85 billion) and used 11\% less energy, though it switched a little slower (6.57ns against 4.07ns).}\label{p4}}
   {rram-baseline.png}{Published CVAE results}
   {rram-pareto.png}{My CTGAN with 5,000 samples}
