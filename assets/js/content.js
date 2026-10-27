@@ -199,21 +199,24 @@ const SITE = {
         { heading: "Problem", body: [
           "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
         ]},
+        { heading: "A Syllabus in One Paste", image: "syllabus.png",
+          missing: "Every class hands out a syllabus with every deadline buried inside, and adding a class means filling out form after form.",
+          fix: "Paste a syllabus or drop its PDF, and every deadline lands in the planner. The class is made from it too: when it meets, its office hours and every dated hand-in as a task." },
+        { heading: "Money in Two Taps",
+          missing: "Spending usually lives in a separate budget app, so it is hard to tell where the money went.",
+          fix: "Writing down what you spend takes two taps, and the app shows exactly where your money goes." },
         { heading: "Type It Like a Text", image: "typeit.png",
           missing: "Other apps make you fill out forms and fields.",
-          fix: "One message like \"pset 4 due monday, coffee 5.25, work at the library tues thurs 4-8\" becomes a task, an expense and a weekly shift. You can also ask \"what's due this week?\" or say \"move pset 4 to tuesday\"." },
-        { heading: "A Syllabus in One Paste", image: "syllabus.png",
-          missing: "Adding a class means filling out form after form.",
-          fix: "Paste a syllabus or drop its PDF, and the class is made from it: when it meets, its office hours and every dated hand-in as a task." },
-        { heading: "Just 5 Minutes", image: "focus-now.png",
-          missing: "Other apps give you lists you have to sort through.",
-          fix: "Focus shows what is happening right now and what is due soon. If you are free, one button starts the next task, or just 5 minutes of it, which is often all it takes to begin." },
+          fix: "One message like \"pset 4 due monday, coffee 5.25, work at the library tues thurs 4-8\" becomes a task, an expense and a weekly shift, each saved for the right day. You can also ask \"what's due this week?\" or say \"move pset 4 to tuesday\"." },
         { heading: "Plan My Week", image: "planweek.png",
-          missing: "Other apps only know due dates.",
-          fix: "You pick a task, and the app offers a time in your real free windows before it is due. Only the times you say yes to go on the calendar." },
+          missing: "Other apps only know due dates, not when the work will actually get done.",
+          fix: "You pick a task, and the app finds a free hour in your real schedule before it is due. Only the times you say yes to go on the calendar." },
         { heading: "A Habit Tracker That Is a Voyage", image: "voyage.png",
-          missing: "Habit apps count streaks.",
-          fix: "Every kept day earns a star and moves a boat through the history of navigation. You spend stars on zodiac signs to clear the mist ahead." },
+          missing: "Habit apps count streaks, and a good habit is easy to drop by day three.",
+          fix: "Every kept day earns a star and moves a boat through the history of navigation, so there is a reason to keep going. You spend stars on zodiac signs to clear the mist ahead." },
+        { heading: "Also in Astrolabe", body: [
+          "Picking tonight's dinner puts its groceries on your list, daily habits like drinking water or stretching take one tap each, and a few lines of journal each night turn every month into a book on a shelf."
+        ]},
         { heading: "How I Built It", body: [
           "I wrote Astrolabe in plain HTML, CSS and JavaScript. It syncs through Firebase, can be end-to-end encrypted and works in five languages."
         ]}
