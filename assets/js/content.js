@@ -129,23 +129,25 @@ const SITE = {
       course: "Junior Design",
       date: "Sept. 2026 to Present",
       summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
-      tools: ["ESP32", "Arduino", "IR LED and photodetector", "PCB design", "SolidWorks"],
+      tools: ["ESP32", "Arduino", "IR LED and photodetector", "Colored LEDs", "SolidWorks"],
       cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
           "The robot has to follow a colored lane and avoid obstacles without anyone controlling it, and it may only accept commands from our own team. That means every decision it makes depends on sensor readings and commands it can trust."
         ]},
         { heading: "State Machine", body: [
-          "I am building a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED shows which state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
+          "I built a 7-state state machine on the ESP32. A pushbutton interrupt moves the robot to its next state, an LED blinks the number of the state it is in, and a websocket command can jump it straight to a chosen state. Every websocket command is authenticated with our team key, and any command without it is rejected."
         ]},
-        { heading: "Obstacle Sensing", body: [
-          "To detect obstacles, an IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector and throws off that measurement, so I chose the resistor values for the LED and photodetector and subtract the room's background light from each reading."
+        { heading: "Obstacle Detection", body: [
+          "An IR LED shines forward and a photodetector measures the light that bounces back. Light already in the room also reaches the detector, so I chose the resistor values for the LED and photodetector, and each reading turns the LED off and on 32 times and subtracts the off value from the on value. Only the reflected IR is left.",
+          "At startup, the robot takes 50 readings with nothing in front of it to learn its normal level and how much it wobbles. It detects an object only when the signal rises 6 standard deviations above normal, and it stops the motor until the signal drops below a lower threshold, so it does not flicker between driving and stopping."
         ]},
-        { heading: "Lane Following", body: [
-          "The color sensor reads light reflected off the track, and noise in those readings can make the robot mistake one lane color for another. I am programming the sensing to filter that noise before the robot decides which color it is on, so its steering acts on reliable data."
+        { heading: "Lane Color Sensing (now)", body: [
+          "The robot has to know whether it is on black, yellow, red or blue. LEDs of different colors take turns lighting the track, and a photodetector measures how much of each color reflects back. Each surface reflects the colors differently. Blue reflects blue light strongly but little red, and black reflects little of anything.",
+          "The detector also takes a reading with all LEDs off, and that room light is subtracted so the sensor works the same with the lights on or off. My part is the detection logic that filters the noise out of these readings before the robot decides which color it is on."
         ]},
-        { heading: "Physical Design", image: "ladybug-body.png", body: [
-          "I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it."
+        { heading: "Next: Assembly and Lane Following", image: "ladybug-body.png", body: [
+          "Next, we assemble the full robot inside the ladybug-shaped body I am designing in SolidWorks, then program lane following. The robot will read the color under it and correct its steering whenever it starts to drift off its lane."
         ]}
       ],
       gallery: [
@@ -267,15 +269,15 @@ const SITE = {
       cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
-          "The board records sound and plays it back with effects like echo, reverse, pitch and speed, all within the STM32's 64KB of on-chip memory. Since every effect depends on a clean recording, the first problem I had to solve was that playback came out with a high-pitched hiss and clicks."
+          "The board records sound and plays it back with 7 effects, such as echo, reverse, pitch and speed, using only the STM32's 64KB of on-chip memory. The first playback had a high-pitched hiss and clicks. Every effect is applied to the recording, so the recording had to be clean first."
         ]},
         { heading: "Solution", body: [
-          "To fix the hiss, I wrote a state machine driven by a 4kHz timer interrupt, so every sample was recorded and played at the same rate, and I lengthened the ADC sampling time to 12.5 cycles so each microphone reading had time to settle.",
-          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail, its resting level, between clips and faded each clip in and out over 256 samples (64ms).",
-          "Memory decided how long a recording could be. At 8kHz only 2 seconds fit, so I dropped to 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer."
+          "First, memory set the sample rate. At 8kHz only 2 seconds of audio fit, so I used 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer.",
+          "To remove the hiss, I made two changes. A 4kHz timer interrupt drives a state machine, so every sample is recorded and played back at exactly the same rate. I also lengthened the ADC sampling time to 12.5 cycles, so each microphone reading has time to settle.",
+          "The clicks came from sudden jumps in the speaker signal. To remove them, I held the speaker at mid-rail, its resting level, between clips, and faded each clip in and out over 256 samples (64ms)."
         ]},
         { heading: "Result", body: [
-          "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope, such as speed and pitch, to make sure the signal processing was correct."
+          "On the oscilloscope, the playback matched the original recording. I also checked each effect there, such as speed and pitch, to confirm it changed the signal correctly."
         ]}
       ],
       gallery: [
@@ -331,12 +333,13 @@ const SITE = {
       cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
-          "Since each octave doubles a note's frequency, my first design calculated every note by dividing on the chip. Division is so costly in hardware that the design needed over 250% of the FPGA's space."
+          "My first design calculated the frequency of every note by dividing on the chip. Division takes a lot of hardware, so the design needed over 250% of the FPGA's space."
         ]},
         { heading: "Solution", body: [
-          "Testing the first notes with a tuner showed every note playing an octave low, which meant the clock was running at twice the rate the code assumed. Once we knew the real clock, we could build a correct 12-note scale.",
-          "Dividing by 2 is the same as shifting bits, so I hand-calculated one octave and used bit shifts for the rest, which brought the design within the chip's capacity. The lowest note it could reach was F#2 (about 92Hz), so I widened the counter that holds each note's period, which completed all 8 octaves down to 16Hz.",
-          "Chords of more than 2 notes, or any chord in a low octave, turned into static. Plotting C and E summed in octave 3 and octave 7 in Desmos showed the output was not following the summed wave, so I mixed the notes with PWM. A 3-bit PWM bus gave the best balance, since more bits made chords clearer but quieter."
+          "Each octave is exactly double the frequency of the one below it, and dividing by 2 is the same as shifting the bits one place. So I calculated one octave by hand and got the other seven with bit shifts, which brought the design within the chip's capacity.",
+          "A tuner then showed every note playing an octave too low. That meant the clock ran at twice the rate the code assumed, so we rebuilt the 12-note scale for the real clock.",
+          "The lowest note it could reach was F#2 (about 92Hz). I widened the counter that holds each note's period, and the synthesizer reached 16Hz, completing all 8 octaves.",
+          "Chords of more than 2 notes, or any chord in a low octave, turned into static. I plotted C and E summed in octave 3 and octave 7 in Desmos, which showed the output was not following the summed wave. So I mixed the notes with PWM instead. More PWM bits made chords clearer but quieter, and 3 bits gave the best balance."
         ]},
         { heading: "Result", body: [
           "The keyboard plays a full 12-note scale across 8 octaves (16Hz to 8kHz), with chords of 5 to 6 notes in the lowest octave and every note at once in the highest."

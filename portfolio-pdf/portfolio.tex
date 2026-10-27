@@ -217,10 +217,10 @@
   {Autonomous ESP32 Robot}
   {In progress \textbar{} Junior Design \textbar{} Sept. 2026 to Present}
   {\challenge{The robot has to follow a colored lane and avoid obstacles with no one controlling it, and accept commands only from our own team.}
-   \sofar{I'm building a 7-state state machine on the ESP32 that authenticates every websocket command with our team key and rejects the rest. For obstacles, an IR LED and photodetector measure reflected light, and I subtract the room's background light from each reading. For the lane, I filter noise from the color sensor before the robot decides which color it is on.}
-   \upnext{A ladybug-shaped body I'm designing in SolidWorks, and a custom ESP32 PCB with parts chosen from datasheets to replace the breadboard wiring.}\label{p1}}
+   \sofar{I built a 7-state state machine on the ESP32 that authenticates every websocket command with our team key and rejects the rest. For obstacles, an IR LED and photodetector measure reflected light. Each reading subtracts the room's background light, and the robot stops only when the signal rises 6 standard deviations above its normal noise. Now I'm building the lane color sensing. Colored LEDs light the track, and the robot compares how much of each color reflects back to tell black, yellow, red and blue apart in any room lighting.}
+   \upnext{Assembling the full robot inside the ladybug body I'm designing in SolidWorks, then programming lane following so the robot corrects its steering whenever it drifts off its lane.}\label{p1}}
   {robot.jpg}{The robot so far, wired on a breadboard around the ESP32}
-  {ladybug-body.png}{The ladybug body I'm designing in SolidWorks}
+  {ladybug-body.png}{The ladybug body the robot will be assembled in}
 
 \projectthree{2}
   {UAV Pitch Control and RF Signal Restoration}
@@ -236,8 +236,8 @@
 \projectfour{3}
   {DJ Board on an STM32\par\vspace{4pt}{\fontsize{15}{19}\selectfont\mdseries\color{sub}(Audio Recorder and Effects Processor)}}
   {Embedded Systems \textbar{} Jan. 2026 to May 2026}
-  {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback came out with a high-pitched hiss and clicks.}
-   \approach{To remove the hiss, I used a 4kHz timer interrupt to record and play every sample at the same rate, and lengthened the ADC sampling time to 12.5 cycles so the microphone signal settles before each reading. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms). Dropping from 8kHz to 4kHz stretched each recording from 2 to 5 seconds.}
+  {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback had a high-pitched hiss and clicks.}
+   \approach{At 8kHz only 2 seconds of audio fit in memory, so I recorded at 4kHz to get 5 seconds. To remove the hiss, a 4kHz timer interrupt records and plays every sample at exactly the same rate, and a longer ADC sampling time (12.5 cycles) lets each microphone reading settle. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms).}
    \outcome{The board records 5 seconds of 12-bit audio in a 40KB buffer, plays all 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), and its playback matched the original recording on the oscilloscope.}\label{p3}}
   {dj-circuit.png}{The board}
   {dj-hardware.png}{Hardware: wiring diagram}
@@ -258,8 +258,8 @@
 \projectfour{5}
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {\challenge{Each octave doubles a note's frequency, and my first design calculated every note by dividing on the chip, which needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, turned into static.}
-   \approach{First, a tuner showed every note playing an octave too low, which meant the clock was running at twice the rate the code assumed, so I rebuilt the scale for the real clock. To fit the design on the chip, I calculated one octave by hand and got the others with bit shifts, since each octave doubles the frequency. I also widened the period counter so notes below 92Hz could play. To fix the static, I plotted chords in Desmos, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
+  {\challenge{My first design calculated every note by dividing on the chip, and division takes so much hardware that it needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, also turned into static.}
+   \approach{Each octave doubles the frequency, and dividing by 2 is just a bit shift, so I calculated one octave by hand and got the other seven with bit shifts. That fit the design on the chip. A tuner then showed every note an octave too low, which meant the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. I widened the period counter so notes below 92Hz could play. To fix the static, I plotted chords in Desmos to see the problem, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
    \outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
