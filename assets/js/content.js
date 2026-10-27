@@ -147,7 +147,7 @@ const SITE = {
           "The detector also takes a reading with all LEDs off, and that room light is subtracted so the sensor works the same with the lights on or off. My part is the detection logic that filters the noise out of these readings before the robot decides which color it is on."
         ]},
         { heading: "Next: Assembly, Lane Following and Sound Control", image: "ladybug-body.png", body: [
-          "Next, we assemble the full robot. I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it. Then we program lane following, so the robot reads the color under it and corrects its steering whenever it starts to drift off its lane.",
+          "Next, we assemble the full robot. I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB (with parts chosen from datasheets) to replace the breadboard wiring inside it. Then we program lane following, so the robot reads the color under it and corrects its steering whenever it starts to drift off its lane.",
           "For the go-beyond part of the project, we are using sound to control the robot's movements. Its volume and certain notes will each make the robot do something different."
         ]}
       ],
@@ -197,7 +197,7 @@ const SITE = {
       cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
-          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece, a calendar for classes, a task list for homework and something else for money and habits, and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
+          "I realized I was spending more time planning my day than actually doing it, and my plans rarely went the way I wrote them. The apps I used each covered one piece (a calendar for classes, a task list for homework and something else for money and habits), and none of them worked together. So I built Astrolabe, where each part answers something those apps were missing."
         ]},
         { heading: "A Syllabus in One Paste", image: "syllabus.png",
           missing: "Every class hands out a syllabus with every deadline buried inside, and adding a class means filling out form after form.",
@@ -284,10 +284,10 @@ const SITE = {
         { heading: "What I Did", body: [
           "Recording at 8kHz left room for only 2 seconds of audio, so I lowered the sample rate to 4kHz, which stores 5 seconds of 12-bit audio in a 40KB buffer.",
           "Since every effect depends on a clean recording, the main problem to solve was that playback came out with a high-pitched hiss and clicks. To fix the hiss, I wrote a state machine driven by a 4kHz timer interrupt, so every sample was recorded and played at the same rate, and I lengthened the ADC sampling time to 12.5 cycles so each microphone reading had time to settle.",
-          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail, its resting level, between clips and faded each clip in and out over 256 samples (64ms)."
+          "The clicks came from sudden jumps in the speaker signal, so I held the speaker at mid-rail (its resting level) between clips and faded each clip in and out over 256 samples (64ms)."
         ]},
         { heading: "Result", body: [
-          "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope, such as speed and pitch, to make sure the signal processing was correct."
+          "An oscilloscope confirmed that the playback matched the original recording. I also checked each effect's output on the oscilloscope (such as speed and pitch) to make sure the signal processing was correct."
         ]}
       ],
       gallery: [
