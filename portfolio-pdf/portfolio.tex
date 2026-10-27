@@ -218,7 +218,7 @@
   {In progress \textbar{} Junior Design \textbar{} Sept. 2026 to Present}
   {\challenge{The robot has to follow a colored lane and avoid obstacles with no one controlling it, and accept commands only from our own team.}
    \sofar{I built a 7-state state machine on the ESP32 that authenticates every websocket command with our team key and rejects the rest. For obstacles, an IR LED and photodetector measure reflected light. Each reading subtracts the room's background light, and the robot stops only when the signal rises 6 standard deviations above its normal noise. Now I'm building the lane color sensing. Colored LEDs light the track, and the robot compares how much of each color reflects back to tell black, yellow, red and blue apart in any room lighting.}
-   \upnext{Assembling the full robot inside the ladybug body I'm designing in SolidWorks, then programming lane following so the robot corrects its steering whenever it drifts off its lane.}\label{p1}}
+   \upnext{Assembling the full robot inside the ladybug body I'm designing in SolidWorks, with a custom ESP32 PCB, using parts chosen from datasheets, in place of the breadboard. Then programming lane following, so the robot corrects its steering whenever it drifts off its lane. For the go-beyond part, sound will control its movements, with volume and certain notes each doing something different.}\label{p1}}
   {robot.jpg}{The robot so far, wired on a breadboard around the ESP32}
   {ladybug-body.png}{The ladybug body the robot will be assembled in}
 

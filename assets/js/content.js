@@ -129,7 +129,7 @@ const SITE = {
       course: "Junior Design",
       date: "Sept. 2026 to Present",
       summary: "An autonomous robot that follows a colored lane and avoids obstacles using IR and color sensing.",
-      tools: ["ESP32", "Arduino", "IR LED and photodetector", "Colored LEDs", "SolidWorks"],
+      tools: ["ESP32", "Arduino", "IR LED and photodetector", "Colored LEDs", "PCB design", "SolidWorks"],
       cover: "card.jpg",
       sections: [
         { heading: "Problem", body: [
@@ -146,8 +146,9 @@ const SITE = {
           "The robot has to know whether it is on black, yellow, red or blue. LEDs of different colors take turns lighting the track, and a photodetector measures how much of each color reflects back. Each surface reflects the colors differently. Blue reflects blue light strongly but little red, and black reflects little of anything.",
           "The detector also takes a reading with all LEDs off, and that room light is subtracted so the sensor works the same with the lights on or off. My part is the detection logic that filters the noise out of these readings before the robot decides which color it is on."
         ]},
-        { heading: "Next: Assembly and Lane Following", image: "ladybug-body.png", body: [
-          "Next, we assemble the full robot inside the ladybug-shaped body I am designing in SolidWorks, then program lane following. The robot will read the color under it and correct its steering whenever it starts to drift off its lane."
+        { heading: "Next: Assembly, Lane Following and Sound Control", image: "ladybug-body.png", body: [
+          "Next, we assemble the full robot. I am designing a ladybug-shaped body in SolidWorks and a custom ESP32 PCB, with parts chosen from datasheets, to replace the breadboard wiring inside it. Then we program lane following, so the robot reads the color under it and corrects its steering whenever it starts to drift off its lane.",
+          "For the go-beyond part of the project, we are using sound to control the robot's movements. Its volume and certain notes will each make the robot do something different."
         ]}
       ],
       gallery: [
