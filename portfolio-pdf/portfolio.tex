@@ -236,9 +236,9 @@
 \projectfour{3}
   {DJ Board on an STM32\par\vspace{4pt}{\fontsize{15}{19}\selectfont\mdseries\color{sub}(Audio Recorder and Effects Processor)}}
   {Embedded Systems \textbar{} Jan. 2026 to May 2026}
-  {\challenge{Seven real-time audio effects had to fit in the STM32's 64KB of on-chip memory, and the first playback had a high-pitched hiss and clicks.}
-   \approach{At 8kHz only 2 seconds of audio fit in memory, so I recorded at 4kHz to get 5 seconds. To remove the hiss, a 4kHz timer interrupt records and plays every sample at exactly the same rate, and a longer ADC sampling time (12.5 cycles) lets each microphone reading settle. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms).}
-   \outcome{The board records 5 seconds of 12-bit audio in a 40KB buffer, plays all 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), and its playback matched the original recording on the oscilloscope.}\label{p3}}
+  {\challenge{The board has to record sound and play it back in real time with 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), all within the STM32's 64KB of on-chip memory.}
+   \approach{Memory set the sample rate first. At 8kHz only 2 seconds of audio fit, so I recorded at 4kHz to get 5 seconds. Since every effect depends on a clean recording, the next problem to solve was that playback came out with a high-pitched hiss and clicks. To fix the hiss, a 4kHz timer interrupt drives a state machine so every sample is recorded and played at the same rate, and a longer ADC sampling time (12.5 cycles) gives each microphone reading time to settle. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms).}
+   \outcome{The board records 5 seconds of 12-bit audio in a 40KB buffer, plays all 7 effects, and its playback matched the original recording on the oscilloscope.}\label{p3}}
   {dj-circuit.png}{The board}
   {dj-hardware.png}{Hardware: wiring diagram}
   {dj-software.png}{Software: the state machine}
@@ -258,76 +258,8 @@
 \projectfour{5}
   {FPGA Audio Synthesizer}
   {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {\challenge{My first design calculated every note by dividing on the chip, and division takes so much hardware that it needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, also turned into static.}
-   \approach{Each octave doubles the frequency, and dividing by 2 is just a bit shift, so I calculated one octave by hand and got the other seven with bit shifts. That fit the design on the chip. A tuner then showed every note an octave too low, which meant the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. I widened the period counter so notes below 92Hz could play. To fix the static, I plotted chords in Desmos to see the problem, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
-   \outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
-  {fpga-board.png}{The complete board}
-  {fpga-octaves.png}{The switch that selects the octave}
-  {fpga-chord-high.png}{C + E summed in octave 7 (red)}
-  {fpga-chord-low.png}{C + E summed in octave 3 (blue)}
-
-\end{document}  {challenge{Build a real-time audio effects board that records sound and plays it back with 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), all within the STM32's 64KB of on-chip memory.}
-   approach{Memory set the sample rate first. At 8kHz only 2 seconds of audio fit, so I recorded at 4kHz to get 5 seconds. Since every effect depends on a clean recording, the next problem to solve was that playback came out with a high-pitched hiss and clicks. To fix the hiss, a 4kHz timer interrupt drives a state machine so every sample is recorded and played at the same rate, and a longer ADC sampling time (12.5 cycles) gives each microphone reading time to settle. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms).}
-   outcome{The board records 5 seconds of 12-bit audio in a 40KB buffer, plays all 7 effects, and its playback matched the original recording on the oscilloscope.}label{p3}}
-  {dj-circuit.png}{The board}
-  {dj-hardware.png}{Hardware: wiring diagram}
-  {dj-software.png}{Software: the state machine}
-  {dj-scope.png}{Oscilloscope captures of the effects}
-\renewcommand{\projectfourextra}{}
-
-\projectthree{4}
-  {CTGAN Design Discovery for RRAM}
-  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {\challenge{The published framework I built on used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs, and those are where the best performance is.}
-   \approach{I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep it from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
-   \outcome{My best Al\textsubscript{2}O\textsubscript{3} design lasted 25\% longer than the published one (4.84 billion cycles against 3.85 billion) and used 11\% less energy, though it switched a little slower (6.57ns against 4.07ns).}\label{p4}}
-  {rram-baseline.png}{Published CVAE results}
-  {rram-pareto.png}{My CTGAN with 5,000 samples}
-  {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
-
-\projectfour{5}
-  {FPGA Audio Synthesizer}
-  {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {\challenge{My first design calculated every note by dividing on the chip, and division takes so much hardware that it needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, also turned into static.}
-   \approach{Each octave doubles the frequency, and dividing by 2 is just a bit shift, so I calculated one octave by hand and got the other seven with bit shifts. That fit the design on the chip. A tuner then showed every note an octave too low, which meant the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. I widened the period counter so notes below 92Hz could play. To fix the static, I plotted chords in Desmos to see the problem, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
-   \outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
-  {fpga-board.png}{The complete board}
-  {fpga-octaves.png}{The switch that selects the octave}
-  {fpga-chord-high.png}{C + E summed in octave 7 (red)}
-  {fpga-chord-low.png}{C + E summed in octave 3 (blue)}
-
-\end{document}  {challenge{Build an 8-octave synthesizer on an FPGA, written in SystemVerilog, that plays notes and chords from a MIDI keyboard.}
-   approach{My first design calculated every note by dividing on the chip, and division takes so much hardware that it needed over 250% of the FPGA's space. Each octave doubles the frequency, and dividing by 2 is just a bit shift, so I calculated one octave by hand and got the other seven with bit shifts, which fit the design on the chip. A tuner then showed every note an octave too low, which meant the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. The lowest note was still F#2 (about 92Hz), so I widened the period counter to reach 16Hz. Chords of more than 2 notes, or in low octaves, turned into static, so I plotted chords in Desmos to see the problem, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
-   outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}label{p5}}
-  {fpga-board.png}{The complete board}
-  {fpga-octaves.png}{The switch that selects the octave}
-  {fpga-chord-high.png}{C + E summed in octave 7 (red)}
-  {fpga-chord-low.png}{C + E summed in octave 3 (blue)}
-
-\end{document}  {challenge{Build a real-time audio effects board that records sound and plays it back with 7 effects (echo, reverse, speed, loop size, pitch up, pitch down, volume), all within the STM32's 64KB of on-chip memory.}
-   approach{Memory set the sample rate first. At 8kHz only 2 seconds of audio fit, so I recorded at 4kHz to get 5 seconds. Since every effect depends on a clean recording, the next problem to solve was that playback came out with a high-pitched hiss and clicks. To fix the hiss, a 4kHz timer interrupt drives a state machine so every sample is recorded and played at the same rate, and a longer ADC sampling time (12.5 cycles) gives each microphone reading time to settle. The clicks came from sudden jumps in the speaker signal, so I held the output at mid-rail between clips and faded each clip in and out over 256 samples (64ms).}
-   outcome{The board records 5 seconds of 12-bit audio in a 40KB buffer, plays all 7 effects, and its playback matched the original recording on the oscilloscope.}label{p3}}
-  {dj-circuit.png}{The board}
-  {dj-hardware.png}{Hardware: wiring diagram}
-  {dj-software.png}{Software: the state machine}
-  {dj-scope.png}{Oscilloscope captures of the effects}
-\renewcommand{\projectfourextra}{}
-
-\projectthree{4}
-  {CTGAN Design Discovery for RRAM}
-  {Tufts Emerging Circuits and Systems Lab \textbar{} Sept. 2025 to April 2026}
-  {\challenge{The published framework I built on used a CVAE, an AI model that averages its training data. Averaging hides the unusual designs, and those are where the best performance is.}
-   \approach{I replaced it with a CTGAN, a model that searches those unusual designs more aggressively. To keep it from inventing designs that cannot physically exist, I used the framework's physics model (PINN) to reject them. The CTGAN failed with 500 training samples and was still noisy with 2,500, so I grew the data to 5,000, where it worked for all 3 materials (Al\textsubscript{2}O\textsubscript{3}, HfO\textsubscript{2} and TiO\textsubscript{2}).}
-   \outcome{My best Al\textsubscript{2}O\textsubscript{3} design lasted 25\% longer than the published one (4.84 billion cycles against 3.85 billion) and used 11\% less energy, though it switched a little slower (6.57ns against 4.07ns).}\label{p4}}
-  {rram-baseline.png}{Published CVAE results}
-  {rram-pareto.png}{My CTGAN with 5,000 samples}
-  {rram-evolution.png}{The CTGAN with 500 samples (left) and 2,500 (right)}
-
-\projectfour{5}
-  {FPGA Audio Synthesizer}
-  {Digital Logic Circuits \textbar{} Sept. 2025 to Dec. 2025}
-  {\challenge{My first design calculated every note by dividing on the chip, and division takes so much hardware that it needed over 250\% of the FPGA's space. Chords of more than 2 notes, or in low octaves, also turned into static.}
-   \approach{Each octave doubles the frequency, and dividing by 2 is just a bit shift, so I calculated one octave by hand and got the other seven with bit shifts. That fit the design on the chip. A tuner then showed every note an octave too low, which meant the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. I widened the period counter so notes below 92Hz could play. To fix the static, I plotted chords in Desmos to see the problem, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
+  {\challenge{The synthesizer has to play notes and chords from a MIDI keyboard across 8 octaves, using hardware I described in SystemVerilog on an FPGA.}
+   \approach{My first design calculated every note by dividing on the chip, and division takes so much hardware that it needed over 250\% of the FPGA's space. Each octave doubles the frequency, and dividing by 2 is just a bit shift, so I calculated one octave by hand and got the other seven with bit shifts, which fit the design on the chip. A tuner then showed every note an octave too low, which meant the clock ran at twice the rate the code assumed, so I rebuilt the scale for the real clock. The lowest note was still F\#2 (about 92Hz), so I widened the period counter to reach 16Hz. Chords of more than 2 notes, or in low octaves, turned into static, so I plotted chords in Desmos to see the problem, then mixed the notes with PWM on a 3-bit bus, the best balance of volume and clarity.}
    \outcome{The keyboard plays all 12 notes across 8 octaves (16Hz to 8kHz), chords of 5 to 6 notes in the lowest octave, and every note at once in the highest.}\label{p5}}
   {fpga-board.png}{The complete board}
   {fpga-octaves.png}{The switch that selects the octave}
