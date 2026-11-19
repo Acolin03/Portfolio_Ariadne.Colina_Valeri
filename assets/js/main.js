@@ -180,7 +180,7 @@
         const src = imgPath(p, g.src);
         const media =
           g.type === "video"
-            ? `<video src="${src}" controls preload="metadata" onerror="__imgMissing(this)"></video>`
+            ? `<video src="${src}"${g.poster ? ` poster="${imgPath(p, g.poster)}"` : ""} controls preload="metadata" onerror="__imgMissing(this)"></video>`
             : `<a href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="${esc(g.caption)}" loading="lazy" onerror="__imgMissing(this)"></a>`;
         return `<figure data-media${g.wide ? ` class="wide"` : ""}>${media}${caption(g)}</figure>`;
       })

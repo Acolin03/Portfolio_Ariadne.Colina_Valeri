@@ -153,6 +153,8 @@ const SITE = {
       ],
       gallery: [
         { type: "youtube", id: "9TOmrrsm1gQ", vertical: true, caption: "The robot moving on remote commands" },
+        { type: "video", src: "ladybug-demo.mp4", poster: "ladybug-body.png", caption: "CAD walkthrough of the ladybug body, outside and then the inside setup" },
+        { type: "image", src: "ladybug-open.png", caption: "The ladybug body with the shell open, showing the inside setup" },
         { type: "image", src: "robot.jpg", caption: "The robot so far, wired on a breadboard around the ESP32." }
       ],
       links: []
